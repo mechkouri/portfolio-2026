@@ -103,7 +103,7 @@ export function PortraitCard() {
           </motion.div>
           <motion.img
             src="/images/portrait-studio.webp"
-            alt={`${site.name}, software engineer, sitting at his desk`}
+            alt={`${site.name} at a desk, with code on the monitor behind`}
             width={512}
             height={341}
             fetchPriority="high"
@@ -117,7 +117,7 @@ export function PortraitCard() {
             className="absolute right-4 bottom-4 left-4 rounded-2xl border border-slate-200/90 bg-white/90 p-3.5 shadow-lg backdrop-blur-md"
           >
             <span className="mb-0.5 flex items-center justify-between font-mono text-[10px] text-slate-500">
-              <span className="font-bold text-indigo-600">CORE ARCHITECT</span>
+              <span className="font-bold text-indigo-600">{site.role.toUpperCase()}</span>
               <span className="font-semibold text-slate-600">{site.location.toUpperCase()}</span>
             </span>
             <span className="block truncate font-mono text-xs font-bold text-slate-900">{site.name}</span>

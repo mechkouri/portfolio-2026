@@ -10,7 +10,7 @@ export function Tech() {
         <SectionLabel>06 — TECHNOLOGY</SectionLabel>
         <SectionHeading id="tech-title" className="mb-4" lines={[{ text: 'Tools I use to build and automate.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          An ecosystem selected for developer productivity, long-term maintainability, speed, and real business outcome.
+          The stack I reach for day to day.
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>

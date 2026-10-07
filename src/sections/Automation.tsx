@@ -14,13 +14,11 @@ export function Automation() {
           <SectionHeading
             id="automation-title"
             className="leading-tight"
-            lines={[{ text: 'Automate the repetitive.' }, { text: 'Keep your focus on what matters.', gradient: true }]}
+            lines={[{ text: 'If you do it every week,' }, { text: 'it should run on its own.', gradient: true }]}
           />
           <Reveal as="p" className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-            Modern businesses use many different tools. I connect them into intelligent workflows that work together
-            automatically. I build automation systems with n8n and Make.com to handle tasks such as content production,
-            SEO workflows, data synchronization, notifications, lead management, API integrations, and AI-assisted
-            processes.
+            Most businesses run on a stack of tools that don't talk to each other. I connect them with n8n and Make.com:
+            content, SEO tasks, leads, notifications, and data syncs. I add AI where it saves time, not just because I can.
           </Reveal>
         </div>
 
@@ -33,7 +31,7 @@ export function Automation() {
                 From trigger to result: Trigger → Process → AI → Integration → Action
               </h3>
             </div>
-            <span className="hidden font-mono text-[11px] font-bold text-indigo-600 sm:inline">AUTONOMOUS ENGINE</span>
+            <span className="hidden font-mono text-[11px] font-bold text-indigo-600 sm:inline">N8N · MAKE.COM</span>
           </div>
           <p className="mb-8 max-w-3xl text-sm text-slate-600">
             A workflow can start from a form, spreadsheet, API, webhook, or scheduled event — then automatically process
@@ -81,7 +79,7 @@ export function Automation() {
         <div>
           <Reveal className="mb-6 flex items-center gap-2">
             <Workflow aria-hidden="true" size={16} className="text-indigo-600" />
-            <h3 className="font-mono text-xs font-bold tracking-wider text-slate-900 uppercase">Real-world Workflow Architecture Examples</h3>
+            <h3 className="font-mono text-xs font-bold tracking-wider text-slate-900 uppercase">Examples of workflows I build</h3>
           </Reveal>
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {workflows.map((w) => {
@@ -128,7 +126,7 @@ export function Automation() {
               <Gauge aria-hidden="true" size={20} />
             </span>
             <p className="text-left font-display text-lg font-bold text-slate-900 sm:text-xl">
-              Less manual work. Fewer repetitive tasks. More time for growth.
+              Tired of a task you do every week? Tell me about it. There's a good chance it can run on its own.
             </p>
           </div>
           <a

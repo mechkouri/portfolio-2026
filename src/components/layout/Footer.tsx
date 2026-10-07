@@ -11,13 +11,13 @@ export function Footer() {
             </span>
             <span className="font-display text-sm font-bold tracking-wider text-slate-900 uppercase">{site.name}</span>
           </div>
-          <p className="font-mono text-xs text-slate-600">Software Engineer · Frontend Developer · Automation Specialist</p>
-          <p className="text-xs text-slate-500">Building digital experiences and intelligent workflows.</p>
+          <p className="font-mono text-xs text-slate-600">{site.positioning}</p>
+          <p className="text-xs text-slate-500">Websites, web apps, and automations, built in {site.location}.</p>
         </div>
         <div className="space-y-1 text-center font-mono text-xs text-slate-500 md:text-right">
           <p className="flex items-center justify-center gap-2 md:justify-end">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <span>Morocco · {site.timezone}</span>
+            <span>{site.location}, {site.country} · {site.timezone}</span>
           </p>
           <p>© 2026 {site.name}. All rights reserved.</p>
         </div>

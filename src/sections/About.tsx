@@ -13,15 +13,16 @@ export function About() {
             <SectionHeading
               id="about-title"
               className="leading-tight"
-              lines={[{ text: 'Technology is a tool.' }, { text: 'The real value is what you create with it.', gradient: true }]}
+              lines={[{ text: 'I care about the details' }, { text: "you'd notice if they were missing.", gradient: true }]}
             />
             <Reveal as="p" className="text-base leading-relaxed text-slate-700 sm:text-lg">
-              I believe good development is not only about writing code. It's about understanding people, simplifying
-              complexity, and creating systems that solve real problems.
+              I studied software engineering in Marrakech and Essaouira, then went through the ALX program. Since then
+              I've worked in agencies and alongside product teams, so I'm comfortable on both sides: the code, and the
+              business that depends on it.
             </Reveal>
             <Reveal as="p" delay={0.08} className="text-base leading-relaxed text-slate-600">
-              That's why I combine software engineering with design, SEO, automation, and AI. I'm constantly learning,
-              experimenting with new technologies, and looking for better ways to build digital products.
+              These days a big part of my workflow is vibe coding: using AI to prototype, debug, and iterate quickly. It
+              makes me faster. It doesn't make the decisions. Architecture and code quality are still on me.
             </Reveal>
             <Stagger className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
               {aboutValues.map((v) => (
@@ -36,10 +37,10 @@ export function About() {
           <div className="lg:col-span-5">
             <PortraitPanel src="/images/portrait-office.webp" alt={`Portrait of ${site.name}`} width={512} height={512} aspect="aspect-square contrast-110">
               <span className="mb-1 flex items-center justify-between font-mono text-xs">
-                <span className="font-bold text-indigo-600">Casablanca, Morocco</span>
-                <span className="font-semibold text-slate-600">EST. 2017</span>
+                <span className="font-bold text-indigo-600">{site.location}, {site.country}</span>
+                <span className="font-semibold text-slate-600">{site.timezone}</span>
               </span>
-              <span className="block font-mono text-xs font-bold text-slate-900">{site.name} · Software Engineer</span>
+              <span className="block font-mono text-xs font-bold text-slate-900">{site.name} · {site.role}</span>
             </PortraitPanel>
           </div>
         </div>

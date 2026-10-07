@@ -41,6 +41,5 @@ src/
 
 - Replace `public/images/project-*.webp` with real full-page screenshots (~1200px wide). The Stitch exports are
   only ~100px wide, so they look blurry.
-- Fill in `education` in `src/data/content.ts` (it's a placeholder).
 - Set the real LinkedIn URL in `site.linkedin`, and real `url`s on projects if they should link out.
 - The contact form posts to Netlify Forms, so it works once the site is deployed on Netlify.

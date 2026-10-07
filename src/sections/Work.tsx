@@ -115,7 +115,8 @@ export function Work() {
             <SectionLabel>04 — SELECTED WORK</SectionLabel>
             <SectionHeading id="work-title" lines={[{ text: "A selection of things I've built." }]} />
             <Reveal as="p" className="mt-2 max-w-2xl text-slate-600">
-              Web applications, digital platforms, and production systems delivered with measurable technical quality.
+              A few recent projects: what they are, what I built, and the stack behind them. Hover a card to scroll the
+              full page.
             </Reveal>
           </div>
           <a

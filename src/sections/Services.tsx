@@ -8,14 +8,13 @@ export function Services() {
     <Section id="services" tone="muted" labelledBy="services-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel>02 — WHAT I DO</SectionLabel>
-        <SectionHeading id="services-title" className="mb-4" lines={[{ text: 'Digital solutions, from interface to automation.' }]} />
+        <SectionHeading id="services-title" className="mb-4" lines={[{ text: 'What you can hire me for.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          End-to-end capabilities covering modern web development, high-converting CMS platforms, search visibility, and
-          intelligent automated workflows.
+          Pick one, or combine a few. Most projects need more than one.
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.1}>
-          {services.map((s) => {
+          {services.map((s, i) => {
             const a = accents[s.accent];
             const Icon = s.icon;
             return (
@@ -26,6 +25,8 @@ export function Services() {
                   'group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl',
                   a.hoverBorder,
                   a.hoverShadow,
+                  // An odd last card spans the full row instead of leaving a gap.
+                  i === services.length - 1 && services.length % 2 === 1 && 'md:col-span-2',
                 )}
               >
                 <div>

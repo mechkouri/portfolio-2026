@@ -62,8 +62,8 @@ export function Contact() {
               lines={[{ text: "Let's work" }, { text: 'together!', gradient: true }]}
             />
             <Reveal as="p" className="max-w-lg pt-2 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Have a website to build, a digital product to improve, or a process that needs to be automated? Let's turn
-              your ideas into a reliable, high-performance solution.
+              Need a website, a web app, better SEO, or a workflow that stops eating your week? Send me a short message
+              about what you're working on. Recruiters are welcome too.
             </Reveal>
 
             <Reveal className="space-y-3 border-t border-slate-200 pt-6 font-mono text-xs text-slate-700">
@@ -91,7 +91,7 @@ export function Contact() {
                 <p className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 shadow-sm">
                   <PulseDot size="w-2 h-2" />
                   <MapPin aria-hidden="true" size={12} className="text-indigo-600" />
-                  <span>Morocco ({site.timezone})</span>
+                  <span>{site.location}, {site.country} ({site.timezone})</span>
                 </p>
               </div>
             </Reveal>
@@ -111,7 +111,7 @@ export function Contact() {
                   <label htmlFor="contact-name" className={labelClass}>
                     Your Name
                   </label>
-                  <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder="Said Mechkouri" className={inputClass} />
+                  <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder="Your name" className={inputClass} />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="contact-email" className={labelClass}>
@@ -128,7 +128,7 @@ export function Contact() {
                     name="message"
                     required
                     rows={4}
-                    placeholder="Tell me about your project, timeline, or requirements..."
+                    placeholder="What are you building, and when do you need it?"
                     className={cn(inputClass, 'resize-none')}
                   />
                 </div>

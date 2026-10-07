@@ -10,8 +10,7 @@ export function Process() {
         <SectionLabel>05 — HOW I WORK</SectionLabel>
         <SectionHeading id="process-title" className="mb-4" lines={[{ text: 'A simple process. A strong result.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          Structured, transparent execution guaranteeing predictable timelines and production-grade reliability from day
-          one.
+          No black box. You know what's happening at every step.
         </Reveal>
 
         <Stagger as="ul" className="relative grid grid-cols-1 gap-4 md:grid-cols-5" stagger={0.1}>

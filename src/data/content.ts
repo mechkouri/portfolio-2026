@@ -3,17 +3,17 @@ import type { LucideIcon } from 'lucide-react';
 import {
   AppWindow,
   ArrowLeftRight,
+  Sparkles,
   BadgeCheck,
   Bot,
   BrainCircuit,
   ChartColumn,
   CodeXml,
   Database,
-  GitBranch,
-  LayoutDashboard,
   LogIn,
   Network,
   Palette,
+  PenTool,
   SlidersHorizontal,
   TrendingUp,
 } from 'lucide-react';
@@ -21,8 +21,11 @@ import type { Accent } from '../lib/accents';
 
 export const site = {
   name: 'Said Mechkouri',
-  tagline: 'Engineer & Automations',
-  location: 'Casablanca',
+  role: 'Full-Stack Developer',
+  positioning: 'Full-Stack Developer · WordPress Developer · SEO & Automation · Vibe Coder',
+  tagline: 'Full-Stack · WordPress · SEO',
+  location: 'Marrakech',
+  country: 'Morocco',
   timezone: 'UTC+1',
   github: 'https://github.com/Mechkouri',
   linkedin: 'https://linkedin.com',
@@ -38,17 +41,17 @@ export const navLinks = [
 
 export const heroStack = ['React', 'Next.js', 'WordPress'];
 export const heroHighlights = [
-  'Production React & Next.js interfaces',
-  'Autonomous n8n & Make.com pipelines',
-  'Enterprise WordPress & Technical SEO',
-  'REST APIs, Postgres & AI Integrations',
+  'React & Next.js web apps',
+  'WordPress sites & landing pages',
+  'Technical SEO & Search Console',
+  'n8n & Make.com workflows',
 ];
-export const heroTags = ['React.js', 'WordPress', 'n8n', 'Make.com', 'AI Workflows', 'Technical SEO'];
+export const heroTags = ['React', 'Next.js', 'WordPress', 'SEO', 'n8n', 'Make.com'];
 
-export const introAttributes: { title: string; label: string; color: string }[] = [
-  { title: 'Clean', label: 'Architecture', color: 'text-indigo-600' },
-  { title: 'Adaptive', label: 'Automations', color: 'text-sky-600' },
-  { title: 'Measurable', label: 'Business ROI', color: 'text-emerald-600' },
+export const introFacts: { title: string; label: string; color: string }[] = [
+  { title: 'Since 2021', label: 'Building for the web', color: 'text-indigo-600' },
+  { title: '5 roles', label: 'Agencies & product teams', color: 'text-sky-600' },
+  { title: 'UTC+1', label: 'Marrakech, Morocco', color: 'text-emerald-600' },
 ];
 
 export interface Service {
@@ -64,38 +67,43 @@ export const services: Service[] = [
   {
     icon: CodeXml,
     accent: 'indigo',
-    kicker: '01 // Web Interfaces',
-    title: 'Frontend Development',
-    description:
-      'I build responsive and interactive web interfaces with a strong focus on usability, performance, and clean implementation.',
-    tech: ['React.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'HTML', 'CSS', 'APIs'],
+    kicker: '01 // Web Apps',
+    title: 'Full-Stack Development',
+    description: 'Responsive web applications built with React, Next.js, and TypeScript, from the interface to the API.',
+    tech: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Node.js'],
   },
   {
     icon: AppWindow,
     accent: 'sky',
-    kicker: '02 // CMS & E-Commerce',
-    title: 'WordPress & Web Development',
-    description:
-      'I create professional websites and landing pages designed around business goals, content, conversion, and maintainability.',
-    tech: ['WordPress', 'Elementor', 'WooCommerce', 'Custom integrations', 'Multilingual websites'],
+    kicker: '02 // CMS & Websites',
+    title: 'WordPress Development',
+    description: 'Business websites, landing pages, and multilingual sites you can update yourself after launch.',
+    tech: ['WordPress', 'Elementor', 'WooCommerce', 'Multilingual sites', 'Custom integrations'],
   },
   {
     icon: TrendingUp,
     accent: 'emerald',
-    kicker: '03 // Search & Generative Discovery',
-    title: 'SEO & GEO',
-    description:
-      'I optimize websites and content to improve visibility across search engines and emerging AI-driven discovery experiences.',
-    tech: ['Technical SEO', 'On-page SEO', 'Rank Math', 'Google Search Console', 'Content optimization', 'GEO'],
+    kicker: '03 // Search',
+    title: 'SEO',
+    description: 'Technical SEO, site structure, indexing, content, and performance, tracked in Search Console and Analytics.',
+    tech: ['Technical SEO', 'Site structure', 'Content optimization', 'Search Console', 'Google Analytics'],
   },
   {
     icon: Network,
     accent: 'amber',
-    kicker: '04 // Autonomous Systems',
-    title: 'AI & Workflow Automation',
+    kicker: '04 // Workflows',
+    title: 'Automation',
+    description: 'Workflows that connect your tools and take repetitive tasks off your plate, with AI where it helps.',
+    tech: ['n8n', 'Make.com', 'APIs', 'Webhooks', 'AI'],
+  },
+  {
+    icon: Sparkles,
+    accent: 'indigo',
+    kicker: '05 // AI-Assisted Development',
+    title: 'Vibe Coding',
     description:
-      'I design automated workflows that connect tools, move data, publish content, and eliminate repetitive manual work.',
-    tech: ['n8n', 'Make.com', 'Webhooks', 'APIs', 'AI models', 'WordPress', 'Google Sheets', 'Google Drive'],
+      'I use AI to prototype, build, and debug faster. The speed comes from AI. The architecture and code quality stay my job.',
+    tech: ['AI-assisted development', 'Prototyping', 'Debugging', 'Fast iteration'],
   },
 ];
 
@@ -113,28 +121,28 @@ export const workflows: { title: string; badge: string; accent: Accent; steps: s
     badge: 'n8n + AI',
     accent: 'indigo',
     steps: ['Idea', 'Keyword', 'AI-assisted article', 'Metadata', 'Image', 'WordPress', 'Publishing'],
-    note: 'Eliminates editorial friction while strictly respecting schema & search requirements.',
+    note: 'Starts with a topic, ends with an SEO-ready post on WordPress.',
   },
   {
     title: 'Lead Automation',
     badge: 'Make.com',
     accent: 'sky',
     steps: ['Form submission', 'Data processing', 'CRM / Sheet', 'Notification', 'Follow-up'],
-    note: 'Zero dropped inquiries. Real-time Slack/WhatsApp pings and automated CRM ingestion.',
+    note: 'Every form submission gets stored, routed, and followed up. No copy-pasting.',
   },
   {
     title: 'Content Distribution',
     badge: 'Multi-Channel',
     accent: 'emerald',
     steps: ['Content creation', 'Formatting', 'Multiple platforms', 'Scheduled publishing'],
-    note: 'Single source of truth adapted into tailored formats across modern channels.',
+    note: 'Write it once, then format and schedule it for each platform.',
   },
   {
     title: 'Business Automation',
     badge: 'Custom APIs',
     accent: 'amber',
     steps: ['Trigger', 'Logic', 'API integrations', 'Database / update', 'Notification'],
-    note: 'Connects ERPs, inventory backends, and billing tools into seamless synchronization.',
+    note: 'Connects the tools a business already uses so the data stays in sync.',
   },
 ];
 
@@ -157,10 +165,10 @@ export const projects: Project[] = [
     image: '/images/project-swsm.webp',
     imageAlt: 'Full-page screenshot of the SWSM 2026 international conference website',
     accent: 'indigo',
-    category: 'International Event // Conferences',
+    category: 'Event Website // Conference',
     title: 'SWSM 2026 — International Conference Website',
     description:
-      'A professional conference platform built to organize and communicate a complete international event experience, including scientific content, committees, registration, submissions, venue information, and participant resources.',
+      'The website for an international scientific conference. I organized and built everything attendees need in one place: program, committees, registration, paper submissions, venue, and practical info.',
     tags: ['WordPress', 'UI/UX', 'Responsive Dev', 'Info Architecture'],
     siteIcon: 'globe',
   },
@@ -169,10 +177,10 @@ export const projects: Project[] = [
     image: '/images/project-haccp.webp',
     imageAlt: 'Full-page screenshot of the Normes HACCP digital platform for food-service businesses',
     accent: 'sky',
-    category: 'Compliance // SaaS Portal',
-    title: 'Normes HACCP — Digital Platform for Food-Service Professionals',
+    category: 'Food Safety // WordPress Platform',
+    title: 'Normes HACCP — Platform for Food-Service Businesses',
     description:
-      'A specialized website focused on HACCP compliance and digital management for restaurants, bakeries, butcher shops, and other food-service businesses. The project combines website development, SEO, content strategy, and automated workflows.',
+      'Helps restaurants, bakeries, and butcher shops handle HACCP compliance. I built the site, set up the SEO and content structure, and automated parts of the workflow.',
     tags: ['WordPress', 'SEO', 'Automation', 'Business Systems'],
     siteIcon: 'shield',
   },
@@ -181,30 +189,30 @@ export const projects: Project[] = [
     image: '/images/project-budgeviser.webp',
     imageAlt: 'Full-page screenshot of the Budgeviser financial planning web application',
     accent: 'indigo',
-    category: 'Fintech SaaS // System Architecture',
-    title: 'Budgeviser — Financial Planning & Wealth Analytics',
+    category: 'Web App // Personal Finance',
+    title: 'Budgeviser — Personal Finance App',
     description:
-      'A high-converting web and mobile experience designed for personal money management, cross-device synchronization, and biometric-secured finance workflows.',
+      'A budgeting app for managing personal money across devices. Built with React and Tailwind CSS on a Strapi + PostgreSQL backend.',
     tags: ['React', 'Tailwind CSS', 'Strapi', 'PostgreSQL', 'API Integration'],
     siteIcon: 'code',
   },
 ];
 
 export const processSteps: { accent: Accent; title: string; description: string; label: string }[] = [
-  { accent: 'indigo', title: 'Discover', description: 'Understand the business, users, goals, and technical requirements.', label: 'Input & Scope' },
-  { accent: 'sky', title: 'Design', description: 'Create a clear structure and experience before writing the solution.', label: 'Architecture & UX' },
-  { accent: 'amber', title: 'Build', description: 'Develop, integrate, and connect the necessary technologies.', label: 'Code & Pipelines' },
-  { accent: 'emerald', title: 'Optimize', description: 'Improve performance, SEO, usability, and automation.', label: 'Speed & Search' },
-  { accent: 'indigo', title: 'Launch', description: 'Deliver a reliable solution ready for real-world use and future growth.', label: 'Deployment & Handover' },
+  { accent: 'indigo', title: 'Discover', description: 'I learn how your business works and what the project really needs.', label: 'Goals & Scope' },
+  { accent: 'sky', title: 'Design', description: 'We agree on structure and user flow before I write any code.', label: 'Structure & UX' },
+  { accent: 'amber', title: 'Build', description: 'I write the code, connect the tools, and show progress as I go.', label: 'Code & Integrations' },
+  { accent: 'emerald', title: 'Optimize', description: 'Speed, SEO, and usability get tested and tuned.', label: 'Speed & Search' },
+  { accent: 'indigo', title: 'Launch', description: 'I deploy, hand everything over, and stay reachable after launch.', label: 'Deploy & Handover' },
 ];
 
 export const techCategories: { icon: LucideIcon; accent: Accent; title: string; items: string[] }[] = [
-  { icon: Palette, accent: 'indigo', title: 'Frontend', items: ['React.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Bootstrap', 'HTML5', 'CSS3', 'jQuery'] },
-  { icon: LayoutDashboard, accent: 'sky', title: 'Web & CMS', items: ['WordPress', 'Elementor', 'WooCommerce', 'Strapi'] },
-  { icon: Database, accent: 'amber', title: 'Backend & Data', items: ['Django', 'PHP', 'MySQL', 'PostgreSQL', 'REST APIs'] },
-  { icon: Bot, accent: 'emerald', title: 'Automation & AI', items: ['n8n', 'Make.com', 'AI APIs', 'Webhooks', 'Workflow Automation'] },
-  { icon: ChartColumn, accent: 'indigo', title: 'SEO & Analytics', items: ['Rank Math', 'Google Search Console', 'Google Analytics', 'Technical SEO'] },
-  { icon: GitBranch, accent: 'sky', title: 'Workflow', items: ['Git', 'GitHub', 'Figma', 'Agile', 'Scrum'] },
+  { icon: Palette, accent: 'indigo', title: 'Frontend', items: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'] },
+  { icon: Database, accent: 'amber', title: 'Backend & Data', items: ['Node.js', 'MySQL', 'MongoDB', 'APIs'] },
+  { icon: AppWindow, accent: 'sky', title: 'WordPress & Funnels', items: ['WordPress', 'WooCommerce', 'Elementor', 'ClickFunnels', 'System.io'] },
+  { icon: Bot, accent: 'emerald', title: 'Automation & AI', items: ['n8n', 'Make.com', 'Webhooks', 'AI-assisted development'] },
+  { icon: ChartColumn, accent: 'indigo', title: 'SEO & Ads', items: ['Google Search Console', 'Google Analytics', 'Google Ads'] },
+  { icon: PenTool, accent: 'sky', title: 'Design & Workflow', items: ['Figma', 'Git', 'GitHub'] },
 ];
 
 export interface TimelineEntry {
@@ -212,65 +220,122 @@ export interface TimelineEntry {
   org: string;
   badge: string;
   period: string;
+  place?: string;
   accent: Accent;
   current?: boolean;
-  points: string[];
+  /** Short line under the organisation, e.g. field of study and honours. */
+  note?: string;
+  points?: string[];
 }
 
 export const experience: TimelineEntry[] = [
   {
-    role: 'Full-stack Developer',
+    role: 'Full-Stack Developer',
     org: 'Open Systèmes',
     badge: 'OS',
-    period: 'June 2024 - Present',
+    period: 'June 2024 — Present',
+    place: 'Morocco · Hybrid',
     accent: 'indigo',
     current: true,
     points: [
-      'Collaborate with the design team to create a user-friendly and visually appealing interface for a new web application.',
-      'Developing and maintaining web applications using React.js, TypeScript, and high-performance serverless backends.',
-      'Architect detailed technical roadmaps outlining milestones, test suites, and scaling strategies for client products.',
+      'Build and maintain web applications and new product features.',
+      'Ship responsive interfaces with React, Next.js, and Tailwind CSS.',
+      'Turn business requirements into technical solutions with designers, developers, and product.',
+      'Keep the code fast, usable, and easy to maintain.',
     ],
   },
   {
     role: 'WordPress Developer & SEO Manager',
     org: 'Easy Take Travel',
     badge: 'ETT',
-    period: 'Jun. 2023 - Mars 2024',
+    period: 'Sep 2023 — Mar 2024',
+    place: 'Marrakech',
     accent: 'sky',
     points: [
-      'Developed two high-traffic responsive websites for a premium travel agency, driving seamless booking logistics.',
-      'Implemented advanced technical SEO strategies that increased organic SERP rankings by +180% within 6 months.',
-      'Executed convention-optimized Google Ads funnels, significantly increasing qualified inbound reservation queries.',
+      "Built two WordPress sites for a travel agency: the agency's main website and a transportation site.",
+      'Owned the SEO: site structure, content, and organic visibility.',
+      'Ran Google Ads campaigns to bring in targeted traffic and online bookings.',
     ],
   },
   {
-    role: 'Front-end Developer',
+    role: 'Full-Stack Developer',
     org: 'Digital Speak Group',
     badge: 'DS',
-    period: 'Nov. 2022 - Mars 2023',
-    accent: 'indigo',
+    period: 'Nov 2022 — Mar 2023',
+    place: 'Marrakech',
+    accent: 'emerald',
     points: [
-      'Engineered highly interactive landing pages and multi-step sales funnels using JavaScript, modern CSS, and CMS integrations.',
-      'Collaborated closely with cross-functional design and product leads to achieve pixel-perfect fidelity and smooth 60fps animations.',
-      'Enforced cross-browser compatibility standards and streamlined mobile-first layout responsiveness across devices.',
+      'Built business websites and sales funnels focused on conversion.',
+      'Worked with JavaScript, CSS, jQuery, WordPress, ClickFunnels, and System.io.',
+      'Made sure every page held up on mobile and across browsers.',
+    ],
+  },
+  {
+    role: 'Front-End Developer Intern',
+    org: 'Comabout Agency',
+    badge: 'CA',
+    period: 'Apr 2022 — Jun 2022',
+    place: 'Marrakech',
+    accent: 'amber',
+    points: [
+      'Built and maintained React.js applications with responsive UIs.',
+      'Took part in code reviews with the dev team.',
+      'Fixed bugs and polished the front-end experience.',
+    ],
+  },
+  {
+    role: 'Full-Stack Developer Intern',
+    org: 'Comabout Agency',
+    badge: 'CA',
+    period: 'Mar 2021 — Jun 2021',
+    place: 'Morocco · Hybrid',
+    accent: 'amber',
+    points: [
+      'Built user-friendly interfaces alongside the design team.',
+      'Tracked down and fixed application bugs.',
+      'Helped plan features and improve stability.',
     ],
   },
 ];
 
-// TODO(Said): the Stitch design has an EDUCATION tab but no education content.
-// Replace this placeholder with your real degrees/certifications.
 export const education: TimelineEntry[] = [
   {
-    role: 'Your degree or certification',
-    org: 'School / Institution',
-    badge: 'ED',
-    period: 'Year - Year',
+    role: 'ALX Software Engineering Program',
+    org: 'ALX Africa / Holberton School',
+    badge: 'ALX',
+    period: '2023 — 2024',
     accent: 'indigo',
-    points: ['Add a short description of what you studied and key achievements.'],
+  },
+  {
+    role: 'Professional Licence',
+    org: 'Higher School of Technology — Essaouira',
+    badge: 'EST',
+    period: '2021 — 2022',
+    place: 'Essaouira',
+    accent: 'sky',
+    note: 'Computer Systems & Software Engineering · Mention Bien',
+  },
+  {
+    role: 'University Diploma of Technology',
+    org: 'ENS Marrakech — Université Cadi Ayyad',
+    badge: 'ENS',
+    period: '2019 — 2021',
+    place: 'Marrakech',
+    accent: 'emerald',
+    note: 'Software Engineering · Mention Bien',
+  },
+  {
+    role: 'Baccalaureate',
+    org: 'Lycée Technique Mohamed VI — Azilal',
+    badge: 'BAC',
+    period: '2018',
+    place: 'Azilal',
+    accent: 'amber',
+    note: 'Physics & Chemistry',
   },
 ];
 
 export const aboutValues = [
-  { title: 'Human-centric Technology', text: 'Software designed around actual user behaviors rather than abstract complexity.' },
-  { title: 'Continuous Evolution', text: 'Regular experimentation with modern generative APIs and autonomous agents.' },
+  { title: 'Simple over clever', text: "If two solutions work, I ship the one that's easier to maintain." },
+  { title: 'Automate the boring parts', text: 'If a task repeats every week, I try to make it run on its own.' },
 ];

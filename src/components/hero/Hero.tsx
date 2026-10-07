@@ -59,15 +59,15 @@ export function Hero() {
               </span>
               <span className="font-mono text-xs font-semibold tracking-widest text-indigo-700 uppercase">SAID MECHKOURI // DEV.ENGINE</span>
             </div>
-            <span className="hidden font-mono text-xs tracking-widest text-slate-400 uppercase sm:inline">• SEASONS 2024 – 2026</span>
+            <span className="hidden font-mono text-xs tracking-widest text-slate-400 uppercase sm:inline">• BUILDING FOR THE WEB SINCE 2021</span>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="whitespace-nowrap rounded-pill border border-slate-200 bg-white px-2.5 py-1 font-mono text-[11px] tracking-wider text-slate-600 uppercase shadow-sm">
-              FULL-STACK ARCHITECTURE
+              WORDPRESS · SEO · AUTOMATION
             </span>
             <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[11px] font-semibold tracking-wider text-emerald-700 uppercase shadow-sm">
               <PulseDot className="bg-emerald-600" />
-              AI / AUTOMATION CERTIFIED
+              OPEN TO NEW PROJECTS
             </span>
           </div>
         </motion.div>
@@ -77,9 +77,9 @@ export function Hero() {
           <div data-hero-copy className="space-y-6 lg:col-span-6">
             <motion.div variants={item} className="inline-flex items-center gap-2.5">
               <span className="whitespace-nowrap rounded-pill border border-indigo-200 bg-indigo-100 px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider text-indigo-700 uppercase shadow-sm">
-                TOP 1%
+                {site.role}
               </span>
-              <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">SOFTWARE ENGINEER &amp; PROBLEM SOLVER</span>
+              <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">Based in {site.location}, {site.country}</span>
             </motion.div>
 
             <SplitHeading
@@ -91,13 +91,13 @@ export function Hero() {
               className="font-display text-5xl leading-[0.92] font-black tracking-tighter text-slate-900 uppercase sm:text-6xl lg:text-7xl xl:text-8xl"
             />
             <span className="sr-only">
-              {site.name} — Software Engineer, Frontend Developer and AI Automation Specialist
+              {site.name}: {site.positioning}
             </span>
 
             <motion.div variants={item} className="flex flex-wrap items-center gap-2.5 pt-1 font-mono text-xs">
               <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-indigo-200 bg-white px-2.5 py-1 font-bold text-indigo-700 shadow-sm">
                 <PulseDot className="bg-indigo-600" />
-                99.9% Uptime
+                Vibe coder
               </span>
               {heroStack.map((tech) => (
                 <span key={tech} className="contents">
@@ -110,8 +110,8 @@ export function Hero() {
             </motion.div>
 
             <motion.p variants={item} className="max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              Architecting robust full-stack web applications, high-converting digital platforms, and intelligent n8n &amp;
-              Make.com AI automation workflows that eliminate manual friction.
+              I build websites, web apps, and the automations behind them. React and Next.js for products, WordPress
+              when you need to own your content, and n8n or Make.com for anything that shouldn't be done by hand.
             </motion.p>
 
             <motion.div variants={item} className="flex flex-wrap items-center gap-4 pt-2">
@@ -142,12 +142,12 @@ export function Hero() {
           </motion.div>
           </div>
 
-          <motion.aside variants={item} aria-label="Core stack" className="flex flex-col justify-center space-y-4 lg:col-span-2">
+          <motion.aside variants={item} aria-label="What I work on" className="flex flex-col justify-center space-y-4 lg:col-span-2">
             <div data-hero-panel className="group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-lg transition-all hover:border-indigo-400">
               <div aria-hidden="true" className="pointer-events-none absolute top-0 right-0 h-24 w-24 rounded-full bg-indigo-50 blur-xl" />
               <h2 className="mb-3 flex items-center gap-1.5 font-mono text-[11px] font-bold tracking-wider text-indigo-600 uppercase">
                 <Terminal aria-hidden="true" size={14} />
-                <span>CORE STACK &amp; AWARDS</span>
+                <span>WHAT I WORK ON</span>
               </h2>
               <ul className="space-y-2.5 text-xs text-slate-600">
                 {heroHighlights.map((h) => (
@@ -159,7 +159,7 @@ export function Hero() {
               </ul>
               <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 font-mono text-[10px] tracking-widest text-slate-500 uppercase">
                 <span>{site.timezone}</span>
-                <span className="font-bold text-emerald-600">AVAILABLE NOW</span>
+                <span className="font-bold text-emerald-600">AVAILABLE</span>
               </div>
             </div>
           </motion.aside>
@@ -169,7 +169,7 @@ export function Hero() {
         <motion.div variants={item} className="flex flex-col items-start justify-between gap-4 border-t border-slate-200/80 pt-4 lg:flex-row lg:items-center">
           <p className="flex items-center gap-2 font-mono text-xs text-slate-500">
             <PulseDot />
-            <span>Morocco · Available for freelance contracts &amp; technical collaborations</span>
+            <span>{site.location}, {site.country} · Open to freelance projects and collaborations</span>
           </p>
           <ul className="flex flex-wrap items-center gap-2" aria-label="Key technologies">
             {heroTags.map((tag) => (

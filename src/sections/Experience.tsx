@@ -7,8 +7,8 @@ import { Reveal } from '../components/ui/Reveal';
 import { cn } from '../components/ui/primitives';
 
 const tabs = [
-  { id: 'experience', label: 'Experience', title: 'Work experience.', entries: experience },
-  { id: 'education', label: 'Education', title: 'Education.', entries: education },
+  { id: 'experience', label: 'Experience', eyebrow: "Where I've worked", title: 'Work experience.', entries: experience },
+  { id: 'education', label: 'Education', eyebrow: 'Where I studied', title: 'Education.', entries: education },
 ] as const;
 
 type TabId = (typeof tabs)[number]['id'];
@@ -29,15 +29,21 @@ function Milestone({ entry, index }: { entry: TimelineEntry; index: number }) {
       >
         <article className="group rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all hover:border-indigo-400 hover:shadow-xl sm:p-8">
           <h3 className="font-display text-xl font-bold text-slate-900 transition-colors group-hover:text-indigo-600">{entry.role}</h3>
-          <p className="mt-1 mb-4 font-mono text-xs font-bold tracking-wider text-indigo-600 uppercase">{entry.org}</p>
-          <ul className="space-y-3 text-sm leading-relaxed text-slate-600">
-            {entry.points.map((point) => (
-              <li key={point} className="flex items-start gap-2.5">
-                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-600" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-1 font-mono text-xs font-bold tracking-wider text-indigo-600 uppercase">
+            {entry.org}
+            {entry.place && <span className="font-medium text-slate-400"> · {entry.place}</span>}
+          </p>
+          {entry.note && <p className="mt-3 text-sm text-slate-600">{entry.note}</p>}
+          {entry.points && (
+            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-600">
+              {entry.points.map((point) => (
+                <li key={point} className="flex items-start gap-2.5">
+                  <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-600" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </article>
       </motion.div>
 
@@ -130,9 +136,7 @@ export function Experience() {
           </div>
         </Reveal>
 
-        <Reveal as="p" className="mt-2 mb-3 font-mono text-xs font-bold tracking-widest text-indigo-600 uppercase">
-          What I have done so far
-        </Reveal>
+        <p className="mt-2 mb-3 font-mono text-xs font-bold tracking-widest text-indigo-600 uppercase">{current.eyebrow}</p>
         <h2 id="experience-title" className="mb-20 text-center font-display text-4xl font-black tracking-tight text-slate-900 uppercase sm:text-5xl lg:text-6xl">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
@@ -157,7 +161,7 @@ export function Experience() {
           />
           <ol key={tab} className="relative space-y-16 md:space-y-24">
             {current.entries.map((entry, i) => (
-              <Milestone key={entry.role + entry.org} entry={entry} index={i} />
+              <Milestone key={entry.role + entry.period} entry={entry} index={i} />
             ))}
           </ol>
         </div>
