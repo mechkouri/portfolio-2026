@@ -7,7 +7,7 @@ export function Tech() {
   return (
     <Section id="tech" tone="muted" labelledBy="tech-title">
       <div className="mx-auto max-w-7xl">
-        <SectionLabel>06 — TECHNOLOGY</SectionLabel>
+        <SectionLabel id="tech" />
         <SectionHeading id="tech-title" className="mb-4" lines={[{ text: 'Tools I use to build and automate.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
           The stack I reach for day to day.

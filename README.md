@@ -16,7 +16,9 @@ npm run images    # re-optimize assets-src/ into public/images/
 
 ```
 src/
-  data/content.ts          all copy, projects, experience — edit content here
+  data/content.ts          all copy, projects, experience — edit content here.
+                           `sections` is the page outline: reorder it to reorder the page,
+                           section numbers, and nav links together.
   lib/accents.ts           per-accent Tailwind class sets (indigo / sky / emerald / amber)
   hooks/                   device capabilities, active section, lazy GSAP ScrollTrigger
   components/
@@ -24,7 +26,7 @@ src/
     layout/                Header, Footer
     hero/                  Hero section + 3D-tilt portrait card
     three/                 R3F "automation pipeline" scene + static SVG fallback
-  sections/                Intro, Services, Automation, Work, Process, Tech, Experience, About, Contact
+  sections/                Work, Services, Automation, Process, Experience, Tech, About, Contact
 ```
 
 ## Performance & accessibility notes

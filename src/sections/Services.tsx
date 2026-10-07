@@ -7,7 +7,7 @@ export function Services() {
   return (
     <Section id="services" tone="muted" labelledBy="services-title">
       <div className="mx-auto max-w-7xl">
-        <SectionLabel>02 — WHAT I DO</SectionLabel>
+        <SectionLabel id="services" />
         <SectionHeading id="services-title" className="mb-4" lines={[{ text: 'What you can hire me for.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
           Pick one, or combine a few. Most projects need more than one.

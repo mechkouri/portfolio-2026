@@ -4,7 +4,7 @@ import { education, experience, type TimelineEntry } from '../data/content';
 import { accents } from '../lib/accents';
 import { useScrollTimeline } from '../hooks/useScrollTimeline';
 import { Reveal } from '../components/ui/Reveal';
-import { cn } from '../components/ui/primitives';
+import { cn, SectionLabel } from '../components/ui/primitives';
 
 const tabs = [
   { id: 'experience', label: 'Experience', eyebrow: "Where I've worked", title: 'Work experience.', entries: experience },
@@ -99,6 +99,7 @@ export function Experience() {
   return (
     <section id="experience" aria-labelledby="experience-title" className="relative w-full border-t border-slate-200/80 bg-white px-4 py-20 sm:px-8 lg:px-16">
       <div className="mx-auto flex max-w-6xl flex-col items-center">
+        <SectionLabel id="experience" className="mb-5" />
         <Reveal>
           <div role="tablist" aria-label="Career history" className="mb-4 inline-flex items-center rounded-pill border border-slate-200 bg-slate-100 p-1 shadow-sm">
             {tabs.map((t, i) => {

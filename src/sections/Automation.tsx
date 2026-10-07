@@ -10,7 +10,7 @@ export function Automation() {
     <Section id="automation" labelledBy="automation-title">
       <div className="mx-auto max-w-7xl space-y-16">
         <div className="max-w-4xl">
-          <SectionLabel>03 — AUTOMATION</SectionLabel>
+          <SectionLabel id="automation" />
           <SectionHeading
             id="automation-title"
             className="leading-tight"

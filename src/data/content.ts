@@ -32,12 +32,29 @@ export const site = {
   portfolio: 'https://mechkouri.netlify.app',
 };
 
-export const navLinks = [
-  { id: 'services', label: 'Services' },
-  { id: 'automation', label: 'Automation' },
-  { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
-];
+/**
+ * Page outline. The order here is the order on the page, and it drives the
+ * section numbers ("01 — Selected Work") and the navigation links.
+ * Proof (work) comes first, then what I offer, then who I am, then contact.
+ */
+export const sections = [
+  { id: 'work', eyebrow: 'Selected Work', nav: 'Work' },
+  { id: 'services', eyebrow: 'What I Do', nav: 'Services' },
+  { id: 'automation', eyebrow: 'Automation', nav: 'Automation' },
+  { id: 'process', eyebrow: 'How I Work' },
+  { id: 'experience', eyebrow: 'Experience', nav: 'Experience' },
+  { id: 'tech', eyebrow: 'Stack' },
+  { id: 'about', eyebrow: 'About', nav: 'About' },
+  { id: 'contact', eyebrow: 'Get in Touch' },
+] as const;
+
+export type SectionId = (typeof sections)[number]['id'];
+
+export const navLinks = sections.flatMap((s) => ('nav' in s ? [{ id: s.id, label: s.nav }] : []));
+
+export function sectionNumber(id: SectionId): string {
+  return String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');
+}
 
 export const heroStack = ['React', 'Next.js', 'WordPress'];
 export const heroHighlights = [
@@ -333,9 +350,4 @@ export const education: TimelineEntry[] = [
     accent: 'amber',
     note: 'Physics & Chemistry',
   },
-];
-
-export const aboutValues = [
-  { title: 'Simple over clever', text: "If two solutions work, I ship the one that's easier to maintain." },
-  { title: 'Automate the boring parts', text: 'If a task repeats every week, I try to make it run on its own.' },
 ];

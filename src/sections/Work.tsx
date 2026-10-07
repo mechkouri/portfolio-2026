@@ -108,11 +108,11 @@ function ProjectCard({ project }: { project: Project }) {
 
 export function Work() {
   return (
-    <Section id="work" tone="muted" labelledBy="work-title">
+    <Section id="work" labelledBy="work-title">
       <div className="mx-auto max-w-7xl space-y-12">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <SectionLabel>04 — SELECTED WORK</SectionLabel>
+            <SectionLabel id="work" />
             <SectionHeading id="work-title" lines={[{ text: "A selection of things I've built." }]} />
             <Reveal as="p" className="mt-2 max-w-2xl text-slate-600">
               A few recent projects: what they are, what I built, and the stack behind them. Hover a card to scroll the

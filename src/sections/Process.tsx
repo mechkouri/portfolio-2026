@@ -5,9 +5,9 @@ import { cn, Section, SectionHeading, SectionLabel } from '../components/ui/prim
 
 export function Process() {
   return (
-    <Section id="process" labelledBy="process-title">
+    <Section id="process" tone="muted" labelledBy="process-title">
       <div className="mx-auto max-w-7xl">
-        <SectionLabel>05 — HOW I WORK</SectionLabel>
+        <SectionLabel id="process" />
         <SectionHeading id="process-title" className="mb-4" lines={[{ text: 'A simple process. A strong result.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
           No black box. You know what's happening at every step.
