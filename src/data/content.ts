@@ -242,6 +242,10 @@ export interface TimelineEntry {
   current?: boolean;
   /** Short line under the organisation, e.g. field of study and honours. */
   note?: string;
+  /** Logo shown in the timeline node (public path); falls back to `badge`. */
+  logo?: string;
+  /** Logo artwork sits on a dark background. */
+  logoDark?: boolean;
   points?: string[];
 }
 
@@ -250,6 +254,7 @@ export const experience: TimelineEntry[] = [
     role: 'Full-Stack Developer',
     org: 'Open Systèmes',
     badge: 'OS',
+    logo: '/images/logos/opensystemes.webp',
     period: 'June 2024 — Present',
     place: 'Morocco · Hybrid',
     accent: 'indigo',
@@ -265,6 +270,7 @@ export const experience: TimelineEntry[] = [
     role: 'WordPress Developer & SEO Manager',
     org: 'Easy Take Travel',
     badge: 'ETT',
+    logo: '/images/logos/easytaketravel.webp',
     period: 'Sep 2023 — Mar 2024',
     place: 'Marrakech',
     accent: 'sky',
@@ -278,6 +284,7 @@ export const experience: TimelineEntry[] = [
     role: 'Full-Stack Developer',
     org: 'Digital Speak Group',
     badge: 'DS',
+    logo: '/images/logos/digitalspeak.webp',
     period: 'Nov 2022 — Mar 2023',
     place: 'Marrakech',
     accent: 'emerald',
@@ -291,6 +298,8 @@ export const experience: TimelineEntry[] = [
     role: 'Front-End Developer Intern',
     org: 'Comabout Agency',
     badge: 'CA',
+    logo: '/images/logos/comabout.webp',
+    logoDark: true,
     period: 'Apr 2022 — Jun 2022',
     place: 'Marrakech',
     accent: 'amber',
@@ -304,6 +313,8 @@ export const experience: TimelineEntry[] = [
     role: 'Full-Stack Developer Intern',
     org: 'Comabout Agency',
     badge: 'CA',
+    logo: '/images/logos/comabout.webp',
+    logoDark: true,
     period: 'Mar 2021 — Jun 2021',
     place: 'Morocco · Hybrid',
     accent: 'amber',
@@ -320,6 +331,7 @@ export const education: TimelineEntry[] = [
     role: 'ALX Software Engineering Program',
     org: 'ALX Africa / Holberton School',
     badge: 'ALX',
+    logo: '/images/logos/alx.webp',
     period: '2023 — 2024',
     accent: 'indigo',
   },
@@ -327,6 +339,7 @@ export const education: TimelineEntry[] = [
     role: 'Professional Licence',
     org: 'Higher School of Technology — Essaouira',
     badge: 'EST',
+    logo: '/images/logos/est-essaouira.webp',
     period: '2021 — 2022',
     place: 'Essaouira',
     accent: 'sky',
@@ -336,6 +349,7 @@ export const education: TimelineEntry[] = [
     role: 'University Diploma of Technology',
     org: 'ENS Marrakech — Université Cadi Ayyad',
     badge: 'ENS',
+    logo: '/images/logos/ens-marrakech.webp',
     period: '2019 — 2021',
     place: 'Marrakech',
     accent: 'emerald',
@@ -345,6 +359,7 @@ export const education: TimelineEntry[] = [
     role: 'Baccalaureate',
     org: 'Lycée Technique Mohamed VI — Azilal',
     badge: 'BAC',
+    logo: '/images/logos/bac-ministry.webp',
     period: '2018',
     place: 'Azilal',
     accent: 'amber',

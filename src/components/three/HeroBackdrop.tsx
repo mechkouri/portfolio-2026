@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, type RefObject } from 'react';
+import { Component, lazy, Suspense, useEffect, useState, type ReactNode, type RefObject } from 'react';
 import { useDeviceCapabilities } from '../../hooks/useDeviceCapabilities';
 
 const HeroScene = lazy(() => import('./HeroScene'));
@@ -44,6 +44,20 @@ function PipelineFallback() {
 }
 
 /**
+ * Keeps a failed 3D load (a chunk 404 after a redeploy, or a WebGL context error)
+ * from unmounting the whole page: the hero just keeps the static fallback.
+ */
+class SceneErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? <PipelineFallback /> : this.props.children;
+  }
+}
+
+/**
  * Chooses between the WebGL scene and the static fallback. The 3D bundle is only
  * requested once the browser is idle, so it never competes with the LCP.
  */
@@ -63,8 +77,10 @@ export function HeroBackdrop({ eventSource }: { eventSource: RefObject<HTMLEleme
   if (!allow3D || failed || !idle) return <PipelineFallback />;
 
   return (
-    <Suspense fallback={<PipelineFallback />}>
-      <HeroScene eventSource={eventSource} onUnsupported={() => setFailed(true)} />
-    </Suspense>
+    <SceneErrorBoundary>
+      <Suspense fallback={<PipelineFallback />}>
+        <HeroScene eventSource={eventSource} onUnsupported={() => setFailed(true)} />
+      </Suspense>
+    </SceneErrorBoundary>
   );
 }

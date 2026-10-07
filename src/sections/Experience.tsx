@@ -21,7 +21,7 @@ function Milestone({ entry, index }: { entry: TimelineEntry; index: number }) {
   return (
     <li className={cn('relative flex flex-col items-center justify-between gap-8 md:gap-0', cardLeft ? 'md:flex-row' : 'md:flex-row-reverse')}>
       <motion.div
-        className="w-full pl-12 md:w-[45%] md:pl-0"
+        className="w-full pl-16 md:w-[40%] lg:w-[42%] xl:w-[45%] md:pl-0"
         initial={{ opacity: 0, x: cardLeft ? -40 : 40 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -47,20 +47,30 @@ function Milestone({ entry, index }: { entry: TimelineEntry; index: number }) {
         </article>
       </motion.div>
 
-      <div className="absolute top-6 left-4 z-10 -translate-x-1/2 md:top-1/2 md:left-1/2 md:-translate-y-1/2">
+      <div className="absolute top-6 left-7 z-10 -translate-x-1/2 md:top-1/2 md:left-1/2 md:-translate-y-1/2">
         <motion.div
           aria-hidden="true"
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, amount: 1 }}
           transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-          className={cn('flex h-10 w-10 items-center justify-center rounded-pill border-2 bg-white font-mono text-xs font-bold shadow-md', a.nodeRing)}
+          className={cn(
+            'flex items-center justify-center overflow-hidden rounded-pill border-2 font-mono text-xs font-bold shadow-md',
+            entry.logo ? 'h-10 w-14 p-1 transition-transform duration-300 hover:scale-110 md:h-14 md:w-20 md:p-1.5 lg:h-16 lg:w-28 lg:p-2' : 'h-10 w-10',
+            entry.logoDark ? 'bg-black' : 'bg-white',
+            a.nodeRing,
+          )}
         >
-          {entry.badge}
+          {entry.logo ? (
+            // The organisation name is already in the card, so the logo is decorative here.
+            <img src={entry.logo} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain" />
+          ) : (
+            entry.badge
+          )}
         </motion.div>
       </div>
 
-      <div className={cn('flex w-full pl-12 md:w-[45%]', cardLeft ? 'md:justify-start md:pl-8' : 'md:justify-end md:pr-8 md:pl-0')}>
+      <div className={cn('flex w-full pl-16 md:w-[40%] lg:w-[42%] xl:w-[45%]', cardLeft ? 'md:justify-start md:pl-8' : 'md:justify-end md:pr-8 md:pl-0')}>
         <span className="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-4 py-1.5 font-mono text-xs font-semibold text-slate-700 shadow-sm">
           <span aria-hidden="true" className={cn('h-2 w-2 rounded-full', a.dot, entry.current && 'animate-pulse')} />
           <time>{entry.period}</time>
@@ -154,11 +164,11 @@ export function Experience() {
         </h2>
 
         <div ref={timeline} id="timeline-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="relative w-full">
-          <div aria-hidden="true" className="pointer-events-none absolute top-4 bottom-4 left-4 w-[2px] -translate-x-1/2 bg-slate-200 md:left-1/2" />
+          <div aria-hidden="true" className="pointer-events-none absolute top-4 bottom-4 left-7 w-[2px] -translate-x-1/2 bg-slate-200 md:left-1/2" />
           <div
             data-spine
             aria-hidden="true"
-            className="pointer-events-none absolute top-4 bottom-4 left-4 w-[2px] origin-top -translate-x-1/2 bg-gradient-to-b from-indigo-500 via-sky-400 to-indigo-500 opacity-70 shadow-[0_0_12px_rgba(79,70,229,0.5)] md:left-1/2"
+            className="pointer-events-none absolute top-4 bottom-4 left-7 w-[2px] origin-top -translate-x-1/2 bg-gradient-to-b from-indigo-500 via-sky-400 to-indigo-500 opacity-70 shadow-[0_0_12px_rgba(79,70,229,0.5)] md:left-1/2"
           />
           <ol key={tab} className="relative space-y-16 md:space-y-24">
             {current.entries.map((entry, i) => (
