@@ -87,7 +87,7 @@ export function Hero() {
               id="hero-title"
               immediate
               delay={0.3}
-              lines={[{ text: 'SAID' }, { text: 'DEV.ENGINE', gradient: true }]}
+              lines={[{ text: 'SAID' }, { text: 'MECHKOURI', gradient: true }]}
               className="font-display text-5xl leading-[0.92] font-black tracking-tighter text-slate-900 uppercase sm:text-6xl lg:text-7xl xl:text-8xl"
             />
             <span className="sr-only">
