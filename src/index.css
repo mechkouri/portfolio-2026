@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+/* Design tokens from the Stitch "Precision Engineering" system (DESIGN.md). */
+@theme {
+  --font-display: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Stitch overrides Tailwind's radius scale: lg = 4px, xl = 8px, "full" = 12px. */
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-pill: 0.75rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-card-float: card-float 6s ease-in-out infinite;
+  --animate-flow: flow 2.4s linear infinite;
+
+  @keyframes card-float {
+    0%,
+    100% {
+      transform: translateY(0) rotateZ(0deg);
+    }
+    50% {
+      transform: translateY(-14px) rotateZ(-1deg);
+    }
+  }
+
+  @keyframes flow {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-screen overflow-x-hidden bg-slate-50 font-sans text-slate-800 antialiased;
+    overscroll-behavior-y: none;
+    background-image: radial-gradient(rgba(100, 116, 139, 0.16) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  ::selection {
+    @apply bg-indigo-600 text-white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-indigo-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+
+@utility text-gradient {
+  @apply bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
