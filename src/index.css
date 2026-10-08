@@ -93,3 +93,13 @@
 @utility preserve-3d {
   transform-style: preserve-3d;
 }
+
+/* Autoplay timer for the project slider; its animationend advances the slide. */
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

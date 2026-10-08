@@ -34,13 +34,22 @@ for (const file of await readdir('assets-src/logos')) {
   console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
 }
 
-// Full-page project screenshots: keep the top of the page, cap width, and re-encode.
+// Project screenshots: keep the top of the page (cap the aspect ratio), cap width at 1600px (sharp on
+// retina at the slider's ~700px size), and re-encode. A fresh capture (.png from `npm run capture`)
+// wins over an older low-res .webp with the same name.
 await mkdir(`${OUT}/projects`, { recursive: true });
-for (const file of await readdir('assets-src/screenshots')) {
-  const out = `projects/${parse(file).name}.webp`;
-  const info = await sharp(`assets-src/screenshots/${file}`)
-    .resize({ width: 720, withoutEnlargement: true })
-    .webp({ quality: 80, effort: 6 })
-    .toFile(`${OUT}/${out}`);
-  console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
+const shots = await readdir('assets-src/screenshots');
+for (const file of shots) {
+  const { name, ext } = parse(file);
+  if (ext === '.webp' && shots.includes(`${name}.png`)) continue;
+  const input = sharp(`assets-src/screenshots/${file}`);
+  const meta = await input.metadata();
+  const width = Math.min(meta.width, 1600);
+  const maxHeight = Math.round(width * 3.2);
+  const info = await input
+    .resize({ width, withoutEnlargement: true })
+    .extract({ left: 0, top: 0, width, height: Math.min(maxHeight, Math.round((meta.height * width) / meta.width)) })
+    .webp({ quality: 85, effort: 6 })
+    .toFile(`${OUT}/projects/${name}.webp`);
+  console.log(`projects/${name}.webp: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB (source ${meta.width}px wide)`);
 }

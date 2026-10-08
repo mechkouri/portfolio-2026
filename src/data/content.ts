@@ -164,7 +164,7 @@ export const workflows: { title: string; badge: string; accent: Accent; steps: s
 ];
 
 export interface Project {
-  /** Text shown in the browser-bar pill: a real domain when known, otherwise the project name. */
+  /** Text shown in the browser-bar pill: the real domain once known, otherwise the project name. */
   label: string;
   url?: string;
   image: string;
@@ -178,10 +178,10 @@ export interface Project {
   siteIcon: 'globe' | 'shield' | 'code' | 'cart';
 }
 
-/** Big cards at the top of Selected Work. */
+/** The first three slides: the projects with the most to say. */
 export const featuredProjects: Project[] = [
   {
-    label: 'swsm-conference.org',
+    label: 'SWSM 2026',
     image: '/images/projects/swsm.webp',
     imageAlt: 'Full-page screenshot of the SWSM 2026 international conference website',
     accent: 'indigo',
@@ -193,7 +193,7 @@ export const featuredProjects: Project[] = [
     siteIcon: 'globe',
   },
   {
-    label: 'normes-haccp.cloud',
+    label: 'Normes HACCP',
     image: '/images/projects/normes-haccp.webp',
     imageAlt: 'Full-page screenshot of the Normes HACCP website for food-service businesses',
     accent: 'sky',
@@ -205,7 +205,7 @@ export const featuredProjects: Project[] = [
     siteIcon: 'shield',
   },
   {
-    label: 'budgeviser.app',
+    label: 'Budgeviser',
     image: '/images/project-budgeviser.webp',
     imageAlt: 'Full-page screenshot of the Budgeviser personal finance web application',
     accent: 'indigo',
@@ -218,7 +218,7 @@ export const featuredProjects: Project[] = [
   },
 ];
 
-/** Smaller cards in the "More projects" grid. Descriptions only state what the site shows. */
+/** The rest of the slides. Descriptions only state what the site shows. */
 export const moreProjects: Project[] = [
   {
     label: 'Equipements Cuisine',
@@ -309,6 +309,9 @@ export const moreProjects: Project[] = [
     siteIcon: 'globe',
   },
 ];
+
+/** Everything in the Selected Work slider, in slide order. */
+export const projects: Project[] = [...featuredProjects, ...moreProjects];
 
 export const processSteps: { accent: Accent; title: string; description: string; label: string }[] = [
   { accent: 'indigo', title: 'Discover', description: 'I learn how your business works and what the project really needs.', label: 'Goals & Scope' },
