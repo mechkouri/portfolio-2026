@@ -204,18 +204,6 @@ export const featuredProjects: Project[] = [
     tags: ['WordPress', 'SEO', 'Automation', 'Business Systems'],
     siteIcon: 'shield',
   },
-  {
-    label: 'Budgeviser',
-    image: '/images/project-budgeviser.webp',
-    imageAlt: 'Full-page screenshot of the Budgeviser personal finance web application',
-    accent: 'indigo',
-    category: 'Web App // Personal Finance',
-    title: 'Budgeviser — Personal Finance App',
-    description:
-      'A budgeting app for managing personal money across devices. Built with React and Tailwind CSS on a Strapi + PostgreSQL backend.',
-    tags: ['React', 'Tailwind CSS', 'Strapi', 'PostgreSQL', 'API Integration'],
-    siteIcon: 'code',
-  },
 ];
 
 /** The rest of the slides. Descriptions only state what the site shows. */

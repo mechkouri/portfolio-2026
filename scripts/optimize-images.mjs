@@ -8,7 +8,6 @@ const jobs = [
   { src: 'assets-src/img1', out: 'logo.png', png: true },
   { src: 'assets-src/img2', out: 'portrait-studio.webp', width: 1024 },
   { src: 'assets-src/img7', out: 'portrait-office.webp', width: 1024 },
-  { src: 'assets-src/img6', out: 'project-budgeviser.webp', width: 800 },
 ];
 
 await mkdir(OUT, { recursive: true });
