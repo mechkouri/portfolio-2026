@@ -359,19 +359,19 @@ export interface TimelineEntry {
 
 export const experience: TimelineEntry[] = [
   {
-    role: 'Full-Stack Developer',
-    org: 'Open Systèmes',
-    badge: 'OS',
-    logo: '/images/logos/opensystemes.webp',
+    role: 'Full-Stack Developer · WordPress · SEO · Automation',
+    org: 'Infinit Deals',
+    badge: 'ID',
     period: 'June 2024 — Present',
     place: 'Morocco · Hybrid',
     accent: 'indigo',
     current: true,
     points: [
-      'Build and maintain web applications and new product features.',
-      'Ship responsive interfaces with React, Next.js, and Tailwind CSS.',
-      'Turn business requirements into technical solutions with designers, developers, and product.',
-      'Keep the code fast, usable, and easy to maintain.',
+      'Build WordPress websites from professional themes or from scratch with Elementor, adding custom code where a theme falls short.',
+      'Develop WordPress plugins and custom features, and build and maintain web applications.',
+      'Handle on-page and off-page SEO, plus speed, Core Web Vitals, security, and ongoing maintenance.',
+      'Automate content work with Make.com and n8n: SEO blog creation and publishing, and social media posts.',
+      'Connect websites and services through APIs and webhooks.',
     ],
   },
   {

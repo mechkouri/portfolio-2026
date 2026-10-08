@@ -10,7 +10,7 @@ export function Experience() {
         <SectionLabel id="experience" />
         <SectionHeading id="experience-title" className="mb-4" lines={[{ text: 'Work experience.' }]} />
         <Reveal as="p" className="mb-14 max-w-xl text-slate-600 md:mb-20">
-          Internships, agencies, and now a full-stack role at Open Systèmes.
+          Internships, agencies, and now a full-stack role at Infinit Deals.
         </Reveal>
         <Timeline entries={experience} />
       </div>
