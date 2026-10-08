@@ -4,3 +4,4 @@ dist
 .DS_Store
 .claude
 assets-src/screenshots/*.png
+deploy-dist.zip
