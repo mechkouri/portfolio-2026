@@ -8,8 +8,6 @@ const jobs = [
   { src: 'assets-src/img1', out: 'logo.png', png: true },
   { src: 'assets-src/img2', out: 'portrait-studio.webp', width: 1024 },
   { src: 'assets-src/img7', out: 'portrait-office.webp', width: 1024 },
-  { src: 'assets-src/img4', out: 'project-swsm.webp', width: 800 },
-  { src: 'assets-src/img5', out: 'project-haccp.webp', width: 800 },
   { src: 'assets-src/img6', out: 'project-budgeviser.webp', width: 800 },
 ];
 
@@ -32,6 +30,17 @@ for (const file of await readdir('assets-src/logos')) {
     .trim({ threshold: 20 })
     .resize({ width: 192, height: 192, fit: 'inside', withoutEnlargement: true })
     .webp({ quality: 90, alphaQuality: 100, effort: 6 })
+    .toFile(`${OUT}/${out}`);
+  console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
+}
+
+// Full-page project screenshots: keep the top of the page, cap width, and re-encode.
+await mkdir(`${OUT}/projects`, { recursive: true });
+for (const file of await readdir('assets-src/screenshots')) {
+  const out = `projects/${parse(file).name}.webp`;
+  const info = await sharp(`assets-src/screenshots/${file}`)
+    .resize({ width: 720, withoutEnlargement: true })
+    .webp({ quality: 80, effort: 6 })
     .toFile(`${OUT}/${out}`);
   console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
 }

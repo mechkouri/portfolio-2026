@@ -164,7 +164,8 @@ export const workflows: { title: string; badge: string; accent: Accent; steps: s
 ];
 
 export interface Project {
-  domain: string;
+  /** Text shown in the browser-bar pill: a real domain when known, otherwise the project name. */
+  label: string;
   url?: string;
   image: string;
   imageAlt: string;
@@ -172,14 +173,16 @@ export interface Project {
   category: string;
   title: string;
   description: string;
+  /** Technologies; leave empty when the stack isn't listed. */
   tags: string[];
-  siteIcon: 'globe' | 'shield' | 'code';
+  siteIcon: 'globe' | 'shield' | 'code' | 'cart';
 }
 
-export const projects: Project[] = [
+/** Big cards at the top of Selected Work. */
+export const featuredProjects: Project[] = [
   {
-    domain: 'swsm-conference.org',
-    image: '/images/project-swsm.webp',
+    label: 'swsm-conference.org',
+    image: '/images/projects/swsm.webp',
     imageAlt: 'Full-page screenshot of the SWSM 2026 international conference website',
     accent: 'indigo',
     category: 'Event Website // Conference',
@@ -190,9 +193,9 @@ export const projects: Project[] = [
     siteIcon: 'globe',
   },
   {
-    domain: 'normes-haccp.cloud',
-    image: '/images/project-haccp.webp',
-    imageAlt: 'Full-page screenshot of the Normes HACCP digital platform for food-service businesses',
+    label: 'normes-haccp.cloud',
+    image: '/images/projects/normes-haccp.webp',
+    imageAlt: 'Full-page screenshot of the Normes HACCP website for food-service businesses',
     accent: 'sky',
     category: 'Food Safety // WordPress Platform',
     title: 'Normes HACCP — Platform for Food-Service Businesses',
@@ -202,9 +205,9 @@ export const projects: Project[] = [
     siteIcon: 'shield',
   },
   {
-    domain: 'budgeviser.app',
+    label: 'budgeviser.app',
     image: '/images/project-budgeviser.webp',
-    imageAlt: 'Full-page screenshot of the Budgeviser financial planning web application',
+    imageAlt: 'Full-page screenshot of the Budgeviser personal finance web application',
     accent: 'indigo',
     category: 'Web App // Personal Finance',
     title: 'Budgeviser — Personal Finance App',
@@ -212,6 +215,98 @@ export const projects: Project[] = [
       'A budgeting app for managing personal money across devices. Built with React and Tailwind CSS on a Strapi + PostgreSQL backend.',
     tags: ['React', 'Tailwind CSS', 'Strapi', 'PostgreSQL', 'API Integration'],
     siteIcon: 'code',
+  },
+];
+
+/** Smaller cards in the "More projects" grid. Descriptions only state what the site shows. */
+export const moreProjects: Project[] = [
+  {
+    label: 'Equipements Cuisine',
+    image: '/images/projects/equipements-cuisine.webp',
+    imageAlt: 'Full-page screenshot of the Equipements Cuisine online store',
+    accent: 'amber',
+    category: 'E-commerce // Catering equipment',
+    title: 'Equipements Cuisine',
+    description: 'Online store for professional kitchen equipment, with product categories, weekly offers, and a blog.',
+    tags: [],
+    siteIcon: 'cart',
+  },
+  {
+    label: 'Jungle Papper',
+    image: '/images/projects/jungle-papper.webp',
+    imageAlt: 'Full-page screenshot of the Jungle Papper label shop',
+    accent: 'emerald',
+    category: 'E-commerce // Labels',
+    title: 'Jungle Papper',
+    description: 'Shop for compatible thermal and adhesive labels, organised by printer brand: Dymo, Zebra, Brother.',
+    tags: [],
+    siteIcon: 'cart',
+  },
+  {
+    label: 'Varimart',
+    image: '/images/projects/varimart.webp',
+    imageAlt: 'Full-page screenshot of the Varimart online marketplace',
+    accent: 'amber',
+    category: 'E-commerce // Marketplace',
+    title: 'Varimart',
+    description: 'Online marketplace for home, kitchen, and lifestyle products, with best sellers, promo packs, and a blog.',
+    tags: [],
+    siteIcon: 'cart',
+  },
+  {
+    label: 'Cavelle',
+    image: '/images/projects/cavelle.webp',
+    imageAlt: 'Full-page screenshot of the Cavelle leather backpack landing page',
+    accent: 'indigo',
+    category: 'Landing Page // Single product',
+    title: 'Cavelle — Selim Bag',
+    description: 'Single-product page for a leather backpack brand: product story, comparison, reviews, FAQ, and order form.',
+    tags: [],
+    siteIcon: 'cart',
+  },
+  {
+    label: 'Easy Take Travel',
+    image: '/images/projects/easy-take-travel.webp',
+    imageAlt: 'Full-page screenshot of the Easy Take Travel tours website',
+    accent: 'amber',
+    category: 'Travel // Tours',
+    title: 'Easy Take Travel',
+    description: 'Website for a Moroccan travel agency, with desert tours and excursions, destinations, and a trip search.',
+    tags: [],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'Tickets De Caisse',
+    image: '/images/projects/tickets-de-caisse.webp',
+    imageAlt: 'Full-page screenshot of the Tickets De Caisse receipt paper website',
+    accent: 'emerald',
+    category: 'Landing Page // Receipt paper',
+    title: 'Tickets De Caisse',
+    description: 'Product site for thermal receipt rolls, with use cases, technical specs, FAQ, and a newsletter offer.',
+    tags: [],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'Maya Beauty House',
+    image: '/images/projects/maya-beauty-house.webp',
+    imageAlt: 'Full-page screenshot of the Maya Beauty House salon website',
+    accent: 'amber',
+    category: 'Business Website // Beauty salon',
+    title: 'Maya Beauty House',
+    description: 'Website for a beauty salon in Montpellier, with services, online booking, a special offer, and a blog.',
+    tags: [],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'TechDigi IPTV',
+    image: '/images/projects/techdigi-iptv.webp',
+    imageAlt: 'Full-page screenshot of the TechDigi IPTV landing page',
+    accent: 'amber',
+    category: 'Landing Page // Subscription',
+    title: 'TechDigi IPTV',
+    description: 'Conversion-focused landing page for a streaming subscription, with plans, testimonials, FAQ, and WhatsApp contact.',
+    tags: [],
+    siteIcon: 'globe',
   },
 ];
 
