@@ -42,10 +42,10 @@ src/
 
 ## Before going live
 
-- **Sharper project screenshots:** most slides still use small (270–660px wide) screenshots, so they look soft.
-  Add each live site to `scripts/capture-urls.json` (the key must match the file name in
-  `assets-src/screenshots/`, e.g. `"cavelle": "https://..."`), then run `npm run capture && npm run images`.
-  That produces 1600px-wide captures, as already done for Varimart.
+- **Sharper project screenshots:** Varimart, Normes HACCP and Maya Beauty House are captured from the live sites at
+  1600px. The rest still use small screenshots, so they look soft. Add each live site to `scripts/capture-urls.json`
+  (the key must match the file name in `assets-src/screenshots/`, e.g. `"cavelle": "https://..."`), then run
+  `npm run capture && npm run images`. The capture script closes pop-ups and hides fixed bars; check each result by eye.
 - Add your public email in `site.email` (src/data/content.ts). The Contact section shows a mailto button once it is set.
 - Set the real LinkedIn URL in `site.linkedin`, and real `url`s on projects if they should link out.
 - The contact form posts to Netlify Forms, so it works once the site is deployed on Netlify.

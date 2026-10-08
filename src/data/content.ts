@@ -190,7 +190,8 @@ export const featuredProjects: Project[] = [
     siteIcon: 'globe',
   },
   {
-    label: 'Normes HACCP',
+    label: 'normes-haccp.com',
+    url: 'https://normes-haccp.com',
     image: '/images/projects/normes-haccp.webp',
     imageAlt: 'Full-page screenshot of the Normes HACCP website for food-service businesses',
     accent: 'sky',
@@ -228,7 +229,8 @@ export const moreProjects: Project[] = [
     siteIcon: 'cart',
   },
   {
-    label: 'Varimart',
+    label: 'varimart.ma',
+    url: 'https://varimart.ma',
     image: '/images/projects/varimart.webp',
     imageAlt: 'Full-page screenshot of the Varimart online marketplace',
     accent: 'amber',
@@ -272,7 +274,8 @@ export const moreProjects: Project[] = [
     siteIcon: 'globe',
   },
   {
-    label: 'Maya Beauty House',
+    label: 'mayabeautyhouse.com',
+    url: 'https://mayabeautyhouse.com',
     image: '/images/projects/maya-beauty-house.webp',
     imageAlt: 'Full-page screenshot of the Maya Beauty House salon website',
     accent: 'amber',
