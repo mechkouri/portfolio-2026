@@ -362,6 +362,7 @@ export const experience: TimelineEntry[] = [
     role: 'Full-Stack Developer · WordPress · SEO · Automation',
     org: 'Infinit Deals',
     badge: 'ID',
+    logo: '/images/logos/opensystemes.webp',
     period: 'June 2024 — Present',
     place: 'Morocco · Remote',
     accent: 'indigo',
