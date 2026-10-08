@@ -94,12 +94,28 @@
   transform-style: preserve-3d;
 }
 
-/* Autoplay timer for the project slider; its animationend advances the slide. */
-@keyframes slide-progress {
-  from {
-    transform: scaleX(0);
+/* Project slider: cards ease in and out at the edges of the track (scroll-driven; Chromium and Safari 26+). */
+@keyframes slider-card-edge {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.92);
   }
-  to {
-    transform: scaleX(1);
+  22%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .slider-card {
+      animation: slider-card-edge linear both;
+      animation-timeline: view(inline);
+    }
   }
 }
