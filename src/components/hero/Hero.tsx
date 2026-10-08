@@ -32,7 +32,7 @@ export function Hero() {
       ref={root}
       id="top"
       aria-labelledby="hero-title"
-      className="relative flex min-h-[92vh] w-full flex-col justify-between overflow-hidden px-4 pt-10 pb-8 sm:px-8 lg:px-16"
+      className="relative flex min-h-[92vh] w-full flex-col justify-between overflow-hidden px-4 pt-10 pb-8 sm:px-8 lg:px-16 min-[1536px]:pr-24"
     >
       {/* Ambient light glows */}
       <div aria-hidden="true" className="pointer-events-none absolute -top-24 left-1/4 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-[140px]" />
