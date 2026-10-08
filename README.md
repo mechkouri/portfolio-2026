@@ -46,6 +46,16 @@ src/
 - Fonts are self-hosted (Fontsource); images are WebP with explicit dimensions and lazy loading.
 - Skip link, labelled sections, keyboard-operable tabs (arrow keys), visible focus rings, and live-region form feedback.
 
+## Deploying
+
+The site is live at https://mechkouri.netlify.app (Netlify project `mechkouri`).
+
+- **Netlify Drop:** run `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
+- **From Git:** `netlify.toml` already holds the build settings (`npm run build`, publish `dist`, Node 22), so
+  linking the GitHub repo to the Netlify project also works.
+- **Contact form:** it posts to Netlify Forms (form detection is on). New messages are emailed to the address set under
+  Forms > Submission notifications in the Netlify project.
+
 ## Before going live
 
 - **Sharper project screenshots:** Varimart, Normes HACCP and Maya Beauty House are captured from the live sites at
@@ -54,4 +64,3 @@ src/
   `npm run capture && npm run images`. The capture script closes pop-ups and hides fixed bars; check each result by eye.
 - Add your public email in `site.email` (src/data/content.ts). The Contact section shows a mailto button once it is set.
 - Set the real LinkedIn URL in `site.linkedin`, and real `url`s on projects if they should link out.
-- The contact form posts to Netlify Forms, so it works once the site is deployed on Netlify.

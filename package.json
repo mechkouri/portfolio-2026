@@ -6,7 +6,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "images": "node scripts/optimize-images.mjs",
-    "capture": "node scripts/capture-screenshots.mjs"
+    "capture": "node scripts/capture-screenshots.mjs",
+    "deploy:zip": "npm run build && python scripts/zip-dist.py"
   },
   "type": "module",
   "private": "true",
