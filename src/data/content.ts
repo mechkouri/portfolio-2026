@@ -363,7 +363,7 @@ export const experience: TimelineEntry[] = [
     org: 'Infinit Deals',
     badge: 'ID',
     period: 'June 2024 — Present',
-    place: 'Morocco · Hybrid',
+    place: 'Morocco · Remote',
     accent: 'indigo',
     current: true,
     points: [
