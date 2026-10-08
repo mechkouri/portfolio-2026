@@ -6,7 +6,7 @@ import {
   BadgeCheck,
   Bot,
   BrainCircuit,
-  ChartColumn,
+  Cloud,
   CodeXml,
   Database,
   LogIn,
@@ -302,12 +302,42 @@ export const moreProjects: Project[] = [
 export const projects: Project[] = [...featuredProjects, ...moreProjects];
 
 export const techCategories: { icon: LucideIcon; accent: Accent; title: string; items: string[] }[] = [
-  { icon: Palette, accent: 'indigo', title: 'Frontend', items: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'] },
-  { icon: Database, accent: 'amber', title: 'Backend & Data', items: ['Node.js', 'MySQL', 'MongoDB', 'APIs'] },
-  { icon: AppWindow, accent: 'sky', title: 'WordPress & Funnels', items: ['WordPress', 'WooCommerce', 'Elementor', 'ClickFunnels', 'System.io'] },
-  { icon: Bot, accent: 'emerald', title: 'Automation & AI', items: ['n8n', 'Make.com', 'Webhooks', 'AI-assisted development'] },
-  { icon: ChartColumn, accent: 'indigo', title: 'SEO & Ads', items: ['Google Search Console', 'Google Analytics', 'Google Ads'] },
-  { icon: PenTool, accent: 'sky', title: 'Design & Workflow', items: ['Figma', 'Git', 'GitHub'] },
+  {
+    icon: Palette,
+    accent: 'indigo',
+    title: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Framer Motion', 'Three.js / R3F'],
+  },
+  {
+    icon: Database,
+    accent: 'amber',
+    title: 'Backend & API',
+    items: ['Node.js', 'REST APIs', 'PostgreSQL', 'MySQL', 'MongoDB', 'FastAPI', 'Authentication'],
+  },
+  {
+    icon: AppWindow,
+    accent: 'sky',
+    title: 'WordPress & Web',
+    items: ['WordPress', 'WooCommerce', 'Elementor', 'ClickFunnels', 'System.io'],
+  },
+  {
+    icon: Bot,
+    accent: 'emerald',
+    title: 'Automation & AI',
+    items: ['n8n', 'Make.com', 'Webhooks', 'AI Agents', 'API Integrations', 'AI-assisted Development', 'MCP'],
+  },
+  {
+    icon: Cloud,
+    accent: 'indigo',
+    title: 'Cloud & DevOps',
+    items: ['Vercel', 'GitHub Actions', 'Cloudflare', 'CI/CD'],
+  },
+  {
+    icon: PenTool,
+    accent: 'sky',
+    title: 'Design & Workflow',
+    items: ['Figma', 'Git', 'GitHub', 'Responsive Design', 'UI/UX', 'Web Performance'],
+  },
 ];
 
 export interface TimelineEntry {

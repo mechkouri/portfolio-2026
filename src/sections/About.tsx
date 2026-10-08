@@ -27,7 +27,7 @@ export function About() {
               business that depends on it.
             </Reveal>
             <Reveal as="p" delay={0.12} className="text-base leading-relaxed text-slate-600">
-              These days a big part of my workflow is vibe coding: using AI to prototype, debug, and iterate quickly. It
+              These days a big part of my workflow is AI-assisted development: using AI to prototype, debug, and iterate quickly. It
               makes me faster. It doesn't make the decisions. Architecture and code quality are still on me.
             </Reveal>
 
