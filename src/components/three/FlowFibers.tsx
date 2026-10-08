@@ -3,21 +3,20 @@ import { sections } from '../../data/content';
 import type { BackdropMode } from '../../hooks/useDeviceCapabilities';
 
 /*
- * A bundle of soft, thin light fibres that runs the full length of the page as one continuous
- * thread. It holds the right margin through one section, sweeps across the gap to the left margin
- * for the next, and back again. A slow wave ripples down the strands, and a gentle glow follows the
- * scroll position, leaving a faint lit trail behind it.
+ * A bundle of thin light fibres that snakes down the page behind the content. It is drawn as you
+ * scroll: the fibres grow downward with you, led by a soft light, and a few small lights travel
+ * along them. The path is one smooth wave with one swing per section (right in one section, left
+ * in the next), so there are no corners and nothing is "already drawn" further down the page.
  *
- * Readability comes first: the layer sits behind everything, the fibres only change sides in the
- * space between sections, and they fade out wherever they pass behind the content column.
+ * Everything sits behind the page (fixed canvas, pointer-events: none). The lines are hairline and
+ * low-contrast, and they fade a little where they pass behind the text column.
  *
  * Plain 2D canvas: only the visible slice is drawn, so it costs almost nothing and works on any
- * device. With reduced motion it is drawn once per scroll position, with no animation.
+ * device. With reduced motion the whole path is drawn once per scroll position, with no animation.
  */
 
 const IDS = ['top', ...sections.map((s) => s.id)];
-const STEP = 14; // vertical sampling step in px
-const CHUNK = 3; // samples per stroke; each chunk gets its own alpha, which is what makes the glow
+const STEP = 10; // vertical sampling step in px: small enough that the curve never shows corners
 
 const INDIGO = [79, 70, 229];
 const CYAN = [6, 182, 212];
@@ -27,10 +26,6 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const smoothstep = (a: number, b: number, x: number) => {
   const t = clamp((x - a) / (b - a), 0, 1);
   return t * t * (3 - 2 * t);
-};
-const smoother = (t: number) => {
-  const x = clamp(t, 0, 1);
-  return x * x * x * (x * (x * 6 - 15) + 10);
 };
 
 function rng(seed: number) {
@@ -45,38 +40,31 @@ function rng(seed: number) {
 }
 
 interface Fiber {
-  offset: number; // distance from the bundle centre
-  amp: number; // sideways ripple
-  freq: number;
+  lag: number; // how far this strand trails the others along the snake, in px
+  spread: number; // sideways distance from the bundle centre
+  amp: number; // small ripple on top of the main wave
   phase: number;
-  drift: number; // how fast the ripple travels down the strand
   width: number;
-  speed: number; // px/s a light pulse travels down the page
-  spacing: number; // px between pulses
-  pulseShift: number;
+  speed: number; // px/s a travelling light moves down the strand
+  shifts: number[]; // starting offsets of its travelling lights
   hue: number;
 }
 
-interface Anchor {
-  y: number;
-  side: 1 | -1;
-}
-
 function makeFibers(count: number, lite: boolean): Fiber[] {
-  const rand = rng(5);
-  const step = lite ? 4 : 8;
-  return Array.from({ length: count }, (_, j) => ({
-    offset: (j - (count - 1) / 2) * step,
-    amp: (lite ? 2 : 4) + rand() * (lite ? 3 : 6),
-    freq: 0.0028 + rand() * 0.004,
-    phase: rand() * Math.PI * 2,
-    drift: 0.25 + rand() * 0.3,
-    width: 0.9 + rand() * 0.6,
-    speed: 70 + rand() * 60,
-    spacing: 800 + rand() * 600,
-    pulseShift: rand() * 1000,
-    hue: rand() * Math.PI * 2,
-  }));
+  const rand = rng(9);
+  return Array.from({ length: count }, (_, j) => {
+    const c = j - (count - 1) / 2;
+    return {
+      lag: c * (lite ? 26 : 34), // strands follow each other, so the bundle twists like a snake's body
+      spread: c * (lite ? 5 : 7),
+      amp: 3 + rand() * 5,
+      phase: rand() * Math.PI * 2,
+      width: 1 + rand() * 0.7,
+      speed: 80 + rand() * 70,
+      shifts: lite ? [rand() * 900] : [rand() * 900, 900 + rand() * 900],
+      hue: rand() * Math.PI * 2,
+    };
+  });
 }
 
 export default function FlowFibers({ mode }: { mode: BackdropMode }) {
@@ -89,25 +77,15 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
 
     const animated = mode !== 'static';
     const lite = mode === 'lite';
-    const fibers = makeFibers(lite ? 4 : 7, lite);
+    const fibers = makeFibers(lite ? 3 : 6, lite);
 
     let W = 0;
     let H = 0;
-    let anchors: Anchor[] = [];
+    let mids: number[] = []; // document y of the middle of every section
     let raf = 0;
     let last = performance.now();
     let time = 0;
-    let head = window.scrollY + window.innerHeight * 0.5;
-    let sway = 0;
-    let lastScroll = window.scrollY;
-
-    const gutter = () => (lite ? 12 : clamp(W * 0.045, 46, 84));
-    // The telemetry panel lives in the right margin on wide screens (full panel from 1536px, a slim
-    // rail from 1400px), so the right-hand run sits just inside it instead of underneath.
-    const panel = () => (lite ? 0 : W >= 1536 ? 80 : W >= 1400 ? 42 : 0);
-    const sideX = (side: 1 | -1) => (side > 0 ? W - gutter() - panel() : gutter());
-    // Left and right edge of the content column (the section padding or the centred 1280px container).
-    const contentEdge = () => Math.max(W >= 1024 ? 64 : W >= 640 ? 32 : 16, (W - 1280) / 2);
+    let head = window.scrollY + window.innerHeight * 0.55;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -120,98 +98,154 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    // The bundle holds one side across each section's content and only changes side in the gap
-    // between sections, where there is nothing to read.
     const measure = () => {
-      anchors = [];
-      IDS.forEach((id, i) => {
+      mids = [];
+      for (const id of IDS) {
         const el = document.getElementById(id);
-        if (!el) return;
+        if (!el) continue;
         const r = el.getBoundingClientRect();
-        const cs = getComputedStyle(el);
-        const top = r.top + window.scrollY + parseFloat(cs.paddingTop);
-        const bottom = r.bottom + window.scrollY - parseFloat(cs.paddingBottom);
-        const side: 1 | -1 = i % 2 === 0 ? 1 : -1;
-        anchors.push({ y: top + 24, side }, { y: Math.max(top + 25, bottom - 24), side });
-      });
+        mids.push(r.top + window.scrollY + r.height / 2);
+      }
     };
 
-    /** Centre line of the bundle at document height y: holds one side per section, then sweeps across. */
-    const centreX = (y: number) => {
-      const n = anchors.length;
-      if (!n) return sideX(1);
-      if (y <= anchors[0].y) return sideX(anchors[0].side);
-      for (let i = 0; i < n - 1; i++) {
-        const a = anchors[i];
-        const b = anchors[i + 1];
-        if (y <= b.y) return lerp(sideX(a.side), sideX(b.side), smoother((y - a.y) / Math.max(1, b.y - a.y)));
-      }
-      return sideX(anchors[n - 1].side);
+    /**
+     * Position along the page measured in "sections": 0 at the middle of the hero, 1 at the middle of
+     * the next section, and so on. It continues past both ends at the nearest section's pace.
+     */
+    const sectionPos = (y: number) => {
+      const n = mids.length;
+      if (n < 2) return y / Math.max(H, 1);
+      let i = 0;
+      while (i < n - 2 && y >= mids[i + 1]) i++;
+      return i + (y - mids[i]) / Math.max(1, mids[i + 1] - mids[i]);
+    };
+
+    /**
+     * The snake: a cosine of the section position, so it swings one way per section. At the
+     * middle of every section the slope is zero, which is why it has no corners.
+     */
+    const snakeX = (y: number) => {
+      const amp = W * (lite ? 0.36 : 0.3);
+      return W / 2 + amp * Math.cos(Math.PI * sectionPos(y));
     };
 
     const fibreX = (f: Fiber, y: number) => {
-      const breathe = 0.55 + 0.45 * Math.sin(y * 0.0016 + 1.7); // the bundle slowly opens and closes
-      const ripple = Math.sin(y * f.freq + f.phase - (animated ? time * f.drift : 0)) * f.amp; // a wave travelling down
-      const lean = animated ? sway * Math.exp(-(((y - head) / 520) ** 2)) : 0; // a slight bend while you scroll fast
-      return centreX(y) + f.offset * breathe + ripple + lean;
+      const breathe = 0.6 + 0.4 * Math.sin(y * 0.0014 + 1.3); // the bundle slowly opens and closes
+      const ripple = Math.sin(y * 0.0045 - (animated ? time * 0.9 : 0) + f.phase) * f.amp; // a slow wave flowing down
+      return snakeX(y - f.lag) + f.spread * breathe + ripple;
+    };
+
+    const edge = () => Math.max(W >= 1024 ? 64 : W >= 640 ? 32 : 16, (W - 1280) / 2);
+    /** A little fainter where a fibre passes behind the text column, so it never competes with reading. */
+    const duck = (x: number) => {
+      const e = edge();
+      const inside = smoothstep(e - 30, e + 30, x) * (1 - smoothstep(W - e - 30, W - e + 30, x));
+      return 1 - 0.4 * inside;
     };
 
     const colour = (f: Fiber, y: number) => {
-      const t = 0.5 + 0.5 * Math.sin(y * 0.0021 + f.hue);
+      const t = 0.5 + 0.5 * Math.sin(y * 0.002 + f.hue);
       return [lerp(INDIGO[0], CYAN[0], t), lerp(INDIGO[1], CYAN[1], t), lerp(INDIGO[2], CYAN[2], t)];
     };
 
-    /** 1 over the margins, down to 0.3 where a fibre passes behind the content column. */
-    const duck = (x: number) => {
-      const e = contentEdge();
-      const inside = smoothstep(e - 24, e + 24, x) * (1 - smoothstep(W - e - 24, W - e + 24, x));
-      return 1 - 0.7 * inside;
+    const glow = (x: number, y: number, radius: number, rgb: string, strength: number) => {
+      const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      g.addColorStop(0, `rgba(255,255,255,${(0.95 * strength).toFixed(3)})`);
+      g.addColorStop(0.25, `rgba(${rgb},${(0.6 * strength).toFixed(3)})`);
+      g.addColorStop(1, `rgba(${rgb},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
       const scrollY = window.scrollY;
-      const y0 = scrollY - 60;
-      const y1 = scrollY + H + 60;
+      const y0 = scrollY - 40;
+      // Animated: the fibres only exist down to the glow, so they grow as you scroll. Still: the whole path.
+      const yEnd = animated ? Math.min(scrollY + H + 40, head + 30) : scrollY + H + 40;
+      if (yEnd <= y0) return;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
+      let headXSum = 0;
+      let headCount = 0;
+
       for (const f of fibers) {
-        const xs: number[] = [];
         const ys: number[] = [];
-        for (let y = y0; y <= y1; y += STEP) {
-          xs.push(fibreX(f, y));
+        const xs: number[] = [];
+        for (let y = y0; y < yEnd; y += STEP) {
           ys.push(y);
+          xs.push(fibreX(f, y));
         }
-        for (let i = 0; i + CHUNK < xs.length; i += CHUNK) {
-          const mid = ys[i + 1];
-          let a = 0.16;
-          if (animated) {
-            const trail = mid <= head ? Math.exp(-(head - mid) / 1500) : 0; // faint lit trail behind the head
-            const bump = Math.exp(-(((mid - head) / 170) ** 2)); // soft glow where you are
-            const d = (((mid - time * f.speed - f.pulseShift) % f.spacing) + f.spacing) % f.spacing;
-            const pulse = Math.exp(-((Math.min(d, f.spacing - d) / 40) ** 2)); // light travelling down
-            a = 0.12 + 0.12 * trail + 0.4 * bump + 0.34 * pulse;
-          }
-          a *= (0.75 + 0.25 * Math.sin(mid * 0.0009 + 0.8)) * duck(xs[i + 1]); // intensity drifts down the page
-          a = Math.min(a, 0.7);
-          if (a < 0.015) continue;
-          const [r, g, b] = colour(f, mid);
+        ys.push(yEnd);
+        xs.push(fibreX(f, yEnd));
+        if (xs.length < 3) continue;
+
+        // One smooth curve through the samples (quadratic segments through the midpoints: no corners).
+        const path = new Path2D();
+        path.moveTo(xs[0], ys[0] - scrollY);
+        for (let i = 1; i < xs.length - 1; i++) {
+          path.quadraticCurveTo(xs[i], ys[i] - scrollY, (xs[i] + xs[i + 1]) / 2, (ys[i] + ys[i + 1]) / 2 - scrollY);
+        }
+        path.lineTo(xs[xs.length - 1], ys[ys.length - 1] - scrollY);
+
+        // Brightness along the strand, expressed as one vertical gradient so the stroke has no seams.
+        const span = yEnd - y0;
+        const line = ctx.createLinearGradient(0, y0 - scrollY, 0, yEnd - scrollY);
+        const halo = ctx.createLinearGradient(0, y0 - scrollY, 0, yEnd - scrollY);
+        for (let i = 0; i < ys.length; i++) {
+          const y = ys[i];
+          const t = clamp((y - y0) / span, 0, 1);
+          const [r, g, b] = colour(f, y);
           const rgb = `${r | 0},${g | 0},${b | 0}`;
-
-          ctx.beginPath();
-          ctx.moveTo(xs[i], ys[i] - scrollY);
-          for (let k = 1; k <= CHUNK; k++) ctx.lineTo(xs[i + k], ys[i + k] - scrollY);
-
-          if (a > 0.3) {
-            ctx.strokeStyle = `rgba(${rgb},${(a * 0.16).toFixed(3)})`; // very soft halo, only on the brightest bits
-            ctx.lineWidth = f.width * 5;
-            ctx.stroke();
+          let a = 0.15;
+          let ha = 0;
+          if (animated) {
+            const behind = Math.max(0, head - y);
+            const comet = Math.exp(-behind / 130); // bright just behind the leading light
+            const reveal = 1 - smoothstep(head - 50, head + 30, y); // the strand fades in as it is drawn
+            a = (0.15 + 0.2 * Math.exp(-behind / 1100) + 0.5 * comet) * reveal;
+            ha = 0.2 * comet * reveal;
           }
-          ctx.strokeStyle = `rgba(${rgb},${a.toFixed(3)})`;
-          ctx.lineWidth = f.width;
-          ctx.stroke();
+          const k = duck(xs[i]);
+          line.addColorStop(t, `rgba(${rgb},${(a * k).toFixed(3)})`);
+          halo.addColorStop(t, `rgba(${rgb},${(ha * k).toFixed(3)})`);
         }
+        if (animated) {
+          ctx.strokeStyle = halo;
+          ctx.lineWidth = f.width * 6;
+          ctx.stroke(path);
+        }
+        ctx.strokeStyle = line;
+        ctx.lineWidth = f.width;
+        ctx.stroke(path);
+
+        if (!animated) continue;
+
+        // Small lights that keep travelling down the part of the strand that has been drawn.
+        const [r, g, b] = colour(f, head);
+        const rgb = `${r | 0},${g | 0},${b | 0}`;
+        const loop = Math.max(head + 240, 600);
+        for (const s of f.shifts) {
+          const yp = (time * f.speed + s) % loop;
+          if (yp < y0 || yp > Math.min(yEnd, head - 20)) continue;
+          const xp = fibreX(f, yp);
+          glow(xp, yp - scrollY, 11, rgb, 0.8 * duck(xp));
+        }
+
+        // The leading light at the end of the strand.
+        if (head >= y0 && head <= scrollY + H + 40) {
+          const xh = fibreX(f, head);
+          glow(xh, head - scrollY, 15, rgb, 0.9);
+          headXSum += xh;
+          headCount++;
+        }
+      }
+
+      // One soft, wide glow around the whole bundle's leading edge, so the lights read as one.
+      if (animated && headCount) {
+        const hx = headXSum / headCount;
+        glow(hx, head - scrollY, lite ? 46 : 70, '99,102,241', 0.16);
       }
     };
 
@@ -224,13 +258,8 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       time += dt;
-
-      const scrollY = window.scrollY;
-      const target = scrollY + H * 0.5;
-      head += (target - head) * (1 - Math.exp(-dt * 4)); // the glow eases after the scroll instead of snapping
-      const v = dt > 0 ? (scrollY - lastScroll) / dt : 0;
-      lastScroll = scrollY;
-      sway += (clamp(v * 0.012, -28, 28) - sway) * (1 - Math.exp(-dt * 5));
+      // The leading light eases toward the scroll position, so the fibres flow rather than snap.
+      head += (window.scrollY + H * 0.55 - head) * (1 - Math.exp(-dt * 3.2));
       draw();
     };
 
