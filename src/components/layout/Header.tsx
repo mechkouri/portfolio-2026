@@ -8,6 +8,9 @@ import { cn, PulseDot } from '../ui/primitives';
 // Observe every section so the nav clears its highlight in sections that have no link.
 const observedIds = ['top', ...sections.map((s) => s.id)];
 
+// Mobile menu: Home plus every section of the page, in order.
+const menu = [{ id: 'top', label: 'Home' }, ...sections.map((s) => ({ id: s.id, label: 'nav' in s ? s.nav : s.eyebrow }))];
+
 export function Header() {
   const active = useActiveSection(observedIds);
   const [open, setOpen] = useState(false);
@@ -70,7 +73,9 @@ export function Header() {
         </a>
 
         <nav aria-label="Primary" className="hidden items-center gap-6 text-xs tracking-wide lg:flex">
-          {navLinks.map((link) => (
+          {navLinks
+            .filter((link) => link.id !== 'contact')
+            .map((link) => (
             <a
               key={link.id}
               href={`#${link.id}`}
@@ -102,7 +107,7 @@ export function Header() {
             aria-current={active === 'contact' ? 'location' : undefined}
             className="inline-flex items-center rounded-pill bg-indigo-600 px-3 py-1.5 font-mono text-xs font-bold tracking-wider whitespace-nowrap text-white uppercase shadow-md shadow-indigo-600/25 transition-all hover:scale-105 hover:bg-indigo-700 active:scale-95 sm:px-4"
           >
-            Let's Talk
+            Contact
           </a>
           <button
             ref={menuButton}
@@ -141,7 +146,7 @@ export function Header() {
             >
               {/* On small screens the menu doubles as a full page outline. */}
               <ul className="grid grid-cols-2 gap-1">
-                {sections.map((section, i) => (
+                {menu.map((section, i) => (
                   <li key={section.id}>
                     <a
                       ref={i === 0 ? firstMobileLink : undefined}
@@ -156,7 +161,7 @@ export function Header() {
                       <span aria-hidden="true" className="font-mono text-[11px] text-indigo-600">
                         {sectionNumber(section.id)}
                       </span>
-                      {'nav' in section ? section.nav : section.eyebrow}
+                      {section.label}
                     </a>
                   </li>
                 ))}

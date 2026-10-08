@@ -20,6 +20,13 @@ export function Automation() {
             Most businesses run on a stack of tools that don't talk to each other. I connect them with n8n and Make.com:
             content, SEO tasks, leads, notifications, and data syncs. I add AI where it saves time, not just because I can.
           </Reveal>
+          <Reveal as="div" delay={0.1} className="mt-6 flex flex-wrap gap-2 font-mono text-xs font-semibold text-indigo-700">
+            {['n8n', 'Make.com', 'APIs', 'Webhooks', 'AI-assisted workflows'].map((tool) => (
+              <span key={tool} className="rounded-pill border border-indigo-200 bg-indigo-50 px-3 py-1">
+                {tool}
+              </span>
+            ))}
+          </Reveal>
         </div>
 
         {/* Pipeline diagram */}

@@ -6,7 +6,7 @@ import { Section, SectionHeading, SectionLabel } from '../components/ui/primitiv
 
 export function About() {
   return (
-    <Section id="about" tone="muted" labelledBy="about-title">
+    <Section id="about" labelledBy="about-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="about" />
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">

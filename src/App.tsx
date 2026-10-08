@@ -5,26 +5,24 @@ import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { Telemetry } from './components/layout/Telemetry';
 import { Hero } from './components/hero/Hero';
+import { Experience } from './sections/Experience';
+import { Work } from './sections/Work';
 import { Services } from './sections/Services';
 import { Automation } from './sections/Automation';
-import { Work } from './sections/Work';
-import { Process } from './sections/Process';
-import { Tech } from './sections/Tech';
-import { Experience } from './sections/Experience';
-import { Education } from './sections/Education';
 import { About } from './sections/About';
+import { Skills } from './sections/Skills';
+import { Education } from './sections/Education';
 import { Contact } from './sections/Contact';
 
-// Rendered in the order defined by `sections`, so numbering and nav always match the page.
+// Rendered in the order defined by `sections`, so numbering, nav and backgrounds always match the page.
 const sectionComponents: Record<SectionId, ComponentType> = {
+  experience: Experience,
   work: Work,
   services: Services,
   automation: Automation,
-  process: Process,
-  experience: Experience,
-  education: Education,
-  tech: Tech,
   about: About,
+  skills: Skills,
+  education: Education,
   contact: Contact,
 };
 

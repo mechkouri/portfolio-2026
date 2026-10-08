@@ -10,6 +10,15 @@ let loader: Promise<{ gsap: GsapModule; ScrollTrigger: ScrollTriggerModule }> | 
 function loadGsap() {
   loader ??= Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([g, st]) => {
     g.gsap.registerPlugin(st.ScrollTrigger);
+    // Trigger positions are measured once, but the page keeps growing as images and fonts load
+    // (and as sections are reordered or resized). Re-measure whenever the layout height changes.
+    let timer = 0;
+    const refresh = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => st.ScrollTrigger.refresh(), 200);
+    };
+    window.addEventListener('load', refresh);
+    new ResizeObserver(refresh).observe(document.body);
     return { gsap: g.gsap, ScrollTrigger: st.ScrollTrigger };
   });
   return loader;

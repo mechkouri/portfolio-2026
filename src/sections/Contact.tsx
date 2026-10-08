@@ -1,9 +1,9 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Globe, MapPin, Share2, Terminal } from 'lucide-react';
+import { ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Globe, Mail, MapPin, Share2, Terminal } from 'lucide-react';
 import { site } from '../data/content';
 import { Reveal } from '../components/ui/Reveal';
-import { cn, PulseDot, SectionHeading, SectionLabel } from '../components/ui/primitives';
+import { cn, PulseDot, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -47,7 +47,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative w-full overflow-hidden border-t border-slate-200/80 bg-white px-4 py-24 sm:px-8 lg:px-16">
+    <Section id="contact" labelledBy="contact-title" spacious className="overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-1/4 h-[520px] w-[520px] rounded-full bg-indigo-500/10 blur-[140px]" />
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 left-1/4 h-[350px] w-[600px] rounded-full bg-sky-400/10 blur-[150px]" />
 
@@ -65,8 +65,26 @@ export function Contact() {
               Need a website, a web app, better SEO, or a workflow that stops eating your week? Send me a short message
               about what you're working on. Recruiters are welcome too.
             </Reveal>
+            <Reveal as="p" delay={0.05} className="flex flex-wrap items-center gap-2 font-mono text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+              <span>Open to</span>
+              {['Freelance projects', 'Collaborations'].map((x) => (
+                <span key={x} className="rounded-pill border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-emerald-700">
+                  {x}
+                </span>
+              ))}
+            </Reveal>
 
             <Reveal className="space-y-3 border-t border-slate-200 pt-6 font-mono text-xs text-slate-700">
+              {site.email && (
+                <a
+                  href={`mailto:${site.email}`}
+                  className="group flex w-fit items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
+                >
+                  <Mail aria-hidden="true" size={16} />
+                  <span>{site.email}</span>
+                  <ArrowUpRight aria-hidden="true" size={14} className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              )}
               <div className="flex flex-wrap items-center gap-3">
                 <ExternalPill
                   href={site.linkedin}
@@ -171,6 +189,6 @@ export function Contact() {
           </a>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

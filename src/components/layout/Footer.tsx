@@ -24,7 +24,7 @@ export function Footer() {
         <nav aria-label="Footer">
           <h2 className="mb-2 font-mono text-[10px] font-semibold tracking-widest text-slate-400 uppercase">Sections</h2>
           <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs md:flex-col md:justify-start">
-            {[...navLinks, { id: 'contact', label: 'Contact' }].map((link) => (
+            {navLinks.map((link) => (
               <li key={link.id}>
                 <a href={`#${link.id}`} className="text-slate-600 transition-colors hover:text-indigo-600">
                   {link.label}

@@ -3,14 +3,14 @@ import { accents } from '../lib/accents';
 import { Reveal, Stagger, StaggerItem } from '../components/ui/Reveal';
 import { cn, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
-export function Tech() {
+export function Skills() {
   return (
-    <Section id="tech" labelledBy="tech-title">
+    <Section id="skills" labelledBy="skills-title">
       <div className="mx-auto max-w-7xl">
-        <SectionLabel id="tech" />
-        <SectionHeading id="tech-title" className="mb-4" lines={[{ text: 'Tools I use to build and automate.' }]} />
+        <SectionLabel id="skills" />
+        <SectionHeading id="skills-title" className="mb-4" lines={[{ text: 'What I work with.' }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          The stack I reach for day to day.
+          Grouped by what each tool is for.
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>

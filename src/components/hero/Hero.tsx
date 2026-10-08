@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { CalendarClock, Play, Terminal } from 'lucide-react';
 import { heroHighlights, heroStack, heroTags, site } from '../../data/content';
@@ -9,6 +9,7 @@ import { PulseDot } from '../ui/primitives';
 import { PortraitCard } from './PortraitCard';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const positioningParts = site.positioning.split(' · ');
 const container: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } } };
 const item: Variants = {
   hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
@@ -77,7 +78,7 @@ export function Hero() {
           <div data-hero-copy className="space-y-6 lg:col-span-6">
             <motion.div variants={item} className="inline-flex items-center gap-2.5">
               <span className="whitespace-nowrap rounded-pill border border-indigo-200 bg-indigo-100 px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider text-indigo-700 uppercase shadow-sm">
-                {site.role}
+                Portfolio 2026
               </span>
               <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">Based in {site.location}, {site.country}</span>
             </motion.div>
@@ -94,10 +95,19 @@ export function Hero() {
               {site.name}: {site.positioning}
             </span>
 
+            <motion.p variants={item} aria-hidden="true" className="font-mono text-xs leading-relaxed tracking-wide text-slate-600 sm:text-[13px]">
+              {positioningParts.map((part, i) => (
+                <Fragment key={part}>
+                  {i > 0 && <span className="mx-2 text-indigo-300">·</span>}
+                  <span className={i === 0 ? 'font-semibold text-slate-900' : undefined}>{part}</span>
+                </Fragment>
+              ))}
+            </motion.p>
+
             <motion.div variants={item} className="flex flex-wrap items-center gap-2.5 pt-1 font-mono text-xs">
               <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-indigo-200 bg-white px-2.5 py-1 font-bold text-indigo-700 shadow-sm">
                 <PulseDot className="bg-indigo-600" />
-                Vibe coder
+                Core stack
               </span>
               {heroStack.map((tech) => (
                 <span key={tech} className="contents">

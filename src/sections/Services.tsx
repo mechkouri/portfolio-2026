@@ -5,7 +5,7 @@ import { cn, Section, SectionHeading, SectionLabel, Tag } from '../components/ui
 
 export function Services() {
   return (
-    <Section id="services" tone="muted" labelledBy="services-title">
+    <Section id="services" labelledBy="services-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="services" />
         <SectionHeading id="services-title" className="mb-4" lines={[{ text: 'What you can hire me for.' }]} />

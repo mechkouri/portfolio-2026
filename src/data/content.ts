@@ -3,7 +3,6 @@ import type { LucideIcon } from 'lucide-react';
 import {
   AppWindow,
   ArrowLeftRight,
-  Sparkles,
   BadgeCheck,
   Bot,
   BrainCircuit,
@@ -11,7 +10,7 @@ import {
   CodeXml,
   Database,
   LogIn,
-  Network,
+  MonitorSmartphone,
   Palette,
   PenTool,
   SlidersHorizontal,
@@ -22,7 +21,7 @@ import type { Accent } from '../lib/accents';
 export const site = {
   name: 'Said Mechkouri',
   role: 'Full-Stack Developer',
-  positioning: 'Full-Stack Developer · WordPress Developer · SEO & Automation · Vibe Coder',
+  positioning: 'Full-Stack Developer · WordPress · SEO & Automation · AI-assisted Development',
   tagline: 'Full-Stack · WordPress · SEO',
   location: 'Marrakech',
   country: 'Morocco',
@@ -30,30 +29,36 @@ export const site = {
   github: 'https://github.com/Mechkouri',
   linkedin: 'https://linkedin.com',
   portfolio: 'https://mechkouri.netlify.app',
+  /** Public contact email. Left empty on purpose: the Contact section only shows it once it is set. */
+  email: '',
 };
 
 /**
  * Page outline. The order here is the order on the page, and it drives the
- * section numbers ("01 — Selected Work") and the navigation links.
- * Proof (work) comes first, then what I offer, then who I am, then contact.
+ * section numbers ("01 — Experience"), the navigation, the alternating section
+ * backgrounds and the telemetry panel. Credibility first (experience), then
+ * proof (work), then what I offer, who I am, my stack, and how to reach me.
+ * The hero ("top") comes before all of these and is numbered 00.
  */
 export const sections = [
+  { id: 'experience', eyebrow: 'Experience', nav: 'Experience' },
   { id: 'work', eyebrow: 'Selected Work', nav: 'Work' },
   { id: 'services', eyebrow: 'What I Do', nav: 'Services' },
   { id: 'automation', eyebrow: 'Automation', nav: 'Automation' },
-  { id: 'process', eyebrow: 'How I Work' },
-  { id: 'experience', eyebrow: 'Experience', nav: 'Experience' },
-  { id: 'education', eyebrow: 'Education', nav: 'Education' },
-  { id: 'tech', eyebrow: 'Stack' },
   { id: 'about', eyebrow: 'About', nav: 'About' },
-  { id: 'contact', eyebrow: 'Get in Touch' },
+  { id: 'skills', eyebrow: 'Skills' },
+  { id: 'education', eyebrow: 'Education' },
+  { id: 'contact', eyebrow: 'Get in Touch', nav: 'Contact' },
 ] as const;
 
 export type SectionId = (typeof sections)[number]['id'];
 
-export const navLinks = sections.flatMap((s) => ('nav' in s ? [{ id: s.id, label: s.nav }] : []));
+export const navLinks = [
+  { id: 'top', label: 'Home' },
+  ...sections.flatMap((s) => ('nav' in s ? [{ id: s.id, label: s.nav }] : [])),
+];
 
-export function sectionNumber(id: SectionId): string {
+export function sectionNumber(id: string): string {
   return String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');
 }
 
@@ -107,21 +112,12 @@ export const services: Service[] = [
     tech: ['Technical SEO', 'Site structure', 'Content optimization', 'Search Console', 'Google Analytics'],
   },
   {
-    icon: Network,
+    icon: MonitorSmartphone,
     accent: 'amber',
-    kicker: '04 // Workflows',
-    title: 'Automation',
-    description: 'Workflows that connect your tools and take repetitive tasks off your plate, with AI where it helps.',
-    tech: ['n8n', 'Make.com', 'APIs', 'Webhooks', 'AI'],
-  },
-  {
-    icon: Sparkles,
-    accent: 'indigo',
-    kicker: '05 // AI-Assisted Development',
-    title: 'Vibe Coding',
-    description:
-      'I use AI to prototype, build, and debug faster. The speed comes from AI. The architecture and code quality stay my job.',
-    tech: ['AI-assisted development', 'Prototyping', 'Debugging', 'Fast iteration'],
+    kicker: '04 // Websites & Funnels',
+    title: 'Web Development',
+    description: 'Business websites, landing pages, and sales funnels that work on every screen and are built to convert.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'jQuery', 'ClickFunnels', 'System.io', 'Responsive design'],
   },
 ];
 
@@ -301,14 +297,6 @@ export const moreProjects: Project[] = [
 
 /** Everything in the Selected Work slider, in slide order. */
 export const projects: Project[] = [...featuredProjects, ...moreProjects];
-
-export const processSteps: { accent: Accent; title: string; description: string; label: string }[] = [
-  { accent: 'indigo', title: 'Discover', description: 'I learn how your business works and what the project really needs.', label: 'Goals & Scope' },
-  { accent: 'sky', title: 'Design', description: 'We agree on structure and user flow before I write any code.', label: 'Structure & UX' },
-  { accent: 'amber', title: 'Build', description: 'I write the code, connect the tools, and show progress as I go.', label: 'Code & Integrations' },
-  { accent: 'emerald', title: 'Optimize', description: 'Speed, SEO, and usability get tested and tuned.', label: 'Speed & Search' },
-  { accent: 'indigo', title: 'Launch', description: 'I deploy, hand everything over, and stay reachable after launch.', label: 'Deploy & Handover' },
-];
 
 export const techCategories: { icon: LucideIcon; accent: Accent; title: string; items: string[] }[] = [
   { icon: Palette, accent: 'indigo', title: 'Frontend', items: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'] },

@@ -37,30 +37,46 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   );
 }
 
-/** Section wrapper matching the Stitch section spacing and alternating backgrounds. */
+/**
+ * Section wrapper. Backgrounds alternate white / muted by position in the page outline, so
+ * reordering sections never breaks the rhythm. A soft gradient at the top carries the previous
+ * section's colour into this one, so the page reads as one continuous surface rather than
+ * stacked blocks.
+ */
 export function Section({
   id,
-  tone = 'white',
   className,
   children,
   labelledBy,
+  spacious,
 }: {
   id: string;
-  tone?: 'white' | 'muted';
   className?: string;
   children: ReactNode;
   labelledBy?: string;
+  spacious?: boolean;
 }) {
+  const order = sections.findIndex((s) => s.id === id);
+  const muted = order % 2 === 1;
+  const prevMuted = order > 0 && (order - 1) % 2 === 1;
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
       className={cn(
-        'relative w-full border-t border-slate-200/80 px-4 py-20 sm:px-8 lg:px-16',
-        tone === 'white' ? 'bg-white' : 'bg-slate-50/70',
+        'relative isolate w-full px-4 sm:px-8 lg:px-16',
+        spacious ? 'py-24' : 'py-20',
+        muted ? 'bg-slate-50/70' : 'bg-white',
         className,
       )}
     >
+      <span
+        aria-hidden="true"
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b to-transparent',
+          order <= 0 || prevMuted ? 'from-slate-50' : 'from-white',
+        )}
+      />
       {children}
     </section>
   );

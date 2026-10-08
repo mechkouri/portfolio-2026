@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { sections } from '../../data/content';
 import { cn } from '../ui/primitives';
 
-const items = [{ id: 'top', label: 'Intro' }, ...sections.map((s) => ({ id: s.id, label: s.eyebrow }))];
+const items = [{ id: 'top', label: 'Home' }, ...sections.map((s) => ({ id: s.id, label: s.eyebrow }))];
 const N = items.length;
 
 // Node positions in a 0-100 box: evenly spaced down the panel, drifting left and right.

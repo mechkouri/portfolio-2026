@@ -27,7 +27,7 @@ src/
     layout/                Header, Footer
     hero/                  Hero section + 3D-tilt portrait card
     three/                 R3F "automation pipeline" scene + static SVG fallback
-  sections/                Work, Services, Automation, Process, Experience, Education, Tech, About, Contact
+  sections/                Experience, Work, Services, Automation, About, Skills, Education, Contact
 ```
 
 ## Performance & accessibility notes
@@ -46,5 +46,6 @@ src/
   Add each live site to `scripts/capture-urls.json` (the key must match the file name in
   `assets-src/screenshots/`, e.g. `"cavelle": "https://..."`), then run `npm run capture && npm run images`.
   That produces 1600px-wide captures, as already done for Varimart.
+- Add your public email in `site.email` (src/data/content.ts). The Contact section shows a mailto button once it is set.
 - Set the real LinkedIn URL in `site.linkedin`, and real `url`s on projects if they should link out.
 - The contact form posts to Netlify Forms, so it works once the site is deployed on Netlify.
