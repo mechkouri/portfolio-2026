@@ -4,6 +4,7 @@ import { sections, type SectionId } from './data/content';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { Telemetry } from './components/layout/Telemetry';
+import { BackToTop } from './components/layout/BackToTop';
 import { Hero } from './components/hero/Hero';
 import { Experience } from './sections/Experience';
 import { Work } from './sections/Work';
@@ -32,6 +33,7 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <Header />
       <Telemetry />
+      <BackToTop />
       <main id="main" tabIndex={-1} className="flex min-h-screen w-full flex-col pt-16 outline-none">
         <Hero />
         {sections.map(({ id }) => {
