@@ -47,7 +47,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative w-full overflow-hidden border-t border-slate-200/80 bg-slate-50/70 px-4 py-24 sm:px-8 lg:px-16">
+    <section id="contact" aria-labelledby="contact-title" className="relative w-full overflow-hidden border-t border-slate-200/80 bg-white px-4 py-24 sm:px-8 lg:px-16">
       <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-1/4 h-[520px] w-[520px] rounded-full bg-indigo-500/10 blur-[140px]" />
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 left-1/4 h-[350px] w-[600px] rounded-full bg-sky-400/10 blur-[150px]" />
 

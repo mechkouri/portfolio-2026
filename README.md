@@ -27,7 +27,7 @@ src/
     layout/                Header, Footer
     hero/                  Hero section + 3D-tilt portrait card
     three/                 R3F "automation pipeline" scene + static SVG fallback
-  sections/                Work, Services, Automation, Process, Experience, Tech, About, Contact
+  sections/                Work, Services, Automation, Process, Experience, Education, Tech, About, Contact
 ```
 
 ## Performance & accessibility notes

@@ -11,6 +11,7 @@ import { Work } from './sections/Work';
 import { Process } from './sections/Process';
 import { Tech } from './sections/Tech';
 import { Experience } from './sections/Experience';
+import { Education } from './sections/Education';
 import { About } from './sections/About';
 import { Contact } from './sections/Contact';
 
@@ -21,6 +22,7 @@ const sectionComponents: Record<SectionId, ComponentType> = {
   automation: Automation,
   process: Process,
   experience: Experience,
+  education: Education,
   tech: Tech,
   about: About,
   contact: Contact,

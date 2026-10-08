@@ -43,6 +43,7 @@ export const sections = [
   { id: 'automation', eyebrow: 'Automation', nav: 'Automation' },
   { id: 'process', eyebrow: 'How I Work' },
   { id: 'experience', eyebrow: 'Experience', nav: 'Experience' },
+  { id: 'education', eyebrow: 'Education', nav: 'Education' },
   { id: 'tech', eyebrow: 'Stack' },
   { id: 'about', eyebrow: 'About', nav: 'About' },
   { id: 'contact', eyebrow: 'Get in Touch' },

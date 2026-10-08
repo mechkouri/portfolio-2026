@@ -5,7 +5,7 @@ import { cn, Section, SectionHeading, SectionLabel } from '../components/ui/prim
 
 export function Tech() {
   return (
-    <Section id="tech" tone="muted" labelledBy="tech-title">
+    <Section id="tech" labelledBy="tech-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="tech" />
         <SectionHeading id="tech-title" className="mb-4" lines={[{ text: 'Tools I use to build and automate.' }]} />
