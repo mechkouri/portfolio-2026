@@ -3,23 +3,31 @@ import { sections } from '../../data/content';
 import type { BackdropMode } from '../../hooks/useDeviceCapabilities';
 
 /*
- * A bundle of thin light fibres that snakes down the page behind the content. It is drawn as you
- * scroll: the fibres grow downward with you, led by a soft light, and a few small lights travel
- * along them. The path is one smooth wave with one swing per section (right in one section, left
- * in the next), so there are no corners and nothing is "already drawn" further down the page.
+ * A bundle of thin optical fibres that snakes down the page behind the content.
  *
- * Everything sits behind the page (fixed canvas, pointer-events: none). The lines are hairline and
- * low-contrast, and they fade a little where they pass behind the text column.
+ *  - It begins as a single point in the gap between the hero and the first section, and fans out
+ *    into separate strands as it goes.
+ *  - Each strand has its own slow ripple, so the strands cross and interweave like real fibres.
+ *  - It swings one way per section (right, then left, ...) in one smooth wave with no corners.
+ *  - It is drawn as you scroll: the strands only exist down to a soft leading light, and small
+ *    lights travel along the part that has been drawn.
+ *  - In the last section the strands spread apart and fade out before the footer.
+ *
+ * Everything sits behind the page (fixed canvas, pointer-events: none) in a single soft indigo-blue,
+ * and the lines fade a little behind the text column so they never compete with reading.
  *
  * Plain 2D canvas: only the visible slice is drawn, so it costs almost nothing and works on any
  * device. With reduced motion the whole path is drawn once per scroll position, with no animation.
  */
 
 const IDS = ['top', ...sections.map((s) => s.id)];
+const FIRST = sections[0].id;
+const LAST = sections[sections.length - 1].id;
 const STEP = 10; // vertical sampling step in px: small enough that the curve never shows corners
 
-const INDIGO = [79, 70, 229];
-const CYAN = [6, 182, 212];
+// One colour family, so the strands read as fibre rather than as a rainbow.
+const BASE = [99, 102, 241]; // indigo-500
+const ALT = [56, 160, 248]; // sky-ish blue, only a hint
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -40,29 +48,35 @@ function rng(seed: number) {
 }
 
 interface Fiber {
+  offset: number; // resting distance from the bundle centre, in px
   lag: number; // how far this strand trails the others along the snake, in px
-  spread: number; // sideways distance from the bundle centre
-  amp: number; // small ripple on top of the main wave
+  amp: number; // size of its own ripple, in px
+  k: number; // ripple frequency (differs per strand, which is what makes them cross)
   phase: number;
+  drift: number; // how fast, and which way, the ripple travels
+  fan: number; // which way it flies off when the bundle disperses at the end
   width: number;
   speed: number; // px/s a travelling light moves down the strand
-  shifts: number[]; // starting offsets of its travelling lights
-  hue: number;
+  shifts: number[];
+  tone: number;
 }
 
 function makeFibers(count: number, lite: boolean): Fiber[] {
-  const rand = rng(9);
+  const rand = rng(21);
   return Array.from({ length: count }, (_, j) => {
     const c = j - (count - 1) / 2;
     return {
-      lag: c * (lite ? 26 : 34), // strands follow each other, so the bundle twists like a snake's body
-      spread: c * (lite ? 5 : 7),
-      amp: 3 + rand() * 5,
+      offset: c * (lite ? 7 : 9),
+      lag: c * (lite ? 16 : 22),
+      amp: (lite ? 9 : 20) + rand() * (lite ? 12 : 32),
+      k: 0.0032 + rand() * 0.0058,
       phase: rand() * Math.PI * 2,
-      width: 1 + rand() * 0.7,
+      drift: (0.15 + rand() * 0.35) * (rand() < 0.5 ? -1 : 1),
+      fan: (c >= 0 ? 1 : -1) * (0.45 + rand() * 0.9),
+      width: 0.8 + rand() * 0.5,
       speed: 80 + rand() * 70,
       shifts: lite ? [rand() * 900] : [rand() * 900, 900 + rand() * 900],
-      hue: rand() * Math.PI * 2,
+      tone: rand(),
     };
   });
 }
@@ -77,11 +91,15 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
 
     const animated = mode !== 'static';
     const lite = mode === 'lite';
-    const fibers = makeFibers(lite ? 3 : 6, lite);
+    const fibers = makeFibers(lite ? 5 : 9, lite);
 
     let W = 0;
     let H = 0;
     let mids: number[] = []; // document y of the middle of every section
+    let startY = 0; // where the bundle begins: the middle of the gap between the hero and the first section
+    let disperseY = 0; // where it starts to spread apart
+    let endY = 0; // where it has faded out completely (the top of the footer)
+    let phaseShift = 0; // keeps the snake centred, going left, at its start
     let raf = 0;
     let last = performance.now();
     let time = 0;
@@ -98,20 +116,20 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    const measure = () => {
-      mids = [];
-      for (const id of IDS) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const r = el.getBoundingClientRect();
-        mids.push(r.top + window.scrollY + r.height / 2);
-      }
+    const box = (id: string) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return {
+        top: r.top + window.scrollY,
+        bottom: r.bottom + window.scrollY,
+        padTop: parseFloat(cs.paddingTop) || 0,
+        padBottom: parseFloat(cs.paddingBottom) || 0,
+      };
     };
 
-    /**
-     * Position along the page measured in "sections": 0 at the middle of the hero, 1 at the middle of
-     * the next section, and so on. It continues past both ends at the nearest section's pace.
-     */
+    /** Position along the page measured in "sections" (0 = middle of the hero, 1 = middle of the next, ...). */
     const sectionPos = (y: number) => {
       const n = mids.length;
       if (n < 2) return y / Math.max(H, 1);
@@ -120,19 +138,39 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       return i + (y - mids[i]) / Math.max(1, mids[i + 1] - mids[i]);
     };
 
+    const measure = () => {
+      mids = [];
+      for (const id of IDS) {
+        const b = box(id);
+        if (b) mids.push((b.top + b.bottom) / 2);
+      }
+      const hero = box('top');
+      const first = box(FIRST);
+      const last = box(LAST);
+      if (hero && first) startY = (hero.bottom - hero.padBottom + first.top + first.padTop) / 2;
+      if (last) {
+        endY = last.bottom;
+        disperseY = last.top + (last.bottom - last.top) * 0.3;
+      }
+      phaseShift = 0.5 - sectionPos(startY);
+    };
+
     /**
-     * The snake: a cosine of the section position, so it swings one way per section. At the
-     * middle of every section the slope is zero, which is why it has no corners.
+     * The snake: a cosine of the section position, so it swings one way per section. The shift makes
+     * it start in the middle of the page and go left first. The slope is zero at each swing's peak,
+     * which is why it has no corners.
      */
     const snakeX = (y: number) => {
-      const amp = W * (lite ? 0.36 : 0.3);
-      return W / 2 + amp * Math.cos(Math.PI * sectionPos(y));
+      const amp = W * (lite ? 0.34 : 0.3);
+      return W / 2 + amp * Math.cos(Math.PI * (sectionPos(y) + phaseShift));
     };
 
     const fibreX = (f: Fiber, y: number) => {
-      const breathe = 0.6 + 0.4 * Math.sin(y * 0.0014 + 1.3); // the bundle slowly opens and closes
-      const ripple = Math.sin(y * 0.0045 - (animated ? time * 0.9 : 0) + f.phase) * f.amp; // a slow wave flowing down
-      return snakeX(y - f.lag) + f.spread * breathe + ripple;
+      const grow = smoothstep(startY, startY + 700, y); // one point at the start, fanning out to the full bundle
+      const out = smoothstep(disperseY, endY, y); // spreading apart at the end
+      const ripple = Math.sin(y * f.k + f.phase - (animated ? time * f.drift : 0)) * f.amp * (1 + 2.2 * out);
+      const fan = f.fan * 260 * out * out * (lite ? 0.6 : 1);
+      return snakeX(y - f.lag * grow) + grow * ((1 + 5 * out) * f.offset + ripple) + fan;
     };
 
     const edge = () => Math.max(W >= 1024 ? 64 : W >= 640 ? 32 : 16, (W - 1280) / 2);
@@ -143,9 +181,12 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       return 1 - 0.4 * inside;
     };
 
+    /** Brightness that depends only on where we are along the page: emerging at the start, gone at the end. */
+    const lifetime = (y: number) => smoothstep(startY, startY + 180, y) * (1 - smoothstep(disperseY + (endY - disperseY) * 0.25, endY, y));
+
     const colour = (f: Fiber, y: number) => {
-      const t = 0.5 + 0.5 * Math.sin(y * 0.002 + f.hue);
-      return [lerp(INDIGO[0], CYAN[0], t), lerp(INDIGO[1], CYAN[1], t), lerp(INDIGO[2], CYAN[2], t)];
+      const t = 0.12 + 0.3 * (0.5 + 0.5 * Math.sin(y * 0.002 + f.tone * 6.28));
+      return [lerp(BASE[0], ALT[0], t), lerp(BASE[1], ALT[1], t), lerp(BASE[2], ALT[2], t)];
     };
 
     const glow = (x: number, y: number, radius: number, rgb: string, strength: number) => {
@@ -160,10 +201,10 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
       const scrollY = window.scrollY;
-      const y0 = scrollY - 40;
+      const y0 = Math.max(scrollY - 40, startY);
       // Animated: the fibres only exist down to the glow, so they grow as you scroll. Still: the whole path.
-      const yEnd = animated ? Math.min(scrollY + H + 40, head + 30) : scrollY + H + 40;
-      if (yEnd <= y0) return;
+      const yEnd = Math.min(animated ? Math.min(scrollY + H + 40, head + 30) : scrollY + H + 40, endY);
+      if (yEnd - y0 < 24) return;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
@@ -198,16 +239,16 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
           const t = clamp((y - y0) / span, 0, 1);
           const [r, g, b] = colour(f, y);
           const rgb = `${r | 0},${g | 0},${b | 0}`;
-          let a = 0.15;
+          let a = 0.2;
           let ha = 0;
           if (animated) {
             const behind = Math.max(0, head - y);
             const comet = Math.exp(-behind / 130); // bright just behind the leading light
             const reveal = 1 - smoothstep(head - 50, head + 30, y); // the strand fades in as it is drawn
-            a = (0.15 + 0.2 * Math.exp(-behind / 1100) + 0.5 * comet) * reveal;
+            a = (0.2 + 0.22 * Math.exp(-behind / 1100) + 0.5 * comet) * reveal;
             ha = 0.2 * comet * reveal;
           }
-          const k = duck(xs[i]);
+          const k = duck(xs[i]) * lifetime(y);
           line.addColorStop(t, `rgba(${rgb},${(a * k).toFixed(3)})`);
           halo.addColorStop(t, `rgba(${rgb},${(ha * k).toFixed(3)})`);
         }
@@ -225,27 +266,26 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
         // Small lights that keep travelling down the part of the strand that has been drawn.
         const [r, g, b] = colour(f, head);
         const rgb = `${r | 0},${g | 0},${b | 0}`;
-        const loop = Math.max(head + 240, 600);
+        const loop = Math.max(head - startY + 240, 600);
         for (const s of f.shifts) {
-          const yp = (time * f.speed + s) % loop;
+          const yp = startY + ((time * f.speed + s) % loop);
           if (yp < y0 || yp > Math.min(yEnd, head - 20)) continue;
           const xp = fibreX(f, yp);
-          glow(xp, yp - scrollY, 11, rgb, 0.8 * duck(xp));
+          glow(xp, yp - scrollY, 11, rgb, 0.8 * duck(xp) * lifetime(yp));
         }
 
         // The leading light at the end of the strand.
-        if (head >= y0 && head <= scrollY + H + 40) {
+        if (head >= y0 && head <= Math.min(scrollY + H + 40, endY)) {
           const xh = fibreX(f, head);
-          glow(xh, head - scrollY, 15, rgb, 0.9);
+          glow(xh, head - scrollY, 14, rgb, 0.9 * lifetime(head));
           headXSum += xh;
           headCount++;
         }
       }
 
-      // One soft, wide glow around the whole bundle's leading edge, so the lights read as one.
+      // One soft, wide glow around the bundle's leading edge, so the lights read as one.
       if (animated && headCount) {
-        const hx = headXSum / headCount;
-        glow(hx, head - scrollY, lite ? 46 : 70, '99,102,241', 0.16);
+        glow(headXSum / headCount, head - scrollY, lite ? 46 : 70, '99,102,241', 0.14 * lifetime(head));
       }
     };
 

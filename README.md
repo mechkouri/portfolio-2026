@@ -35,11 +35,12 @@ src/
 - The WebGL scene loads only on desktop-class devices (fine pointer, ≥1024px, ≥4 cores/4 GB, hardware GPU,
   no reduced motion), after the browser is idle. It stops rendering when scrolled off-screen and drops its
   pixel ratio if frame rate falls. Everyone else gets a static SVG.
-- The page background is a thin bundle of light fibres drawn on a 2D canvas (`components/three/FlowFibers.tsx`). It snakes
-  down the page behind the content in one smooth wave, swinging right in one section and left in the next. It is drawn as
-  you scroll: the fibres grow downward, led by a soft light, with small lights travelling along them. Only the visible
-  slice is drawn; with reduced motion the path is static. It is fixed behind everything (`pointer-events: none`), so it
-  never affects layout.
+- The page background is a bundle of thin optical fibres drawn on a 2D canvas (`components/three/FlowFibers.tsx`). It starts
+  as a single point in the gap between the hero and the first section, fans out into strands that cross and interweave,
+  snakes down the page behind the content in one smooth wave (right in one section, left in the next), and spreads apart
+  and fades out in the last section before the footer. It is drawn as you scroll, led by a soft light, with small lights
+  travelling along it. Only the visible slice is drawn; with reduced motion the path is static. It is fixed behind
+  everything (`pointer-events: none`), so it never affects layout.
 - GSAP + ScrollTrigger are dynamically imported and skipped for `prefers-reduced-motion`.
 - Pointer-driven effects use Motion values, so mouse movement never re-renders React.
 - Fonts are self-hosted (Fontsource); images are WebP with explicit dimensions and lazy loading.
