@@ -14,7 +14,15 @@ interface NavigatorHints extends Navigator {
   connection?: { saveData?: boolean };
 }
 
-function detectWeakGraphics(): boolean {
+let weakCache: boolean | undefined;
+
+/** True on data-saver, low-memory/low-core devices, and software rendering. Probed once, then cached. */
+export function detectWeakGraphics(): boolean {
+  weakCache ??= probeWeakGraphics();
+  return weakCache;
+}
+
+function probeWeakGraphics(): boolean {
   const nav = navigator as NavigatorHints;
   if (nav.connection?.saveData) return true;
   if (nav.deviceMemory !== undefined && nav.deviceMemory < 4) return true;
@@ -56,4 +64,25 @@ export function useDeviceCapabilities(): DeviceCapabilities {
   }, [reducedMotion]);
 
   return caps;
+}
+
+export type BackdropMode = 'full' | 'lite' | 'static';
+
+/**
+ * Which version of the site-wide fibre backdrop to show: full, a lighter one for phones, or a
+ * still (non-animated) one for visitors who prefer reduced motion.
+ */
+export function useBackdropMode(): BackdropMode {
+  const reducedMotion = useReducedMotion() ?? false;
+  const [mode, setMode] = useState<BackdropMode>('static');
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const compute = () => setMode(reducedMotion ? 'static' : mq.matches ? 'full' : 'lite');
+    compute();
+    mq.addEventListener('change', compute);
+    return () => mq.removeEventListener('change', compute);
+  }, [reducedMotion]);
+
+  return mode;
 }

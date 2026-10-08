@@ -37,11 +37,17 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   );
 }
 
+// Translucent on purpose: the fixed flow backdrop shows through every section.
+const TONES = {
+  page: 'rgba(255, 255, 255, 0)',
+  white: 'rgba(255, 255, 255, 0.4)',
+  muted: 'rgba(241, 245, 249, 0.34)',
+} as const;
+
 /**
- * Section wrapper. Backgrounds alternate white / muted by position in the page outline, so
- * reordering sections never breaks the rhythm. A soft gradient at the top carries the previous
- * section's colour into this one, so the page reads as one continuous surface rather than
- * stacked blocks.
+ * Section wrapper. Tints alternate white / muted by position in the page outline, so reordering
+ * sections never breaks the rhythm. The top of each section blends from the previous section's tint
+ * into its own, so the page reads as one continuous surface rather than stacked blocks.
  */
 export function Section({
   id,
@@ -57,26 +63,15 @@ export function Section({
   spacious?: boolean;
 }) {
   const order = sections.findIndex((s) => s.id === id);
-  const muted = order % 2 === 1;
-  const prevMuted = order > 0 && (order - 1) % 2 === 1;
+  const self = order % 2 === 1 ? TONES.muted : TONES.white;
+  const prev = order <= 0 ? TONES.page : (order - 1) % 2 === 1 ? TONES.muted : TONES.white;
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn(
-        'relative isolate w-full px-4 sm:px-8 lg:px-16',
-        spacious ? 'py-24' : 'py-20',
-        muted ? 'bg-slate-50/70' : 'bg-white',
-        className,
-      )}
+      className={cn('relative isolate w-full px-4 sm:px-8 lg:px-16', spacious ? 'py-24' : 'py-20', className)}
+      style={{ backgroundImage: `linear-gradient(to bottom, ${prev}, ${self} 7rem)`, backgroundColor: self }}
     >
-      <span
-        aria-hidden="true"
-        className={cn(
-          'pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b to-transparent',
-          order <= 0 || prevMuted ? 'from-slate-50' : 'from-white',
-        )}
-      />
       {children}
     </section>
   );

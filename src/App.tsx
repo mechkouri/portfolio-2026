@@ -4,6 +4,7 @@ import { sections, type SectionId } from './data/content';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { Telemetry } from './components/layout/Telemetry';
+import { SiteBackdrop } from './components/three/SiteBackdrop';
 import { BackToTop } from './components/layout/BackToTop';
 import { Hero } from './components/hero/Hero';
 import { Experience } from './sections/Experience';
@@ -31,6 +32,7 @@ export default function App() {
   return (
     // "user" honours prefers-reduced-motion: transforms are skipped, opacity fades remain.
     <MotionConfig reducedMotion="user">
+      <SiteBackdrop />
       <Header />
       <Telemetry />
       <BackToTop />
