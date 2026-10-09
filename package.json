@@ -7,6 +7,7 @@
     "preview": "vite preview",
     "images": "node scripts/optimize-images.mjs",
     "capture": "node scripts/capture-screenshots.mjs",
+    "cv": "node scripts/build-cv.mjs",
     "deploy:zip": "npm run build && python scripts/zip-dist.py"
   },
   "type": "module",
