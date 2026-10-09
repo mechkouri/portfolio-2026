@@ -95,7 +95,7 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
       />
       <ol className="relative space-y-16 md:space-y-24">
         {entries.map((entry, i) => (
-          <Milestone key={entry.role + entry.period} entry={entry} index={i} />
+          <Milestone key={i} entry={entry} index={i} />
         ))}
       </ol>
     </div>

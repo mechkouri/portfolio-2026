@@ -62,7 +62,7 @@ export function Automation() {
                 return (
                   <StaggerItem
                     as="li"
-                    key={n.title}
+                    key={i}
                     className={cn(
                       'group relative flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md',
                       a.hoverBorder,
@@ -89,12 +89,12 @@ export function Automation() {
             <h3 className="font-mono text-xs font-bold tracking-wider text-slate-900 uppercase">{t.automation.examples}</h3>
           </Reveal>
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {workflows.map((w) => {
+            {workflows.map((w, wi) => {
               const a = accents[w.accent];
               return (
                 <StaggerItem
                   as="article"
-                  key={w.title}
+                  key={wi}
                   className={cn('flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md', a.hoverBorder)}
                 >
                   <div>
@@ -106,7 +106,7 @@ export function Automation() {
                       {w.steps.map((step, i) => {
                         const last = i === w.steps.length - 1;
                         return (
-                          <li key={step} className="flex items-center gap-1.5">
+                          <li key={i} className="flex items-center gap-1.5">
                             {i > 0 && (
                               <span aria-hidden="true" className={a.text}>
                                 →

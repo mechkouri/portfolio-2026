@@ -39,8 +39,8 @@ export function About() {
             </Reveal>
 
             <Stagger className="grid grid-cols-3 gap-3">
-              {introFacts.map((f) => (
-                <StaggerItem key={f.title} className="rounded-xl border border-slate-200 bg-slate-50 p-3.5">
+              {introFacts.map((f, i) => (
+                <StaggerItem key={i} className="rounded-xl border border-slate-200 bg-slate-50 p-3.5">
                   <span className={`block font-display text-lg font-bold ${f.color}`}>{f.title}</span>
                   <span className="font-mono text-[11px] text-slate-500 uppercase">{f.label}</span>
                 </StaggerItem>

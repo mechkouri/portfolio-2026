@@ -215,7 +215,7 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
       >
         {projects.map((project, i) => (
           <div
-            key={project.title}
+            key={project.image}
             role="group"
             aria-roledescription="slide"
             aria-label={t.work.slide(i + 1, n)}

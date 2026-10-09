@@ -16,12 +16,12 @@ export function Skills() {
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-          {techCategories.map((cat) => {
+          {techCategories.map((cat, i) => {
             const a = accents[cat.accent];
             const Icon = cat.icon;
             return (
               <StaggerItem
-                key={cat.title}
+                key={cat.accent + i}
                 className={cn('group rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-colors', a.hoverBorder)}
               >
                 <div className="mb-4 flex items-center gap-3">

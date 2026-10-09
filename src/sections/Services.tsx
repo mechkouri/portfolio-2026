@@ -21,7 +21,7 @@ export function Services() {
             const Icon = s.icon;
             return (
               <StaggerItem
-                key={s.title}
+                key={i}
                 as="article"
                 className={cn(
                   'group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl',

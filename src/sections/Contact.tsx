@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Globe, Mail, MapPin, Share2, Terminal } from 'lucide-react';
+import { ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Globe, Mail, MapPin, Phone, Share2, Terminal } from 'lucide-react';
 import { useLang } from '../i18n/LangProvider';
 import { Reveal } from '../components/ui/Reveal';
 import { cn, PulseDot, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
@@ -87,6 +87,13 @@ export function Contact() {
                   <ArrowUpRight aria-hidden="true" size={14} className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               )}
+              <a
+                href={site.phoneHref}
+                className="group flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-400"
+              >
+                <Phone aria-hidden="true" size={14} className="text-indigo-600 transition-transform group-hover:scale-110" />
+                <span>{site.phone}</span>
+              </a>
               <div className="flex flex-wrap items-center gap-3">
                 <ExternalPill
                   href={site.linkedin}

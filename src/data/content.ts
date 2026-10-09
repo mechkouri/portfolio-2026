@@ -27,10 +27,13 @@ export const site = {
   country: 'Morocco',
   timezone: 'UTC+1',
   github: 'https://github.com/Mechkouri',
-  linkedin: 'https://linkedin.com',
+  linkedin: 'https://www.linkedin.com/in/said-mechkouri/',
   portfolio: 'https://mechkouri.netlify.app',
   /** Public contact email. Left empty on purpose: the Contact section only shows it once it is set. */
   email: '',
+  /** Public phone number: shown on the Contact section as a tap-to-call link. */
+  phone: '07 07 53 79 30',
+  phoneHref: 'tel:+212707537930',
 };
 
 /**
