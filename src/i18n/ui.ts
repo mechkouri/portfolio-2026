@@ -48,7 +48,7 @@ const en = {
     basedIn: (place: string) => `Based in ${place}`,
     coreStack: 'Core stack',
     intro:
-      'I build websites, web apps, and the automations behind them. React and Next.js for products, WordPress when you need to own your content, and n8n or Make.com for anything that shouldn’t be done by hand.',
+      'AI writes code fast. I make sure it’s the right code. Websites, web apps, and automations built on real engineering: React and Next.js, WordPress, n8n and Make.com.',
     viewProjects: 'View Projects',
     contactMe: 'Contact Me',
     workOnAria: 'What I work on',
@@ -77,6 +77,30 @@ const en = {
   experience: {
     heading: 'Work experience.',
     intro: 'Internships, agencies, and now a full-stack role at Infinit Deals.',
+  },
+  ai: {
+    heading: ['Anyone can prompt an AI.', 'Few can tell if the result is right.'],
+    intro:
+      'AI tools are great at producing a first version fast. What decides whether a product holds up is everything around it: the structure, the edge cases, the security, the speed, and how it shows up on Google. I’ve been building for the web since 2021, so I know how each piece works without the AI. I use AI the way an experienced developer uses a very fast assistant: quickly, and with every line reviewed.',
+    aiAlone: 'A typical AI-only build',
+    withMe: 'AI, directed by an engineer',
+    rows: [
+      { topic: 'Architecture', ai: 'Grows file by file, with no plan behind it.', me: 'Structure and data model decided first, so the project can keep growing.' },
+      { topic: 'Security', ai: 'Works in the demo. Authentication, validation and secrets are easy to miss.', me: 'Authentication, input validation and secrets handled on purpose, not by luck.' },
+      { topic: 'Performance', ai: 'Heavy pages and unoptimised images are common.', me: 'Core Web Vitals measured and fixed: images, loading, bundle size.' },
+      { topic: 'SEO', ai: 'Looks good, but search engines may never find it.', me: 'Technical SEO built in: structure, metadata, indexing, Search Console.' },
+      { topic: 'Integrations', ai: 'Breaks when an API or webhook behaves differently than the prompt assumed.', me: 'The unhappy paths are tested, and I know how to debug them.' },
+      { topic: 'Maintenance', ai: 'A month later, nobody understands the code.', me: 'Readable, consistent code that your team can take over.' },
+    ],
+    stepsTitle: 'How I work with AI',
+    steps: [
+      { title: 'Plan', text: 'I define the architecture, data, and scope before any code is generated.' },
+      { title: 'Build fast', text: 'AI drafts and prototypes. I steer it with precise instructions and context.' },
+      { title: 'Review', text: 'I read, test, and fix what it produced. Nothing ships unread.' },
+      { title: 'Harden & ship', text: 'Security, speed, SEO, deployment, and a clean handover.' },
+    ],
+    cta: 'Started something with AI and it’s not quite right? Send it over. I’ll review it, fix what matters, and tell you honestly what is worth keeping.',
+    ctaButton: 'Get a project review',
   },
   services: {
     heading: 'What you can hire me for.',
@@ -182,7 +206,7 @@ const fr: Dict = {
     basedIn: (place: string) => `Basé à ${place}`,
     coreStack: 'Stack principale',
     intro:
-      'Je crée des sites web, des applications web et les automatisations qui vont avec. React et Next.js pour les produits, WordPress quand vous voulez maîtriser votre contenu, et n8n ou Make.com pour tout ce qui ne devrait pas se faire à la main.',
+      'L’IA écrit du code vite. Je m’assure que c’est le bon code. Sites, applications web et automatisations bâtis sur de vraies bases d’ingénierie : React et Next.js, WordPress, n8n et Make.com.',
     viewProjects: 'Voir les projets',
     contactMe: 'Me contacter',
     workOnAria: 'Mes domaines d’intervention',
@@ -211,6 +235,30 @@ const fr: Dict = {
   experience: {
     heading: 'Expérience professionnelle.',
     intro: 'Des stages, des agences, et aujourd’hui un poste full-stack chez Infinit Deals.',
+  },
+  ai: {
+    heading: ['N’importe qui peut écrire un prompt.', 'Peu savent dire si le résultat est bon.'],
+    intro:
+      'Les outils d’IA produisent très vite une première version. Ce qui décide si un produit tient la route, c’est tout ce qui l’entoure : la structure, les cas limites, la sécurité, la vitesse, et la façon dont il apparaît sur Google. Je construis pour le web depuis 2021, donc je sais comment chaque brique fonctionne sans l’IA. J’utilise l’IA comme un développeur expérimenté utilise un assistant très rapide : vite, et avec chaque ligne relue.',
+    aiAlone: 'Un projet typique 100 % IA',
+    withMe: 'L’IA, pilotée par un ingénieur',
+    rows: [
+      { topic: 'Architecture', ai: 'Grandit fichier après fichier, sans plan derrière.', me: 'Structure et modèle de données décidés d’abord, pour que le projet puisse continuer à grandir.' },
+      { topic: 'Sécurité', ai: 'Fonctionne en démo. Authentification, validation et secrets sont facilement oubliés.', me: 'Authentification, validation des entrées et secrets traités volontairement, pas par chance.' },
+      { topic: 'Performance', ai: 'Pages lourdes et images non optimisées sont fréquentes.', me: 'Core Web Vitals mesurés et corrigés : images, chargement, taille du bundle.' },
+      { topic: 'SEO', ai: 'Joli à regarder, mais les moteurs de recherche risquent de ne jamais le trouver.', me: 'SEO technique intégré : structure, métadonnées, indexation, Search Console.' },
+      { topic: 'Intégrations', ai: 'Casse quand une API ou un webhook se comporte autrement que prévu par le prompt.', me: 'Les cas d’échec sont testés, et je sais les déboguer.' },
+      { topic: 'Maintenance', ai: 'Un mois plus tard, personne ne comprend le code.', me: 'Un code lisible et cohérent, que votre équipe peut reprendre.' },
+    ],
+    stepsTitle: 'Comment je travaille avec l’IA',
+    steps: [
+      { title: 'Cadrer', text: 'Je définis l’architecture, les données et le périmètre avant qu’une ligne de code soit générée.' },
+      { title: 'Construire vite', text: 'L’IA rédige et prototype. Je la guide avec des consignes et un contexte précis.' },
+      { title: 'Relire', text: 'Je lis, teste et corrige ce qu’elle a produit. Rien n’est livré sans relecture.' },
+      { title: 'Consolider & livrer', text: 'Sécurité, vitesse, SEO, déploiement et passation propre.' },
+    ],
+    cta: 'Vous avez commencé un projet avec l’IA et ce n’est pas tout à fait ça ? Envoyez-le-moi. Je le relis, je corrige l’essentiel et je vous dis honnêtement ce qui vaut la peine d’être gardé.',
+    ctaButton: 'Demander une revue de projet',
   },
   services: {
     heading: 'Ce pour quoi vous pouvez me confier vos projets.',

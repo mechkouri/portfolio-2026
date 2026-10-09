@@ -46,6 +46,7 @@ export const site = {
 export const sections = [
   { id: 'experience', eyebrow: 'Experience', nav: 'Experience' },
   { id: 'work', eyebrow: 'Selected Work', nav: 'Work' },
+  { id: 'ai', eyebrow: 'AI + Engineering' },
   { id: 'services', eyebrow: 'What I Do', nav: 'Services' },
   { id: 'automation', eyebrow: 'Automation', nav: 'Automation' },
   { id: 'about', eyebrow: 'About', nav: 'About' },

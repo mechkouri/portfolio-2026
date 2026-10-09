@@ -9,6 +9,7 @@ import { BackToTop } from './components/layout/BackToTop';
 import { Hero } from './components/hero/Hero';
 import { Experience } from './sections/Experience';
 import { Work } from './sections/Work';
+import { AiEngineering } from './sections/AiEngineering';
 import { Services } from './sections/Services';
 import { Automation } from './sections/Automation';
 import { About } from './sections/About';
@@ -20,6 +21,7 @@ import { Contact } from './sections/Contact';
 const sectionComponents: Record<SectionId, ComponentType> = {
   experience: Experience,
   work: Work,
+  ai: AiEngineering,
   services: Services,
   automation: Automation,
   about: About,

@@ -20,6 +20,7 @@ const frSite: Partial<typeof base.site> = {
 const frSections: Record<string, { eyebrow: string; nav?: string }> = {
   experience: { eyebrow: 'Expérience', nav: 'Expérience' },
   work: { eyebrow: 'Projets sélectionnés', nav: 'Projets' },
+  ai: { eyebrow: 'IA + Ingénierie' },
   services: { eyebrow: 'Ce que je fais', nav: 'Services' },
   automation: { eyebrow: 'Automatisation', nav: 'Automatisation' },
   about: { eyebrow: 'À propos', nav: 'À propos' },
