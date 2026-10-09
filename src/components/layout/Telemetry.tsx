@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { sections } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { cn } from '../ui/primitives';
 
-const items = [{ id: 'top', label: 'Home' }, ...sections.map((s) => ({ id: s.id, label: s.eyebrow }))];
+const items = [{ id: 'top' }, ...sections.map((s) => ({ id: s.id }))];
 const N = items.length;
 
 // Node positions in a 0-100 box: evenly spaced down the panel, drifting left and right.
@@ -32,6 +33,8 @@ const PATH = smoothPath(X, Y);
  * a link to its section. Only shown on wide screens, where it sits in the page margin.
  */
 export function Telemetry() {
+  const { t, content } = useLang();
+  const labels = [t.telemetry.home, ...content.sections.map((s) => s.eyebrow)];
   const tops = useRef<number[]>([]);
   const [active, setActive] = useState(0);
   const [pct, setPct] = useState(0);
@@ -88,11 +91,11 @@ export function Telemetry() {
 
   return (
     <nav
-      aria-label="Page progress"
+      aria-label={t.telemetry.aria}
       className="fixed top-1/2 right-2 z-40 hidden h-[min(76vh,560px)] w-9 -translate-y-1/2 flex-col rounded-[22px] border border-slate-200/80 bg-white/70 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl min-[1400px]:flex min-[1536px]:right-4 min-[1536px]:w-[72px] min-[1536px]:rounded-[28px]"
     >
       <div className="hidden shrink-0 flex-col items-center gap-1 px-2 pt-5 pb-3 min-[1536px]:flex" aria-hidden="true">
-        <span className="font-mono text-[9px] tracking-[0.22em] text-slate-500">TELEMETRY</span>
+        <span className="font-mono text-[9px] tracking-[0.22em] text-slate-500">{t.telemetry.label}</span>
         <span className="font-mono text-sm font-bold text-indigo-600 tabular-nums">{pct}%</span>
         <span className="mt-2 h-px w-full bg-slate-200" />
       </div>
@@ -119,7 +122,7 @@ export function Telemetry() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              aria-label={`${item.label}${isActive ? ' (current section)' : ''}`}
+              aria-label={`${labels[i]}${isActive ? t.telemetry.current : ''}`}
               aria-current={isActive ? 'location' : undefined}
               className="group absolute flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
               style={{ left: `${X[i]}%`, top: `${Y[i]}%` }}
@@ -141,7 +144,7 @@ export function Telemetry() {
                 aria-hidden="true"
                 className="pointer-events-none absolute top-1/2 right-full mr-3 -translate-y-1/2 translate-x-1 rounded-pill border border-slate-200 bg-white px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wider whitespace-nowrap text-slate-700 uppercase opacity-0 shadow-md transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
               >
-                {item.label}
+                {labels[i]}
               </span>
             </a>
           );

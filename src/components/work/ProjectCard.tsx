@@ -2,6 +2,7 @@ import { memo, type PointerEvent } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'motion/react';
 import { ArrowRight, Code, Globe, ShieldCheck, ShoppingCart } from 'lucide-react';
 import type { Project } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { accents } from '../../lib/accents';
 import { useDeviceCapabilities } from '../../hooks/useDeviceCapabilities';
 import { cn, Tag } from '../ui/primitives';
@@ -12,6 +13,7 @@ const TILT = 5;
 /** Browser-framed project card: tilts toward the cursor, with a spotlight and a page preview that scrolls on hover. */
 export const ProjectCard = memo(function ProjectCard({ project }: { project: Project }) {
   const { canHover } = useDeviceCapabilities();
+  const { t } = useLang();
   const a = accents[project.accent];
   const SiteIcon = siteIcons[project.siteIcon];
 
@@ -81,7 +83,7 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
         </div>
         <div>
           {project.tags.length > 0 && (
-            <ul className="mb-4 flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-600" aria-label="Technologies">
+            <ul className="mb-4 flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-600" aria-label={t.work.technologies}>
               {project.tags.map((t) => (
                 <li key={t}>
                   <Tag>{t}</Tag>
@@ -94,7 +96,7 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
             {...(project.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             className={cn('group/btn relative z-20 inline-flex items-center gap-1.5 font-mono text-xs font-bold', a.text, a.hoverText)}
           >
-            <span>{project.url ? 'View Project' : 'Need something similar?'}</span>
+            <span>{project.url ? t.work.viewProject : t.work.similar}</span>
             <span className="sr-only">: {project.title}</span>
             <ArrowRight aria-hidden="true" size={12} className="transition-transform group-hover/btn:translate-x-1" />
           </a>

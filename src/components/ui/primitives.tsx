@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { sectionNumber, sections, type SectionId } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { Reveal, SplitHeading, type TextLine } from './Reveal';
 
 export function cn(...classes: (string | false | null | undefined)[]) {
@@ -13,7 +14,7 @@ export function PulseDot({ className = 'bg-emerald-500', size = 'w-1.5 h-1.5' }:
 
 /** "01 — SELECTED WORK" eyebrow; number and text come from the page outline. */
 export function SectionLabel({ id, className }: { id: SectionId; className?: string }) {
-  const section = sections.find((s) => s.id === id)!;
+  const section = useLang().content.sections.find((s) => s.id === id)!;
   return (
     <Reveal className={cn('mb-3 flex items-center gap-2 font-mono text-xs font-semibold tracking-widest text-indigo-600 uppercase', className)}>
       <span aria-hidden="true" className="inline-block h-px w-6 bg-indigo-600" />

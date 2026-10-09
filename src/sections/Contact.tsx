@@ -1,7 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Globe, Mail, MapPin, Share2, Terminal } from 'lucide-react';
-import { site } from '../data/content';
+import { useLang } from '../i18n/LangProvider';
 import { Reveal } from '../components/ui/Reveal';
 import { cn, PulseDot, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
@@ -12,6 +12,7 @@ const inputClass =
 const labelClass = 'block font-mono text-[11px] font-semibold tracking-widest text-slate-500 uppercase';
 
 function ExternalPill({ href, icon, label, hover }: { href: string; icon: ReactNode; label: string; hover: string }) {
+  const { t } = useLang();
   return (
     <a
       href={href}
@@ -22,12 +23,14 @@ function ExternalPill({ href, icon, label, hover }: { href: string; icon: ReactN
       {icon}
       <span>{label}</span>
       <ArrowUpRight aria-hidden="true" size={12} className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      <span className="sr-only">(opens in a new tab)</span>
+      <span className="sr-only">{t.contact.newTab}</span>
     </a>
   );
 }
 
 export function Contact() {
+  const { t, content } = useLang();
+  const { site } = content;
   const [status, setStatus] = useState<Status>('idle');
 
   // Submits to Netlify Forms (see the static form in index.html). Works once deployed on Netlify.
@@ -59,15 +62,14 @@ export function Contact() {
             <SectionHeading
               id="contact-title"
               className="!text-4xl leading-[0.95] sm:!text-6xl lg:!text-7xl"
-              lines={[{ text: "Let's work" }, { text: 'together!', gradient: true }]}
+              lines={[{ text: t.contact.heading[0] }, { text: t.contact.heading[1], gradient: true }]}
             />
             <Reveal as="p" className="max-w-lg pt-2 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Need a website, a web app, better SEO, or a workflow that stops eating your week? Send me a short message
-              about what you're working on. Recruiters are welcome too.
+              {t.contact.intro}
             </Reveal>
             <Reveal as="p" delay={0.05} className="flex flex-wrap items-center gap-2 font-mono text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
-              <span>Open to</span>
-              {['Freelance projects', 'Collaborations'].map((x) => (
+              <span>{t.contact.openTo}</span>
+              {t.contact.openToItems.map((x) => (
                 <span key={x} className="rounded-pill border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-emerald-700">
                   {x}
                 </span>
@@ -89,13 +91,13 @@ export function Contact() {
                 <ExternalPill
                   href={site.linkedin}
                   hover="hover:border-indigo-400"
-                  label={`LinkedIn: ${site.name}`}
+                  label={t.contact.linkedin(site.name)}
                   icon={<Share2 aria-hidden="true" size={14} className="text-indigo-600 transition-transform group-hover:scale-110" />}
                 />
                 <ExternalPill
                   href={site.github}
                   hover="hover:border-sky-400"
-                  label="GitHub: Mechkouri"
+                  label={t.contact.github}
                   icon={<Terminal aria-hidden="true" size={14} className="text-sky-600 transition-transform group-hover:scale-110" />}
                 />
               </div>
@@ -103,7 +105,7 @@ export function Contact() {
                 <ExternalPill
                   href={site.portfolio}
                   hover="hover:border-emerald-400"
-                  label="Portfolio: mechkouri.netlify.app"
+                  label={t.contact.portfolio}
                   icon={<Globe aria-hidden="true" size={14} className="text-emerald-600 transition-transform group-hover:scale-110" />}
                 />
                 <p className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 shadow-sm">
@@ -122,31 +124,31 @@ export function Contact() {
                 <input type="hidden" name="form-name" value="contact" />
                 <p hidden>
                   <label>
-                    Don't fill this out: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                    {t.contact.honeypot}<input name="bot-field" tabIndex={-1} autoComplete="off" />
                   </label>
                 </p>
                 <div className="space-y-2">
                   <label htmlFor="contact-name" className={labelClass}>
-                    Your Name
+                    {t.contact.name}
                   </label>
-                  <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder="Your name" className={inputClass} />
+                  <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder={t.contact.namePh} className={inputClass} />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="contact-email" className={labelClass}>
-                    Your Email
+                    {t.contact.email}
                   </label>
-                  <input id="contact-email" name="email" type="email" required autoComplete="email" placeholder="hello@example.com" className={inputClass} />
+                  <input id="contact-email" name="email" type="email" required autoComplete="email" placeholder={t.contact.emailPh} className={inputClass} />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="contact-message" className={labelClass}>
-                    Your Message
+                    {t.contact.message}
                   </label>
                   <textarea
                     id="contact-message"
                     name="message"
                     required
                     rows={4}
-                    placeholder="What are you building, and when do you need it?"
+                    placeholder={t.contact.messagePh}
                     className={cn(inputClass, 'resize-none')}
                   />
                 </div>
@@ -156,19 +158,19 @@ export function Contact() {
                     disabled={status === 'sending'}
                     className="group flex w-full items-center justify-center gap-2 rounded-pill bg-indigo-600 px-8 py-3.5 font-mono text-xs font-bold tracking-wider text-white uppercase shadow-lg shadow-indigo-600/25 transition-all duration-300 hover:scale-105 hover:bg-indigo-700 active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
                   >
-                    <span>{status === 'sending' ? 'Sending…' : 'Send Message'}</span>
+                    <span>{status === 'sending' ? t.contact.sending : t.contact.send}</span>
                     <ArrowRight aria-hidden="true" size={14} className="transition-transform group-hover:translate-x-1" />
                   </button>
                   <div aria-live="polite" className="text-sm">
                     <AnimatePresence>
                       {status === 'sent' && (
                         <motion.p initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-1.5 text-emerald-700">
-                          <CheckCircle2 aria-hidden="true" size={16} /> Thank you! Your message has been sent.
+                          <CheckCircle2 aria-hidden="true" size={16} /> {t.contact.sent}
                         </motion.p>
                       )}
                       {status === 'error' && (
                         <motion.p initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="text-rose-700">
-                          Something went wrong. Please reach out on LinkedIn instead.
+                          {t.contact.error}
                         </motion.p>
                       )}
                     </AnimatePresence>
@@ -184,7 +186,7 @@ export function Contact() {
             href="#top"
             className="inline-flex items-center gap-1 font-mono text-xs font-semibold tracking-widest text-slate-500 uppercase transition-colors hover:text-slate-900"
           >
-            <span>[ Return to top ]</span>
+            <span>{t.contact.returnTop}</span>
             <ArrowUp aria-hidden="true" size={14} />
           </a>
         </div>

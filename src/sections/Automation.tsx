@@ -1,11 +1,13 @@
 import { motion } from 'motion/react';
 import { Gauge, Workflow } from 'lucide-react';
-import { pipelineNodes, workflows } from '../data/content';
+import { useLang } from '../i18n/LangProvider';
 import { accents } from '../lib/accents';
 import { Reveal, Stagger, StaggerItem } from '../components/ui/Reveal';
 import { cn, PulseDot, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
 export function Automation() {
+  const { t, content } = useLang();
+  const { pipelineNodes, workflows } = content;
   return (
     <Section id="automation" labelledBy="automation-title">
       <div className="mx-auto max-w-7xl space-y-16">
@@ -14,14 +16,13 @@ export function Automation() {
           <SectionHeading
             id="automation-title"
             className="leading-tight"
-            lines={[{ text: 'If you do it every week,' }, { text: 'it should run on its own.', gradient: true }]}
+            lines={[{ text: t.automation.heading[0] }, { text: t.automation.heading[1], gradient: true }]}
           />
           <Reveal as="p" className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-            Most businesses run on a stack of tools that don't talk to each other. I connect them with n8n and Make.com:
-            content, SEO tasks, leads, notifications, and data syncs. I add AI where it saves time, not just because I can.
+            {t.automation.intro}
           </Reveal>
           <Reveal as="div" delay={0.1} className="mt-6 flex flex-wrap gap-2 font-mono text-xs font-semibold text-indigo-700">
-            {['n8n', 'Make.com', 'APIs', 'Webhooks', 'AI-assisted workflows'].map((tool) => (
+            {t.automation.chips.map((tool) => (
               <span key={tool} className="rounded-pill border border-indigo-200 bg-indigo-50 px-3 py-1">
                 {tool}
               </span>
@@ -35,14 +36,13 @@ export function Automation() {
             <div className="flex items-center gap-2">
               <PulseDot className="bg-indigo-600" size="w-2.5 h-2.5" />
               <h3 className="font-mono text-xs font-semibold tracking-wider text-slate-800 uppercase">
-                From trigger to result: Trigger → Process → AI → Integration → Action
+                {t.automation.diagramTitle}
               </h3>
             </div>
-            <span className="hidden font-mono text-[11px] font-bold text-indigo-600 sm:inline">N8N · MAKE.COM</span>
+            <span className="hidden font-mono text-[11px] font-bold text-indigo-600 sm:inline">{t.automation.diagramTag}</span>
           </div>
           <p className="mb-8 max-w-3xl text-sm text-slate-600">
-            A workflow can start from a form, spreadsheet, API, webhook, or scheduled event — then automatically process
-            data, use AI when needed, update systems, and deliver the final result.
+            {t.automation.diagramText}
           </p>
 
           <div className="relative">
@@ -69,7 +69,7 @@ export function Automation() {
                       i === pipelineNodes.length - 1 && 'col-span-2 md:col-span-1',
                     )}
                   >
-                    <span className={cn('font-mono text-[10px] font-bold uppercase', a.text)}>NODE {String(i + 1).padStart(2, '0')}</span>
+                    <span className={cn('font-mono text-[10px] font-bold uppercase', a.text)}>{t.automation.node} {String(i + 1).padStart(2, '0')}</span>
                     <div className="my-4">
                       <Icon aria-hidden="true" size={24} className={cn('mb-1 transition-transform group-hover:scale-110', a.text)} />
                       <h4 className="font-display text-base font-bold text-slate-900">{n.title}</h4>
@@ -86,7 +86,7 @@ export function Automation() {
         <div>
           <Reveal className="mb-6 flex items-center gap-2">
             <Workflow aria-hidden="true" size={16} className="text-indigo-600" />
-            <h3 className="font-mono text-xs font-bold tracking-wider text-slate-900 uppercase">Examples of workflows I build</h3>
+            <h3 className="font-mono text-xs font-bold tracking-wider text-slate-900 uppercase">{t.automation.examples}</h3>
           </Reveal>
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {workflows.map((w) => {
@@ -102,7 +102,7 @@ export function Automation() {
                       <h4 className="font-display text-lg font-bold text-slate-900">{w.title}</h4>
                       <span className={cn('shrink-0 rounded-pill border px-2.5 py-0.5 font-mono text-[10px] font-semibold', a.pill)}>{w.badge}</span>
                     </div>
-                    <ol className="flex flex-wrap items-center gap-1.5 py-3 font-mono text-xs text-slate-700" aria-label={`${w.title} steps`}>
+                    <ol className="flex flex-wrap items-center gap-1.5 py-3 font-mono text-xs text-slate-700" aria-label={t.automation.steps(w.title)}>
                       {w.steps.map((step, i) => {
                         const last = i === w.steps.length - 1;
                         return (
@@ -133,14 +133,14 @@ export function Automation() {
               <Gauge aria-hidden="true" size={20} />
             </span>
             <p className="text-left font-display text-lg font-bold text-slate-900 sm:text-xl">
-              Tired of a task you do every week? Tell me about it. There's a good chance it can run on its own.
+              {t.automation.cta}
             </p>
           </div>
           <a
             href="#contact"
             className="rounded-pill bg-indigo-600 px-5 py-2.5 font-mono text-xs font-bold tracking-wider whitespace-nowrap text-white uppercase shadow-md shadow-indigo-600/20 transition-all hover:bg-indigo-700"
           >
-            Plan An Automation
+            {t.automation.ctaButton}
           </a>
         </Reveal>
       </div>

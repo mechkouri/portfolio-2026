@@ -1,14 +1,16 @@
-import { education } from '../data/content';
+import { useLang } from '../i18n/LangProvider';
 import { Stagger, StaggerItem } from '../components/ui/Reveal';
 import { Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
 /** Compact on purpose: education supports the story, it doesn't lead it. */
 export function Education() {
+  const { t, content } = useLang();
+  const { education } = content;
   return (
     <Section id="education" labelledBy="education-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="education" />
-        <SectionHeading id="education-title" className="mb-8 text-2xl! sm:text-3xl!" lines={[{ text: 'Where I studied.' }]} />
+        <SectionHeading id="education-title" className="mb-8 text-2xl! sm:text-3xl!" lines={[{ text: t.education.heading }]} />
 
         <Stagger as="ul" className="grid gap-4 sm:grid-cols-2" stagger={0.08}>
           {education.map((entry) => (

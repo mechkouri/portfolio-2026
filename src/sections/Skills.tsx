@@ -1,16 +1,18 @@
-import { techCategories } from '../data/content';
+import { useLang } from '../i18n/LangProvider';
 import { accents } from '../lib/accents';
 import { Reveal, Stagger, StaggerItem } from '../components/ui/Reveal';
 import { cn, Section, SectionHeading, SectionLabel } from '../components/ui/primitives';
 
 export function Skills() {
+  const { t, content } = useLang();
+  const { techCategories } = content;
   return (
     <Section id="skills" labelledBy="skills-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="skills" />
-        <SectionHeading id="skills-title" className="mb-4" lines={[{ text: 'What I work with.' }]} />
+        <SectionHeading id="skills-title" className="mb-4" lines={[{ text: t.skills.heading }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          Grouped by what each tool is for.
+          {t.skills.intro}
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>

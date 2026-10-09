@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { CalendarClock, Play, Terminal } from 'lucide-react';
-import { heroHighlights, heroStack, heroTags, site } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { useScrollTimeline } from '../../hooks/useScrollTimeline';
 import { HeroBackdrop } from '../three/HeroBackdrop';
 import { SplitHeading } from '../ui/Reveal';
@@ -9,7 +9,6 @@ import { PulseDot } from '../ui/primitives';
 import { PortraitCard } from './PortraitCard';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const positioningParts = site.positioning.split(' · ');
 const container: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } } };
 const item: Variants = {
   hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
@@ -18,6 +17,9 @@ const item: Variants = {
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const { t, content } = useLang();
+  const { site, heroHighlights, heroStack, heroTags } = content;
+  const positioningParts = site.positioning.split(' · ');
 
   // Cinematic scroll-out: watermark drifts, content lifts and the card trails behind.
   useScrollTimeline(root, (gsap, _ST, el) => {
@@ -45,7 +47,7 @@ export function Hero() {
       {/* Monumental watermark */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden opacity-[0.03] select-none">
         <span data-hero-watermark className="font-display text-[16vw] font-black tracking-tighter whitespace-nowrap text-slate-900 uppercase">
-          DEVELOPER // AUTOMATION
+          {t.hero.watermark}
         </span>
       </div>
 
@@ -60,15 +62,15 @@ export function Hero() {
               </span>
               <span className="font-mono text-xs font-semibold tracking-widest text-indigo-700 uppercase">SAID MECHKOURI // DEV.ENGINE</span>
             </div>
-            <span className="hidden font-mono text-xs tracking-widest text-slate-400 uppercase sm:inline">• BUILDING FOR THE WEB SINCE 2021</span>
+            <span className="hidden font-mono text-xs tracking-widest text-slate-400 uppercase sm:inline">{t.hero.since}</span>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="whitespace-nowrap rounded-pill border border-slate-200 bg-white px-2.5 py-1 font-mono text-[11px] tracking-wider text-slate-600 uppercase shadow-sm">
-              WORDPRESS · SEO · AUTOMATION
+              {t.hero.tagsPill}
             </span>
             <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[11px] font-semibold tracking-wider text-emerald-700 uppercase shadow-sm">
               <PulseDot className="bg-emerald-600" />
-              OPEN TO NEW PROJECTS
+              {t.hero.openToProjects}
             </span>
           </div>
         </motion.div>
@@ -80,7 +82,7 @@ export function Hero() {
               <span className="whitespace-nowrap rounded-pill border border-indigo-200 bg-indigo-100 px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider text-indigo-700 uppercase shadow-sm">
                 Portfolio 2026
               </span>
-              <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">Based in {site.location}, {site.country}</span>
+              <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">{t.hero.basedIn(`${site.location}, ${site.country}`)}</span>
             </motion.div>
 
             <SplitHeading
@@ -107,7 +109,7 @@ export function Hero() {
             <motion.div variants={item} className="flex flex-wrap items-center gap-2.5 pt-1 font-mono text-xs">
               <span className="flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-indigo-200 bg-white px-2.5 py-1 font-bold text-indigo-700 shadow-sm">
                 <PulseDot className="bg-indigo-600" />
-                Core stack
+                {t.hero.coreStack}
               </span>
               {heroStack.map((tech) => (
                 <span key={tech} className="contents">
@@ -120,8 +122,7 @@ export function Hero() {
             </motion.div>
 
             <motion.p variants={item} className="max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              I build websites, web apps, and the automations behind them. React and Next.js for products, WordPress
-              when you need to own your content, and n8n or Make.com for anything that shouldn't be done by hand.
+              {t.hero.intro}
             </motion.p>
 
             <motion.div variants={item} className="flex flex-wrap items-center gap-4 pt-2">
@@ -130,14 +131,14 @@ export function Hero() {
                 className="group/btn flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-3.5 font-mono text-xs font-bold tracking-wider text-white uppercase shadow-lg shadow-slate-900/15 transition-all duration-300 hover:scale-105 hover:bg-slate-800 active:scale-95"
               >
                 <Play aria-hidden="true" size={14} strokeWidth={2.5} className="transition-transform group-hover/btn:translate-x-1" />
-                <span>View Projects</span>
+                <span>{t.hero.viewProjects}</span>
               </a>
               <a
                 href="#contact"
                 className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-8 py-3.5 font-mono text-xs font-semibold tracking-wider text-slate-800 uppercase shadow-sm backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-slate-50 active:scale-95"
               >
                 <CalendarClock aria-hidden="true" size={14} className="text-indigo-600" />
-                <span>Contact Me</span>
+                <span>{t.hero.contactMe}</span>
               </a>
             </motion.div>
           </div>
@@ -152,12 +153,12 @@ export function Hero() {
           </motion.div>
           </div>
 
-          <motion.aside variants={item} aria-label="What I work on" className="flex flex-col justify-center space-y-4 lg:col-span-2">
+          <motion.aside variants={item} aria-label={t.hero.workOnAria} className="flex flex-col justify-center space-y-4 lg:col-span-2">
             <div data-hero-panel className="group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-lg transition-all hover:border-indigo-400">
               <div aria-hidden="true" className="pointer-events-none absolute top-0 right-0 h-24 w-24 rounded-full bg-indigo-50 blur-xl" />
               <h2 className="mb-3 flex items-center gap-1.5 font-mono text-[11px] font-bold tracking-wider text-indigo-600 uppercase">
                 <Terminal aria-hidden="true" size={14} />
-                <span>WHAT I WORK ON</span>
+                <span>{t.hero.workOn}</span>
               </h2>
               <ul className="space-y-2.5 text-xs text-slate-600">
                 {heroHighlights.map((h) => (
@@ -169,7 +170,7 @@ export function Hero() {
               </ul>
               <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 font-mono text-[10px] tracking-widest text-slate-500 uppercase">
                 <span>{site.timezone}</span>
-                <span className="font-bold text-emerald-600">AVAILABLE</span>
+                <span className="font-bold text-emerald-600">{t.hero.available}</span>
               </div>
             </div>
           </motion.aside>
@@ -179,9 +180,9 @@ export function Hero() {
         <motion.div variants={item} className="flex flex-col items-start justify-between gap-4 border-t border-slate-200/80 pt-4 lg:flex-row lg:items-center">
           <p className="flex items-center gap-2 font-mono text-xs text-slate-500">
             <PulseDot />
-            <span>{site.location}, {site.country} · Open to freelance projects and collaborations</span>
+            <span>{t.hero.ribbon(`${site.location}, ${site.country}`)}</span>
           </p>
-          <ul className="flex flex-wrap items-center gap-2" aria-label="Key technologies">
+          <ul className="flex flex-wrap items-center gap-2" aria-label={t.hero.keyTech}>
             {heroTags.map((tag) => (
               <li
                 key={tag}

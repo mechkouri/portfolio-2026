@@ -1,16 +1,18 @@
-import { services } from '../data/content';
+import { useLang } from '../i18n/LangProvider';
 import { accents } from '../lib/accents';
 import { Reveal, Stagger, StaggerItem } from '../components/ui/Reveal';
 import { cn, Section, SectionHeading, SectionLabel, Tag } from '../components/ui/primitives';
 
 export function Services() {
+  const { t, content } = useLang();
+  const { services } = content;
   return (
     <Section id="services" labelledBy="services-title">
       <div className="mx-auto max-w-7xl">
         <SectionLabel id="services" />
-        <SectionHeading id="services-title" className="mb-4" lines={[{ text: 'What you can hire me for.' }]} />
+        <SectionHeading id="services-title" className="mb-4" lines={[{ text: t.services.heading }]} />
         <Reveal as="p" className="mb-12 max-w-2xl text-slate-600">
-          Pick one, or combine a few. Most projects need more than one.
+          {t.services.intro}
         </Reveal>
 
         <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.1}>

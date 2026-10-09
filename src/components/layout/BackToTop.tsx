@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
+import { useLang } from '../../i18n/LangProvider';
 
 /** The button appears once the visitor is past the hero's first screen. */
 const SHOW_AFTER = 500;
@@ -11,6 +12,7 @@ const SHOW_AFTER = 500;
  * `scroll-behavior` (smooth, or instant for reduced motion) from the global CSS.
  */
 export function BackToTop() {
+  const { t } = useLang();
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(false);
 
@@ -22,8 +24,8 @@ export function BackToTop() {
       {visible && (
         <motion.a
           href="#top"
-          aria-label="Back to top"
-          title="Back to top"
+          aria-label={t.backToTop}
+          title={t.backToTop}
           initial={{ opacity: 0, y: 16, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 12, scale: 0.85 }}

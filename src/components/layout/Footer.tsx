@@ -1,12 +1,13 @@
 import { ArrowUpRight } from 'lucide-react';
-import { navLinks, site } from '../../data/content';
-
-const profiles = [
-  { label: 'GitHub', href: site.github },
-  { label: 'LinkedIn', href: site.linkedin },
-];
+import { useLang } from '../../i18n/LangProvider';
 
 export function Footer() {
+  const { t, content } = useLang();
+  const { navLinks, site } = content;
+  const profiles = [
+    { label: 'GitHub', href: site.github },
+    { label: 'LinkedIn', href: site.linkedin },
+  ];
   return (
     <footer className="w-full border-t border-slate-200 bg-slate-100 px-4 py-10 sm:px-8 lg:px-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 text-center md:grid-cols-[1.5fr_1fr_1fr] md:text-left">
@@ -18,11 +19,11 @@ export function Footer() {
             <span className="font-display text-sm font-bold tracking-wider text-slate-900 uppercase">{site.name}</span>
           </div>
           <p className="font-mono text-xs text-slate-600">{site.positioning}</p>
-          <p className="text-xs text-slate-500">Websites, web apps, and automations, built in {site.location}.</p>
+          <p className="text-xs text-slate-500">{t.footer.tagline(site.location)}</p>
         </div>
 
-        <nav aria-label="Footer">
-          <h2 className="mb-2 font-mono text-[10px] font-semibold tracking-widest text-slate-400 uppercase">Sections</h2>
+        <nav aria-label={t.footer.footerNav}>
+          <h2 className="mb-2 font-mono text-[10px] font-semibold tracking-widest text-slate-400 uppercase">{t.footer.sections}</h2>
           <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs md:flex-col md:justify-start">
             {navLinks.map((link) => (
               <li key={link.id}>
@@ -36,7 +37,7 @@ export function Footer() {
 
         <div className="space-y-3">
           <div>
-            <h2 className="mb-2 font-mono text-[10px] font-semibold tracking-widest text-slate-400 uppercase">Elsewhere</h2>
+            <h2 className="mb-2 font-mono text-[10px] font-semibold tracking-widest text-slate-400 uppercase">{t.footer.elsewhere}</h2>
             <ul className="flex justify-center gap-4 text-xs md:flex-col md:gap-1">
               {profiles.map((p) => (
                 <li key={p.label}>
@@ -48,7 +49,7 @@ export function Footer() {
                   >
                     {p.label}
                     <ArrowUpRight aria-hidden="true" size={12} />
-                    <span className="sr-only">(opens in a new tab)</span>
+                    <span className="sr-only">{t.footer.newTab}</span>
                   </a>
                 </li>
               ))}

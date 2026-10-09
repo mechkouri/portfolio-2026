@@ -1,6 +1,6 @@
 import { useRef, useState, type PointerEvent } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { site } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { useDeviceCapabilities } from '../../hooks/useDeviceCapabilities';
 import { cn, PulseDot } from '../ui/primitives';
 
@@ -15,6 +15,8 @@ const SPRING = { stiffness: 140, damping: 18, mass: 0.6 };
  */
 export function PortraitCard() {
   const { canHover } = useDeviceCapabilities();
+  const { t, content } = useLang();
+  const { site } = content;
   const boundary = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
 
@@ -103,7 +105,7 @@ export function PortraitCard() {
           </motion.div>
           <motion.img
             src="/images/portrait-studio.webp"
-            alt={`${site.name} at a desk, with code on the monitor behind`}
+            alt={t.hero.portraitAlt(site.name)}
             width={512}
             height={341}
             fetchPriority="high"

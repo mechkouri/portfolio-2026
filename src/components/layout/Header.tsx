@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-import { navLinks, sectionNumber, sections, site } from '../../data/content';
+import { sectionNumber, sections } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { cn, PulseDot } from '../ui/primitives';
+import { LangSwitcher } from './LangSwitcher';
 
 // Observe every section so the nav clears its highlight in sections that have no link.
 const observedIds = ['top', ...sections.map((s) => s.id)];
 
-// Mobile menu: Home plus every section of the page, in order.
-const menu = [{ id: 'top', label: 'Home' }, ...sections.map((s) => ({ id: s.id, label: 'nav' in s ? s.nav : s.eyebrow }))];
-
 export function Header() {
+  const { t, content } = useLang();
+  const { navLinks, site } = content;
+  // Mobile menu: Home plus every section of the page, in order.
+  const menu = [{ id: 'top', label: navLinks[0].label }, ...content.sections.map((s) => ({ id: s.id, label: s.nav ?? s.eyebrow }))];
   const active = useActiveSection(observedIds);
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -45,7 +48,7 @@ export function Header() {
         href="#main"
         className="sr-only rounded-xl bg-slate-900 px-4 py-2 text-sm text-white focus:not-sr-only focus:absolute focus:top-3 focus:left-3"
       >
-        Skip to content
+        {t.header.skip}
       </a>
       <motion.div
         initial={{ y: -24, opacity: 0 }}
@@ -60,7 +63,7 @@ export function Header() {
           className="absolute inset-x-4 -bottom-px h-[2px] origin-left rounded-full bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500"
         />
 
-        <a href="#top" className="group flex items-center gap-3" aria-label={`${site.name} — back to top`}>
+        <a href="#top" className="group flex items-center gap-3" aria-label={t.header.backToTopNamed(site.name)}>
           <span className="flex items-center justify-center rounded-lg bg-slate-900 p-1 shadow-sm transition-transform duration-300 group-hover:scale-105">
             <img src="/images/logo.png" alt="" width={200} height={142} className="h-5 w-auto object-contain brightness-0 invert sm:h-6" />
           </span>
@@ -72,7 +75,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 text-xs tracking-wide lg:flex">
+        <nav aria-label={t.header.primary} className="hidden items-center gap-6 text-xs tracking-wide lg:flex">
           {navLinks
             .filter((link) => link.id !== 'contact')
             .map((link) => (
@@ -98,16 +101,17 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <LangSwitcher className="max-[479px]:hidden" />
           <div className="hidden items-center gap-2 rounded-pill border border-emerald-200 bg-emerald-50 px-3 py-1 xl:flex">
             <PulseDot className="bg-emerald-600" />
-            <span className="font-mono text-[10px] font-semibold tracking-wider text-emerald-700 uppercase">Available for projects</span>
+            <span className="font-mono text-[10px] font-semibold tracking-wider text-emerald-700 uppercase">{t.header.available}</span>
           </div>
           <a
             href="#contact"
             aria-current={active === 'contact' ? 'location' : undefined}
             className="inline-flex items-center rounded-pill bg-indigo-600 px-3 py-1.5 font-mono text-xs font-bold tracking-wider whitespace-nowrap text-white uppercase shadow-md shadow-indigo-600/25 transition-all hover:scale-105 hover:bg-indigo-700 active:scale-95 sm:px-4"
           >
-            Contact
+            {t.header.contact}
           </a>
           <button
             ref={menuButton}
@@ -115,7 +119,7 @@ export function Header() {
             className="-mr-1 rounded-lg p-1.5 text-slate-700 hover:bg-slate-100 lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t.header.closeMenu : t.header.openMenu}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X size={18} /> : <Menu size={18} />}
@@ -137,7 +141,7 @@ export function Header() {
             />
             <motion.nav
               id="mobile-nav"
-              aria-label="Mobile"
+              aria-label={t.header.mobile}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -168,8 +172,9 @@ export function Header() {
               </ul>
               <p className="mt-1 flex items-center gap-2 border-t border-slate-100 px-4 pt-3 pb-2 font-mono text-[10px] font-semibold tracking-wider text-emerald-700 uppercase">
                 <PulseDot className="bg-emerald-600" />
-                Available for projects
+                {t.header.available}
               </p>
+              <LangSwitcher className="mx-4 mt-2 mb-2 min-[480px]:hidden" />
             </motion.nav>
           </>
         )}

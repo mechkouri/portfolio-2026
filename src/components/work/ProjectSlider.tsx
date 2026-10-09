@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent, type ReactNode } from 'react';
 import { useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { projects } from '../../data/content';
+import { useLang } from '../../i18n/LangProvider';
 import { cn } from '../ui/primitives';
 import { ProjectCard } from './ProjectCard';
 
@@ -29,6 +29,7 @@ function ArrowButton({
   controls: string;
   onClick: () => void;
 }) {
+  const { t } = useLang();
   const Icon = dir === 'prev' ? ArrowLeft : ArrowRight;
   return (
     <button
@@ -36,7 +37,7 @@ function ArrowButton({
       // aria-disabled (not `disabled`) keeps focus on the button when the end is reached.
       aria-disabled={disabled}
       aria-controls={controls}
-      aria-label={dir === 'prev' ? 'Previous project' : 'Next project'}
+      aria-label={dir === 'prev' ? t.work.prev : t.work.next}
       onClick={disabled ? undefined : onClick}
       className={cn(
         'flex h-11 w-11 items-center justify-center rounded-pill border border-slate-300 bg-white text-slate-700 shadow-sm transition-all',
@@ -55,6 +56,8 @@ function ArrowButton({
  * `header` sits on the left of the arrow row, so the title and controls share a line.
  */
 export function ProjectSlider({ header }: { header: ReactNode }) {
+  const { t, content } = useLang();
+  const { projects } = content;
   const n = projects.length;
   const reduced = useReducedMotion();
   const trackId = useId();
@@ -103,10 +106,10 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
   // Announce the visible range once scrolling settles, not on every snap point it passes.
   useEffect(() => {
     const last = Math.min(n, pos.index + pos.visible);
-    const text = pos.visible > 1 ? `Showing projects ${pos.index + 1} to ${last} of ${n}` : `Showing project ${pos.index + 1} of ${n}`;
-    const t = window.setTimeout(() => setAnnouncement(text), 600);
-    return () => window.clearTimeout(t);
-  }, [pos.index, pos.visible, n]);
+    const text = pos.visible > 1 ? t.work.showingMany(pos.index + 1, last, n) : t.work.showingOne(pos.index + 1, n);
+    const timer = window.setTimeout(() => setAnnouncement(text), 600);
+    return () => window.clearTimeout(timer);
+  }, [pos.index, pos.visible, n, t]);
 
   const scrollToIndex = useCallback(
     (i: number, smooth = true) => {
@@ -186,7 +189,7 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
   const pad = (v: number) => String(v).padStart(2, '0');
 
   return (
-    <div role="group" aria-roledescription="carousel" aria-label="Selected projects">
+    <div role="group" aria-roledescription="carousel" aria-label={t.work.carousel}>
       <div className="mb-4 flex items-end justify-between gap-6">
         <div className="min-w-0">{header}</div>
         <div className="flex shrink-0 items-center gap-2">
@@ -207,7 +210,7 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
         onClickCapture={onClickCapture}
-        aria-label="Projects. Scroll sideways, drag, or use the left, right, Home and End keys."
+        aria-label={t.work.track}
         className="-mx-3 flex snap-x snap-mandatory scroll-px-3 gap-6 overflow-x-auto overscroll-x-contain px-3 py-6 [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:outline-offset-0 data-[dragging=true]:cursor-grabbing [@media(hover:hover)]:cursor-grab [&::-webkit-scrollbar]:hidden"
       >
         {projects.map((project, i) => (
@@ -215,7 +218,7 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
             key={project.title}
             role="group"
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${n}`}
+            aria-label={t.work.slide(i + 1, n)}
             className="slider-card w-[86%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]"
           >
             <ProjectCard project={project} />
@@ -228,13 +231,13 @@ export function ProjectSlider({ header }: { header: ReactNode }) {
         <p className="shrink-0 font-mono text-xs tracking-wider whitespace-nowrap text-slate-500 tabular-nums" aria-hidden="true">
           {pos.visible > 1 ? `${pad(pos.index + 1)}–${pad(rangeEnd)}` : pad(pos.index + 1)} <span className="text-slate-300">/</span> {pad(n)}
         </p>
-        <div className="flex items-center" role="group" aria-label="Choose where to start">
+        <div className="flex items-center" role="group" aria-label={t.work.chooseStart}>
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => scrollToIndex(i)}
-              aria-label={`Go to project ${i + 1}: ${projects[i].title}`}
+              aria-label={t.work.goTo(i + 1, projects[i].title)}
               aria-current={i === pos.index ? 'true' : undefined}
               // 24x24px hit area (WCAG 2.2 target size) around a small visual dot
               className="group/dot flex h-6 w-6 items-center justify-center"

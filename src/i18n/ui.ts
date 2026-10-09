@@ -1,0 +1,276 @@
+// Interface strings (labels, buttons, headings, aria text) for every language.
+// Portfolio content (projects, experience, skills...) is localised in ./content.ts.
+export type Lang = 'en' | 'fr';
+
+export const LANGS: { code: Lang; label: string; name: string }[] = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'fr', label: 'FR', name: 'Français' },
+];
+
+const en = {
+  meta: {
+    title: 'Said Mechkouri — Full-Stack Developer · WordPress · SEO & Automation',
+    description:
+      'Full-stack developer in Marrakech, Morocco. I build React and Next.js apps, WordPress websites, technical SEO, and n8n & Make.com automations.',
+    ogTitle: 'Said Mechkouri — Full-Stack Developer',
+    ogDescription: 'Websites, web apps, and the automations behind them. React, Next.js, WordPress, SEO, n8n & Make.com.',
+  },
+  header: {
+    skip: 'Skip to content',
+    backToTopNamed: (name: string) => `${name} — back to top`,
+    primary: 'Primary',
+    mobile: 'Mobile',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    available: 'Available for projects',
+    contact: 'Contact',
+    language: 'Language',
+  },
+  footer: {
+    tagline: (place: string) => `Websites, web apps, and automations, built in ${place}.`,
+    sections: 'Sections',
+    elsewhere: 'Elsewhere',
+    newTab: '(opens in a new tab)',
+    footerNav: 'Footer',
+  },
+  backToTop: 'Back to top',
+  telemetry: {
+    label: 'TELEMETRY',
+    aria: 'Page progress',
+    current: ' (current section)',
+    home: 'Home',
+  },
+  hero: {
+    watermark: 'DEVELOPER // AUTOMATION',
+    since: '• BUILDING FOR THE WEB SINCE 2021',
+    tagsPill: 'WORDPRESS · SEO · AUTOMATION',
+    openToProjects: 'OPEN TO NEW PROJECTS',
+    basedIn: (place: string) => `Based in ${place}`,
+    coreStack: 'Core stack',
+    intro:
+      'I build websites, web apps, and the automations behind them. React and Next.js for products, WordPress when you need to own your content, and n8n or Make.com for anything that shouldn’t be done by hand.',
+    viewProjects: 'View Projects',
+    contactMe: 'Contact Me',
+    workOnAria: 'What I work on',
+    workOn: 'WHAT I WORK ON',
+    available: 'AVAILABLE',
+    ribbon: (place: string) => `${place} · Open to freelance projects and collaborations`,
+    keyTech: 'Key technologies',
+    portraitAlt: (name: string) => `${name} at a desk, with code on the monitor behind`,
+  },
+  work: {
+    heading: 'A selection of things I’ve built.',
+    intro: 'Websites, stores, and apps I’ve worked on. Slide through them, and hover a card to scroll the full page.',
+    viewProject: 'View Project',
+    similar: 'Need something similar?',
+    technologies: 'Technologies',
+    carousel: 'Selected projects',
+    track: 'Projects. Scroll sideways, drag, or use the left, right, Home and End keys.',
+    prev: 'Previous project',
+    next: 'Next project',
+    slide: (i: number, n: number) => `${i} of ${n}`,
+    showingMany: (a: number, b: number, n: number) => `Showing projects ${a} to ${b} of ${n}`,
+    showingOne: (a: number, n: number) => `Showing project ${a} of ${n}`,
+    chooseStart: 'Choose where to start',
+    goTo: (i: number, title: string) => `Go to project ${i}: ${title}`,
+  },
+  experience: {
+    heading: 'Work experience.',
+    intro: 'Internships, agencies, and now a full-stack role at Infinit Deals.',
+  },
+  services: {
+    heading: 'What you can hire me for.',
+    intro: 'Pick one, or combine a few. Most projects need more than one.',
+  },
+  automation: {
+    heading: ['If you do it every week,', 'it should run on its own.'],
+    intro:
+      'Most businesses run on a stack of tools that don’t talk to each other. I connect them with n8n and Make.com: content, SEO tasks, leads, notifications, and data syncs. I add AI where it saves time, not just because I can.',
+    chips: ['n8n', 'Make.com', 'APIs', 'Webhooks', 'AI-assisted workflows'],
+    diagramTitle: 'From trigger to result: Trigger → Process → AI → Integration → Action',
+    diagramTag: 'N8N · MAKE.COM',
+    diagramText:
+      'A workflow can start from a form, spreadsheet, API, webhook, or scheduled event — then automatically process data, use AI when needed, update systems, and deliver the final result.',
+    node: 'NODE',
+    examples: 'Examples of workflows I build',
+    steps: (title: string) => `${title} steps`,
+    cta: 'Tired of a task you do every week? Tell me about it. There’s a good chance it can run on its own.',
+    ctaButton: 'Plan An Automation',
+  },
+  about: {
+    heading: ['I care about the details', 'you’d notice if they were missing.'],
+    p1: (place: string) =>
+      `I’m Said, a full-stack developer based in ${place}. My work moves between code, WordPress, SEO, and automation. I like clean interfaces, tricky bugs, and wiring tools together so nobody has to do the same task twice.`,
+    p2: 'I studied software engineering in Marrakech and Essaouira, then went through the ALX program. Since then I’ve worked in agencies and alongside product teams, so I’m comfortable on both sides: the code, and the business that depends on it.',
+    p3: 'These days a big part of my workflow is AI-assisted development: using AI to prototype, debug, and iterate quickly. It makes me faster. It doesn’t make the decisions. Architecture and code quality are still on me.',
+    approach: 'My approach',
+    quote: 'Build fast. Automate more. Keep it simple.',
+    portraitAlt: (name: string) => `Portrait of ${name}`,
+  },
+  skills: {
+    heading: 'What I work with.',
+    intro: 'Grouped by what each tool is for.',
+  },
+  education: {
+    heading: 'Where I studied.',
+  },
+  contact: {
+    heading: ['Let’s work', 'together!'],
+    intro:
+      'Need a website, a web app, better SEO, or a workflow that stops eating your week? Send me a short message about what you’re working on. Recruiters are welcome too.',
+    openTo: 'Open to',
+    openToItems: ['Freelance projects', 'Collaborations'],
+    linkedin: (name: string) => `LinkedIn: ${name}`,
+    github: 'GitHub: Mechkouri',
+    portfolio: 'Portfolio: mechkouri.netlify.app',
+    honeypot: 'Don’t fill this out: ',
+    name: 'Your Name',
+    namePh: 'Your name',
+    email: 'Your Email',
+    emailPh: 'hello@example.com',
+    message: 'Your Message',
+    messagePh: 'What are you building, and when do you need it?',
+    sending: 'Sending…',
+    send: 'Send Message',
+    sent: 'Thank you! Your message has been sent.',
+    error: 'Something went wrong. Please reach out on LinkedIn instead.',
+    returnTop: '[ Return to top ]',
+    newTab: '(opens in a new tab)',
+  },
+};
+
+export type Dict = typeof en;
+
+const fr: Dict = {
+  meta: {
+    title: 'Said Mechkouri — Développeur Full-Stack · WordPress · SEO & Automatisation',
+    description:
+      'Développeur full-stack à Marrakech, au Maroc. Je crée des applications React et Next.js, des sites WordPress, du SEO technique et des automatisations n8n & Make.com.',
+    ogTitle: 'Said Mechkouri — Développeur Full-Stack',
+    ogDescription: 'Sites web, applications web et les automatisations qui vont avec. React, Next.js, WordPress, SEO, n8n & Make.com.',
+  },
+  header: {
+    skip: 'Aller au contenu',
+    backToTopNamed: (name: string) => `${name} — retour en haut`,
+    primary: 'Principale',
+    mobile: 'Mobile',
+    openMenu: 'Ouvrir le menu',
+    closeMenu: 'Fermer le menu',
+    available: 'Disponible pour des projets',
+    contact: 'Contact',
+    language: 'Langue',
+  },
+  footer: {
+    tagline: (place: string) => `Sites web, applications web et automatisations, conçus à ${place}.`,
+    sections: 'Sections',
+    elsewhere: 'Ailleurs',
+    newTab: '(s’ouvre dans un nouvel onglet)',
+    footerNav: 'Pied de page',
+  },
+  backToTop: 'Retour en haut',
+  telemetry: {
+    label: 'TÉLÉMÉTRIE',
+    aria: 'Progression de la page',
+    current: ' (section actuelle)',
+    home: 'Accueil',
+  },
+  hero: {
+    watermark: 'DÉVELOPPEUR // AUTOMATISATION',
+    since: '• AU SERVICE DU WEB DEPUIS 2021',
+    tagsPill: 'WORDPRESS · SEO · AUTOMATISATION',
+    openToProjects: 'OUVERT À DE NOUVEAUX PROJETS',
+    basedIn: (place: string) => `Basé à ${place}`,
+    coreStack: 'Stack principale',
+    intro:
+      'Je crée des sites web, des applications web et les automatisations qui vont avec. React et Next.js pour les produits, WordPress quand vous voulez maîtriser votre contenu, et n8n ou Make.com pour tout ce qui ne devrait pas se faire à la main.',
+    viewProjects: 'Voir les projets',
+    contactMe: 'Me contacter',
+    workOnAria: 'Mes domaines d’intervention',
+    workOn: 'MES DOMAINES',
+    available: 'DISPONIBLE',
+    ribbon: (place: string) => `${place} · Ouvert aux missions freelance et aux collaborations`,
+    keyTech: 'Technologies clés',
+    portraitAlt: (name: string) => `${name} à son bureau, avec du code sur l’écran derrière lui`,
+  },
+  work: {
+    heading: 'Une sélection de ce que j’ai réalisé.',
+    intro: 'Des sites, des boutiques et des applications sur lesquels j’ai travaillé. Faites défiler, et survolez une carte pour parcourir la page entière.',
+    viewProject: 'Voir le projet',
+    similar: 'Un besoin similaire ?',
+    technologies: 'Technologies',
+    carousel: 'Projets sélectionnés',
+    track: 'Projets. Faites défiler latéralement, glissez, ou utilisez les flèches gauche et droite, Début et Fin.',
+    prev: 'Projet précédent',
+    next: 'Projet suivant',
+    slide: (i: number, n: number) => `${i} sur ${n}`,
+    showingMany: (a: number, b: number, n: number) => `Projets ${a} à ${b} sur ${n}`,
+    showingOne: (a: number, n: number) => `Projet ${a} sur ${n}`,
+    chooseStart: 'Choisir le point de départ',
+    goTo: (i: number, title: string) => `Aller au projet ${i} : ${title}`,
+  },
+  experience: {
+    heading: 'Expérience professionnelle.',
+    intro: 'Des stages, des agences, et aujourd’hui un poste full-stack chez Infinit Deals.',
+  },
+  services: {
+    heading: 'Ce pour quoi vous pouvez me confier vos projets.',
+    intro: 'Choisissez un service, ou combinez-en plusieurs. La plupart des projets en demandent plus d’un.',
+  },
+  automation: {
+    heading: ['Si vous le faites chaque semaine,', 'cela devrait tourner tout seul.'],
+    intro:
+      'La plupart des entreprises fonctionnent avec une pile d’outils qui ne communiquent pas entre eux. Je les relie avec n8n et Make.com : contenu, tâches SEO, leads, notifications et synchronisation de données. J’ajoute l’IA là où elle fait gagner du temps, pas simplement parce que c’est possible.',
+    chips: ['n8n', 'Make.com', 'APIs', 'Webhooks', 'Workflows assistés par IA'],
+    diagramTitle: 'Du déclencheur au résultat : Déclencheur → Traitement → IA → Intégration → Action',
+    diagramTag: 'N8N · MAKE.COM',
+    diagramText:
+      'Un workflow peut démarrer depuis un formulaire, un tableur, une API, un webhook ou un événement planifié — puis traiter automatiquement les données, faire appel à l’IA si besoin, mettre à jour vos systèmes et livrer le résultat final.',
+    node: 'ÉTAPE',
+    examples: 'Exemples de workflows que je construis',
+    steps: (title: string) => `Étapes : ${title}`,
+    cta: 'Une tâche répétitive chaque semaine ? Parlez-m’en. Il y a de bonnes chances qu’elle puisse tourner toute seule.',
+    ctaButton: 'Planifier une automatisation',
+  },
+  about: {
+    heading: ['Je soigne les détails', 'que vous remarqueriez s’ils manquaient.'],
+    p1: (place: string) =>
+      `Je suis Said, développeur full-stack basé à ${place}. Mon travail navigue entre code, WordPress, SEO et automatisation. J’aime les interfaces propres, les bugs retors, et relier les outils entre eux pour que personne n’ait à faire deux fois la même tâche.`,
+    p2: 'J’ai étudié le génie logiciel à Marrakech et à Essaouira, puis suivi le programme ALX. Depuis, j’ai travaillé en agence et aux côtés d’équipes produit, donc je suis à l’aise des deux côtés : le code, et le métier qui en dépend.',
+    p3: 'Aujourd’hui, une grande partie de mon workflow repose sur le développement assisté par IA : j’utilise l’IA pour prototyper, déboguer et itérer rapidement. Elle me rend plus rapide. Elle ne prend pas les décisions. L’architecture et la qualité du code restent de ma responsabilité.',
+    approach: 'Mon approche',
+    quote: 'Construire vite. Automatiser davantage. Rester simple.',
+    portraitAlt: (name: string) => `Portrait de ${name}`,
+  },
+  skills: {
+    heading: 'Avec quoi je travaille.',
+    intro: 'Regroupés selon l’usage de chaque outil.',
+  },
+  education: {
+    heading: 'Où j’ai étudié.',
+  },
+  contact: {
+    heading: ['Travaillons', 'ensemble !'],
+    intro:
+      'Besoin d’un site web, d’une application web, d’un meilleur SEO ou d’un workflow qui arrête de dévorer votre semaine ? Envoyez-moi un court message sur votre projet. Les recruteurs sont les bienvenus aussi.',
+    openTo: 'Ouvert à',
+    openToItems: ['Missions freelance', 'Collaborations'],
+    linkedin: (name: string) => `LinkedIn : ${name}`,
+    github: 'GitHub : Mechkouri',
+    portfolio: 'Portfolio : mechkouri.netlify.app',
+    honeypot: 'Ne pas remplir : ',
+    name: 'Votre nom',
+    namePh: 'Votre nom',
+    email: 'Votre e-mail',
+    emailPh: 'bonjour@exemple.com',
+    message: 'Votre message',
+    messagePh: 'Que construisez-vous, et pour quand en avez-vous besoin ?',
+    sending: 'Envoi…',
+    send: 'Envoyer le message',
+    sent: 'Merci ! Votre message a bien été envoyé.',
+    error: 'Une erreur s’est produite. Contactez-moi plutôt sur LinkedIn.',
+    returnTop: '[ Retour en haut ]',
+    newTab: '(s’ouvre dans un nouvel onglet)',
+  },
+};
+
+export const dictionaries: Record<Lang, Dict> = { en, fr };
