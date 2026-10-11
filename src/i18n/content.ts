@@ -157,11 +157,6 @@ const frProjects: Overlay<base.Project> = [
     category: 'Site vitrine // Salon de beauté',
     description: 'Site d’un salon de beauté à Montpellier, avec prestations, réservation en ligne, offre spéciale et blog.',
   },
-  {
-    imageAlt: 'Capture pleine page de la landing page TechDigi IPTV',
-    category: 'Landing page // Abonnement',
-    description: 'Landing page orientée conversion pour un abonnement de streaming, avec formules, témoignages, FAQ et contact WhatsApp.',
-  },
 ];
 
 const frTech: Overlay<(typeof base.techCategories)[number]> = [

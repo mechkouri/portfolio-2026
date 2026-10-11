@@ -29,8 +29,8 @@ export const site = {
   github: 'https://github.com/Mechkouri',
   linkedin: 'https://www.linkedin.com/in/said-mechkouri/',
   portfolio: 'https://mechkouri.netlify.app',
-  /** Public contact email. Left empty on purpose: the Contact section only shows it once it is set. */
-  email: '',
+  /** Public contact email, shown as a mailto button on the Contact section. */
+  email: 'saidmechkouri@gmail.com',
   /** Public phone number: shown on the Contact section as a tap-to-call link. */
   phone: '07 07 53 79 30',
   phoneHref: 'tel:+212707537930',
@@ -286,17 +286,6 @@ export const moreProjects: Project[] = [
     category: 'Business Website // Beauty salon',
     title: 'Maya Beauty House',
     description: 'Website for a beauty salon in Montpellier, with services, online booking, a special offer, and a blog.',
-    tags: [],
-    siteIcon: 'globe',
-  },
-  {
-    label: 'TechDigi IPTV',
-    image: '/images/projects/techdigi-iptv.webp',
-    imageAlt: 'Full-page screenshot of the TechDigi IPTV landing page',
-    accent: 'amber',
-    category: 'Landing Page // Subscription',
-    title: 'TechDigi IPTV',
-    description: 'Conversion-focused landing page for a streaming subscription, with plans, testimonials, FAQ, and WhatsApp contact.',
     tags: [],
     siteIcon: 'globe',
   },
