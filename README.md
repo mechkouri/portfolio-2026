@@ -48,27 +48,26 @@ src/
 
 ## Deploying
 
-The site is live at https://mechkouri.netlify.app (Netlify project `mechkouri`).
+The site is live at https://mechkouri.netlify.app (Netlify project `mechkouri`), deployed from this repository:
+every push to `main` on GitHub builds and publishes it (`netlify.toml`: `npm run build`, publish `dist`, Node 22,
+functions in `netlify/functions`).
 
-- **Netlify Drop:** run `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
-- **From Git:** `netlify.toml` already holds the build settings (`npm run build`, publish `dist`, Node 22), so
-  linking the GitHub repo to the Netlify project also works.
-- **Contact form:** the form posts to `/api/contact` (`netlify/functions/contact.mjs`), which emails you a branded HTML
-  message through [Resend](https://resend.com) (preview: `docs/email-preview.png`). If the function isn't available
-  (no `RESEND_API_KEY`, or the site was deployed with Drop), the form falls back to Netlify Forms, so no message is lost;
-  those arrive as Netlify's plain notification emails (Forms > Submission notifications).
-  - Setup: create a Resend account **with the address that should receive the messages**, create an API key, and add it in
-    Netlify under Project configuration > Environment variables as `RESEND_API_KEY`. Optional: `CONTACT_TO`
-    (recipient, default saidmechkouri@gmail.com) and `CONTACT_FROM` (default `Portfolio <onboarding@resend.dev>`, which
-    Resend only lets you use to write to your own Resend address; verify your own domain to send from it).
-  - Functions are not deployed by Netlify Drop (zip upload): deploy from Git (`netlify.toml` already points at
-    `netlify/functions`) or with `npx netlify deploy --prod`.
+- **Contact form:** the form posts to `/api/contact` (`netlify/functions/contact.mjs`), which emails a branded HTML
+  message through [Resend](https://resend.com) (preview: `docs/email-preview.png`). If the function is unavailable,
+  the form falls back to Netlify Forms, so no message is lost.
+  - Needs the `RESEND_API_KEY` environment variable in Netlify (Project configuration > Environment variables).
+    Optional: `CONTACT_TO` (recipient, default saidmechkouri@gmail.com) and `CONTACT_FROM` (default
+    `Portfolio <onboarding@resend.dev>`, which Resend only lets you use to write to your own Resend address; verify
+    a domain in Resend to send from it).
+- **Manual deploy (no Git):** `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
+  Netlify Drop does not deploy functions, so the form then uses the Netlify Forms fallback.
 
-## Before going live
+## Keeping it fresh
 
-- **Sharper project screenshots:** Varimart, Normes HACCP and Maya Beauty House are captured from the live sites at
-  1600px. The rest still use small screenshots, so they look soft. Add each live site to `scripts/capture-urls.json`
-  (the key must match the file name in `assets-src/screenshots/`, e.g. `"cavelle": "https://..."`), then run
-  `npm run capture && npm run images`. The capture script closes pop-ups and hides fixed bars; check each result by eye.
-- Add your public email in `site.email` (src/data/content.ts). The Contact section shows a mailto button once it is set.
-- Set the real LinkedIn URL in `site.linkedin`, and real `url`s on projects if they should link out.
+- **Project screenshots:** add the live site to `scripts/capture-urls.json` (the key must match the file name in
+  `assets-src/screenshots/`), then `npm run capture && npm run images`. Captures run down to the footer, because the
+  project cards scroll their screenshot to the bottom on hover. If screenshots change, bump `IMAGE_VERSION` in
+  `src/components/work/ProjectCard.tsx` (images are cached for a week).
+- **Copy:** English lives in `src/data/content.ts`, French in `src/i18n/content.ts` (project cards by position) and
+  `src/i18n/ui.ts` (interface text).
+- **CV:** edit `cv/cv.html`, then `npm run cv` to regenerate the PDF (it reports if it no longer fits one page).
