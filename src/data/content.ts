@@ -237,6 +237,19 @@ export const moreProjects: Project[] = [
     siteIcon: 'globe',
   },
   {
+    label: 'mochismochis.com',
+    url: 'https://mochismochis.com',
+    image: '/images/projects/mochis-mochis.webp',
+    imageAlt: 'Full-page screenshot of the Mochis Mochis sushi corner website',
+    accent: 'amber',
+    category: 'Restaurant // Asian food',
+    title: 'Mochis Mochis — Website',
+    description:
+      'Website for a sushi corner brand in France. Customised WordPress theme with Elementor and custom code, on-page SEO, a layout that adapts to desktop, tablet, and mobile, and Make.com automation for blog articles and LinkedIn posts.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+    siteIcon: 'globe',
+  },
+  {
     label: 'Garage RKJ',
     image: '/images/projects/garage-rkj.webp',
     imageAlt: 'Full-page screenshot of the Garage RKJ car repair website',

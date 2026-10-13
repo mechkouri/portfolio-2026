@@ -139,6 +139,14 @@ const frProjects: Overlay<base.Project> = [
     tags: ['WordPress', 'Elementor', 'SEO', 'Code sur mesure'],
   },
   {
+    imageAlt: 'Capture pleine page du site du sushi corner Mochis Mochis',
+    category: 'Restauration // Cuisine asiatique',
+    title: 'Mochis Mochis — Site Web',
+    description:
+      'Site d’une marque de sushi corners en France. Thème WordPress personnalisé avec Elementor et code sur mesure, SEO on-page, affichage adapté aux ordinateurs, tablettes et mobiles, et automatisation Make.com des articles de blog et des posts LinkedIn.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+  },
+  {
     imageAlt: 'Capture pleine page du site du garage automobile Garage RKJ',
     category: 'Site vitrine // Garage automobile',
     description:
