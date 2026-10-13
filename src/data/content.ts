@@ -199,17 +199,30 @@ export const featuredProjects: Project[] = [
     image: '/images/projects/normes-haccp.webp',
     imageAlt: 'Full-page screenshot of the Normes HACCP website for food-service businesses',
     accent: 'sky',
-    category: 'Food Safety // SaaS Web App',
-    title: 'Normes HACCP — Food Traceability Web App',
+    category: 'Food Safety // WordPress Website',
+    title: 'Normes HACCP — Food Safety Website',
     description:
-      'Web app that helps restaurants, bakeries, and butcher shops digitise hygiene procedures and food safety checks: product traceability, batch and expiry-date tracking, temperature logs, cleaning plans, dashboards, and alerts. Built with Claude Code as development assistant.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'REST API'],
+      'Website for a platform that helps restaurants, bakeries, and butcher shops handle HACCP compliance. I built the site, set up the SEO and content structure, and automated parts of the workflow.',
+    tags: ['WordPress', 'SEO', 'Automation', 'Business Systems'],
     siteIcon: 'shield',
   },
 ];
 
 /** The rest of the slides. Descriptions only state what the site shows. */
 export const moreProjects: Project[] = [
+  {
+    label: 'Normes HACCP App',
+    url: 'https://normes-haccp.com',
+    image: '/images/projects/normes-haccp-app.webp',
+    imageAlt: 'Screenshot of the Normes HACCP web app dashboard: temperatures, deliveries to check, cleaning tasks, and product labels',
+    accent: 'indigo',
+    category: 'Food Safety // SaaS Web App',
+    title: 'Normes HACCP — Food Traceability Web App',
+    description:
+      'Web app for restaurants, bakeries, and butcher shops to digitise hygiene procedures and food safety checks: product traceability, batch and expiry-date tracking, temperature monitoring, cleaning plans, dashboards, and alerts. Built with Claude Code as development assistant.',
+    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Claude Code'],
+    siteIcon: 'code',
+  },
   {
     label: 'agri40.tech',
     url: 'https://agri40.tech',
