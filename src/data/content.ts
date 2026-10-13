@@ -224,6 +224,19 @@ export const moreProjects: Project[] = [
     siteIcon: 'globe',
   },
   {
+    label: 'atlasgenix.com',
+    url: 'https://atlasgenix.com',
+    image: '/images/projects/atlasgenix.webp',
+    imageAlt: 'Full-page screenshot of the AtlasGenix agricultural marketing agency website',
+    accent: 'indigo',
+    category: 'Marketing Agency // Agri sector',
+    title: 'AtlasGenix — Digital Marketing Website',
+    description:
+      'Website for a Moroccan marketing and communication agency focused on agriculture, agri-food, and AgriTech. Customised WordPress theme with Elementor and custom code, sections for services, projects, and offers, and on-page SEO.',
+    tags: ['WordPress', 'Elementor', 'SEO', 'Custom code'],
+    siteIcon: 'globe',
+  },
+  {
     label: 'Garage RKJ',
     image: '/images/projects/garage-rkj.webp',
     imageAlt: 'Full-page screenshot of the Garage RKJ car repair website',

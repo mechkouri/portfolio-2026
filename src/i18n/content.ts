@@ -131,6 +131,14 @@ const frProjects: Overlay<base.Project> = [
     tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
   },
   {
+    imageAlt: 'Capture pleine page du site de l’agence de marketing agricole AtlasGenix',
+    category: 'Agence marketing // Secteur agricole',
+    title: 'AtlasGenix — Site Web de Marketing Digital',
+    description:
+      'Site d’une agence marocaine de marketing et de communication spécialisée dans l’agriculture, l’agroalimentaire et l’AgriTech. Thème WordPress personnalisé avec Elementor et code sur mesure, sections services, projets et offres, et SEO on-page.',
+    tags: ['WordPress', 'Elementor', 'SEO', 'Code sur mesure'],
+  },
+  {
     imageAlt: 'Capture pleine page du site du garage automobile Garage RKJ',
     category: 'Site vitrine // Garage automobile',
     description:
