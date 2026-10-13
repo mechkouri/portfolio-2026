@@ -105,6 +105,7 @@ const frWorkflows: Overlay<(typeof base.workflows)[number]> = [
 ];
 
 const frProjects: Overlay<base.Project> = [
+  // keep in the same order as the projects in data/content.ts (featured first, then the rest)
   {
     imageAlt: 'Capture pleine page du site de la conférence internationale SWSM 2026',
     category: 'Site d’événement // Conférence',
@@ -120,6 +121,13 @@ const frProjects: Overlay<base.Project> = [
     description:
       'Aide les restaurants, boulangeries et boucheries à gérer leur conformité HACCP. J’ai construit le site, mis en place le SEO et la structure du contenu, et automatisé une partie du workflow.',
     tags: ['WordPress', 'SEO', 'Automatisation', 'Systèmes métier'],
+  },
+  {
+    imageAlt: 'Capture pleine page du site du garage automobile Garage RKJ',
+    category: 'Site vitrine // Garage automobile',
+    description:
+      'Site d’un garage automobile indépendant à Sète : mécanique, carrosserie et entretien toutes marques. Thème WordPress personnalisé avec Elementor et code sur mesure, avec un SEO on-page pensé pour la recherche locale.',
+    tags: ['WordPress', 'Elementor', 'SEO', 'Code sur mesure'],
   },
   {
     imageAlt: 'Capture pleine page de la boutique en ligne Equipements Cuisine',

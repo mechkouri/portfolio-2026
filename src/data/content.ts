@@ -211,6 +211,18 @@ export const featuredProjects: Project[] = [
 /** The rest of the slides. Descriptions only state what the site shows. */
 export const moreProjects: Project[] = [
   {
+    label: 'Garage RKJ',
+    image: '/images/projects/garage-rkj.webp',
+    imageAlt: 'Full-page screenshot of the Garage RKJ car repair website',
+    accent: 'sky',
+    category: 'Business Website // Auto garage',
+    title: 'Garage RKJ',
+    description:
+      'Website for an independent car garage in Sète, France: mechanics, bodywork, and servicing for all makes. Built on a customised WordPress theme with Elementor and custom code, with on-page SEO for local search.',
+    tags: ['WordPress', 'Elementor', 'SEO', 'Custom code'],
+    siteIcon: 'globe',
+  },
+  {
     label: 'Equipements Cuisine',
     image: '/images/projects/equipements-cuisine.webp',
     imageAlt: 'Full-page screenshot of the Equipements Cuisine online store',
