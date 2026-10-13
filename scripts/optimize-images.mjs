@@ -33,8 +33,9 @@ for (const file of await readdir('assets-src/logos')) {
   console.log(`${out}: ${info.width}x${info.height}, ${(info.size / 1024).toFixed(1)} KB`);
 }
 
-// Project screenshots: keep the top of the page (cap the aspect ratio), cap width at 1600px (sharp on
-// retina at the slider's ~700px size), and re-encode. A fresh capture (.png from `npm run capture`)
+// Project screenshots: keep the whole page down to the footer (the cards scroll to the bottom on hover;
+// the height cap is only WebP's 16383px limit), cap width at 1600px (sharp on retina at the slider's
+// ~700px size), and re-encode. A fresh capture (.png from `npm run capture`)
 // wins over an older low-res .webp with the same name.
 await mkdir(`${OUT}/projects`, { recursive: true });
 const shots = await readdir('assets-src/screenshots');
@@ -43,8 +44,10 @@ for (const file of shots) {
   if (ext === '.webp' && shots.includes(`${name}.png`)) continue;
   const input = sharp(`assets-src/screenshots/${file}`);
   const meta = await input.metadata();
-  const width = Math.min(meta.width, 1600);
-  const maxHeight = Math.round(width * 3.2);
+  // Keep the image under 10000px tall (phones decode these lazily; WebP allows 16383) by narrowing very tall pages.
+  const MAX_H = 10000;
+  const width = Math.min(meta.width, 1600, Math.round((MAX_H * meta.width) / meta.height));
+  const maxHeight = 16000;
   const info = await input
     .resize({ width, withoutEnlargement: true })
     .extract({ left: 0, top: 0, width, height: Math.min(maxHeight, Math.round((meta.height * width) / meta.width)) })

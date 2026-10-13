@@ -39,8 +39,12 @@ const executablePath = [
 if (!executablePath) throw new Error('No Chrome or Edge found. Install one, or capture the screenshots manually.');
 
 const WIDTH = 1440; // desktop layout
-const HEIGHT = 900; // viewport; the capture itself is taller (CLIP_HEIGHT)
-const CLIP_HEIGHT = 3200; // 2.2x the width: the slider only shows the top of each page
+const HEIGHT = 900; // viewport; the capture itself is the full page (up to MAX_PAGE_HEIGHT)
+// The project cards scroll their screenshot down to the bottom on hover, so capture down to the footer.
+// Tall pages are shot at a lower scale so the bitmap (height x scale) stays under Chrome's 16384px
+// limit; it never drops below 1.2, which is still enough for the 1600px-wide output.
+const MAX_PAGE_HEIGHT = 13000;
+const MAX_BITMAP = 16000;
 const SCALE = 2; // retina-sharp; downscaled later by `npm run images`
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -88,7 +92,7 @@ function tidyPage() {
 async function warmUp(page) {
   await page.evaluate(async () => {
     const step = Math.max(400, window.innerHeight * 0.8);
-    for (let y = 0; y < Math.min(document.body.scrollHeight, 9000); y += step) {
+    for (let y = 0; y < Math.min(document.body.scrollHeight, 12000); y += step) {
       window.scrollTo(0, y);
       await new Promise((r) => setTimeout(r, 250));
     }
@@ -123,8 +127,12 @@ try {
       }
       if (tidy) await page.evaluate(tidyPage); // pop-ups often open on a timer or on first scroll
       await sleep(600);
-      await page.screenshot({ path: `${outDir}/${name}.png`, clip: { x: 0, y: 0, width: WIDTH, height: CLIP_HEIGHT }, captureBeyondViewport: true });
-      console.log(`ok    ${name}  <-  ${url}`);
+      const pageHeight = await page.evaluate(() => Math.max(document.documentElement.scrollHeight, document.body.scrollHeight));
+      const height = Math.min(pageHeight, MAX_PAGE_HEIGHT);
+      const scale = Math.max(1.2, Math.min(SCALE, MAX_BITMAP / height));
+      if (scale !== SCALE) await page.setViewport({ width: WIDTH, height: HEIGHT, deviceScaleFactor: scale });
+      await page.screenshot({ path: `${outDir}/${name}.png`, clip: { x: 0, y: 0, width: WIDTH, height }, captureBeyondViewport: true });
+      console.log(`ok    ${name}  <-  ${url}  (${pageHeight}px tall, scale ${scale.toFixed(2)}${pageHeight > MAX_PAGE_HEIGHT ? ', CUT at ' + MAX_PAGE_HEIGHT : ''})`);
     } catch (error) {
       console.log(`FAIL  ${name}  <-  ${url}  (${error.message.split('\n')[0]})`);
     } finally {

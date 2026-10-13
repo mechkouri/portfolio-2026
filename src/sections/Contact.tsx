@@ -29,19 +29,41 @@ function ExternalPill({ href, icon, label, hover }: { href: string; icon: ReactN
 }
 
 export function Contact() {
-  const { t, content } = useLang();
+  const { t, lang, content } = useLang();
   const { site } = content;
   const [status, setStatus] = useState<Status>('idle');
 
-  // Submits to Netlify Forms (see the static form in index.html). Works once deployed on Netlify.
+  // Sends through the /api/contact function, which emails a branded HTML message (netlify/functions/contact.mjs).
+  // If that isn't available (not configured, offline, local dev), it falls back to Netlify Forms (see the
+  // static form in index.html) so a message is never lost.
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    const data = new FormData(form);
     setStatus('sending');
     try {
-      const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
-      const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
-      if (!res.ok) throw new Error(String(res.status));
+      let delivered = false;
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.get('name'),
+            email: data.get('email'),
+            message: data.get('message'),
+            company: data.get('bot-field'),
+            lang,
+          }),
+        });
+        delivered = res.ok;
+      } catch {
+        /* fall through to Netlify Forms */
+      }
+      if (!delivered) {
+        const body = new URLSearchParams(data as unknown as Record<string, string>).toString();
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!res.ok) throw new Error(String(res.status));
+      }
       form.reset();
       setStatus('sent');
     } catch {

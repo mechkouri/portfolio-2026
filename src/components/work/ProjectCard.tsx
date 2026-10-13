@@ -1,4 +1,4 @@
-import { memo, type PointerEvent } from 'react';
+import { memo, useState, type PointerEvent } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'motion/react';
 import { ArrowRight, Code, Globe, ShieldCheck, ShoppingCart } from 'lucide-react';
 import type { Project } from '../../data/content';
@@ -16,6 +16,9 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
   const { t } = useLang();
   const a = accents[project.accent];
   const SiteIcon = siteIcons[project.siteIcon];
+  // The screenshot is the whole page, down to the footer. Scroll it at a steady pace: the longer the page, the longer the glide.
+  const [aspect, setAspect] = useState(3);
+  const glide = Math.min(16, Math.max(5, aspect * 1.6));
 
   const rotateX = useSpring(0, { stiffness: 200, damping: 20 });
   const rotateY = useSpring(0, { stiffness: 200, damping: 20 });
@@ -70,7 +73,9 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
           loading="lazy"
           decoding="async"
           draggable={false}
-          className="w-full object-cover object-top transition-transform duration-[6500ms] ease-in-out group-focus-within:-translate-y-[calc(100%-340px)] group-hover:-translate-y-[calc(100%-340px)] sm:group-focus-within:-translate-y-[calc(100%-380px)] sm:group-hover:-translate-y-[calc(100%-380px)]"
+          onLoad={(e) => setAspect(e.currentTarget.naturalHeight / e.currentTarget.naturalWidth)}
+          style={{ transitionDuration: `${glide}s` }}
+          className="w-full object-cover object-top transition-transform ease-in-out group-focus-within:-translate-y-[calc(100%-340px)] group-hover:-translate-y-[calc(100%-340px)] sm:group-focus-within:-translate-y-[calc(100%-380px)] sm:group-hover:-translate-y-[calc(100%-380px)]"
         />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent" />
       </div>

@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Contact form: emails a branded HTML message through Resend (needs the RESEND_API_KEY variable).
+[functions]
+  directory = "netlify/functions"
+
 # Hashed build assets never change, so browsers can cache them for a year.
 [[headers]]
   for = "/assets/*"

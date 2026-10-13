@@ -10,7 +10,7 @@ npm run dev       # local dev server
 npm run build     # type-check + production build to dist/
 npm run preview   # serve the production build
 npm run images    # re-optimize assets-src/ into public/images/
-npm run capture   # re-screenshot live sites listed in scripts/capture-urls.json (uses local Chrome/Edge)
+npm run capture   # re-screenshot live sites listed in scripts/capture-urls.json, full page down to the footer (uses local Chrome/Edge)
 ```
 
 ## Structure
@@ -53,8 +53,16 @@ The site is live at https://mechkouri.netlify.app (Netlify project `mechkouri`).
 - **Netlify Drop:** run `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
 - **From Git:** `netlify.toml` already holds the build settings (`npm run build`, publish `dist`, Node 22), so
   linking the GitHub repo to the Netlify project also works.
-- **Contact form:** it posts to Netlify Forms (form detection is on). New messages are emailed to the address set under
-  Forms > Submission notifications in the Netlify project.
+- **Contact form:** the form posts to `/api/contact` (`netlify/functions/contact.mjs`), which emails you a branded HTML
+  message through [Resend](https://resend.com) (preview: `docs/email-preview.png`). If the function isn't available
+  (no `RESEND_API_KEY`, or the site was deployed with Drop), the form falls back to Netlify Forms, so no message is lost;
+  those arrive as Netlify's plain notification emails (Forms > Submission notifications).
+  - Setup: create a Resend account **with the address that should receive the messages**, create an API key, and add it in
+    Netlify under Project configuration > Environment variables as `RESEND_API_KEY`. Optional: `CONTACT_TO`
+    (recipient, default saidmechkouri@gmail.com) and `CONTACT_FROM` (default `Portfolio <onboarding@resend.dev>`, which
+    Resend only lets you use to write to your own Resend address; verify your own domain to send from it).
+  - Functions are not deployed by Netlify Drop (zip upload): deploy from Git (`netlify.toml` already points at
+    `netlify/functions`) or with `npx netlify deploy --prod`.
 
 ## Before going live
 
