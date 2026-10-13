@@ -187,10 +187,10 @@ export const featuredProjects: Project[] = [
     imageAlt: 'Full-page screenshot of the SWSM 2026 international conference website',
     accent: 'indigo',
     category: 'Event Website // Conference',
-    title: 'SWSM 2026 — International Conference Website',
+    title: 'IWA SWSM 2026 — International Conference Website',
     description:
-      'The website for an international scientific conference. I organized and built everything attendees need in one place: program, committees, registration, paper submissions, venue, and practical info.',
-    tags: ['WordPress', 'UI/UX', 'Responsive Dev', 'Info Architecture'],
+      'Official website for an international conference, built from scratch with WordPress and Elementor. WooCommerce with a payment gateway handles registration fees, and custom plugins manage participant registration and sync data with the conference mobile app through REST API endpoints.',
+    tags: ['WordPress', 'WooCommerce', 'Custom plugins', 'REST API', 'PHP'],
     siteIcon: 'globe',
   },
   {
@@ -356,7 +356,7 @@ export const techCategories: { icon: LucideIcon; accent: Accent; title: string; 
     icon: Database,
     accent: 'amber',
     title: 'Backend & API',
-    items: ['Node.js', 'REST APIs', 'PostgreSQL', 'MySQL', 'MongoDB', 'FastAPI', 'Authentication'],
+    items: ['Node.js', 'PHP', 'REST APIs', 'PostgreSQL', 'MySQL', 'MongoDB', 'FastAPI', 'Authentication'],
   },
   {
     icon: AppWindow,

@@ -109,10 +109,10 @@ const frProjects: Overlay<base.Project> = [
   {
     imageAlt: 'Capture pleine page du site de la conférence internationale SWSM 2026',
     category: 'Site d’événement // Conférence',
-    title: 'SWSM 2026 — Site d’une conférence internationale',
+    title: 'IWA SWSM 2026 — Site d’une conférence internationale',
     description:
-      'Le site d’une conférence scientifique internationale. J’ai organisé et construit tout ce dont les participants ont besoin au même endroit : programme, comités, inscription, soumission d’articles, lieu et infos pratiques.',
-    tags: ['WordPress', 'UI/UX', 'Développement responsive', 'Architecture de l’information'],
+      'Site officiel d’une conférence internationale, développé de A à Z avec WordPress et Elementor. WooCommerce et une passerelle de paiement gèrent les frais d’inscription, et des plugins sur mesure gèrent l’inscription des participants et synchronisent les données avec l’application mobile de la conférence via des endpoints REST.',
+    tags: ['WordPress', 'WooCommerce', 'Plugins sur mesure', 'API REST', 'PHP'],
   },
   {
     imageAlt: 'Capture pleine page du site Normes HACCP pour les professionnels de la restauration',
@@ -195,7 +195,7 @@ const frTech: Overlay<(typeof base.techCategories)[number]> = [
   { title: 'Frontend' },
   {
     title: 'Backend & API',
-    items: ['Node.js', 'APIs REST', 'PostgreSQL', 'MySQL', 'MongoDB', 'FastAPI', 'Authentification'],
+    items: ['Node.js', 'PHP', 'APIs REST', 'PostgreSQL', 'MySQL', 'MongoDB', 'FastAPI', 'Authentification'],
   },
   { title: 'WordPress & Web' },
   {
