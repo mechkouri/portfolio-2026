@@ -9,6 +9,8 @@ import { cn, Tag } from '../ui/primitives';
 
 const siteIcons = { globe: Globe, shield: ShieldCheck, code: Code, cart: ShoppingCart };
 const TILT = 5;
+// Bump when the screenshots in public/images/projects change: they are cached for a week, so the URL must change too.
+const IMAGE_VERSION = 2;
 
 /** Browser-framed project card: tilts toward the cursor, with a spotlight and a page preview that scrolls on hover. */
 export const ProjectCard = memo(function ProjectCard({ project }: { project: Project }) {
@@ -68,7 +70,7 @@ export const ProjectCard = memo(function ProjectCard({ project }: { project: Pro
       {/* Full-page screenshot; scrolls to the bottom on hover/focus */}
       <div className="relative h-[340px] overflow-hidden bg-slate-100 sm:h-[380px]">
         <img
-          src={project.image}
+          src={`${project.image}?v=${IMAGE_VERSION}`}
           alt={project.imageAlt}
           loading="lazy"
           decoding="async"
