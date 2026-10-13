@@ -123,6 +123,14 @@ const frProjects: Overlay<base.Project> = [
     tags: ['WordPress', 'SEO', 'Automatisation', 'Systèmes métier'],
   },
   {
+    imageAlt: 'Capture pleine page du site AGRI 4.0, entreprise de technologies agricoles intelligentes',
+    category: 'AgriTech // Site WordPress',
+    title: 'AGRI 4.0 — Site Web AgriTech',
+    description:
+      'Site d’une entreprise spécialisée dans les technologies agricoles intelligentes. Thème WordPress personnalisé avec Elementor et code sur mesure, SEO on-page, et un workflow Make.com qui rédige et publie automatiquement les articles de blog sur WordPress.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+  },
+  {
     imageAlt: 'Capture pleine page du site du garage automobile Garage RKJ',
     category: 'Site vitrine // Garage automobile',
     description:

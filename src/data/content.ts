@@ -211,6 +211,19 @@ export const featuredProjects: Project[] = [
 /** The rest of the slides. Descriptions only state what the site shows. */
 export const moreProjects: Project[] = [
   {
+    label: 'agri40.tech',
+    url: 'https://agri40.tech',
+    image: '/images/projects/agri-40.webp',
+    imageAlt: 'Full-page screenshot of the AGRI 4.0 smart agriculture website',
+    accent: 'emerald',
+    category: 'AgriTech // WordPress Website',
+    title: 'AGRI 4.0 — AgriTech Website',
+    description:
+      'Website for a company in smart agriculture technology. Customised WordPress theme with Elementor and custom code, on-page SEO, and an automated Make.com workflow that writes and publishes blog posts to WordPress.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+    siteIcon: 'globe',
+  },
+  {
     label: 'Garage RKJ',
     image: '/images/projects/garage-rkj.webp',
     imageAlt: 'Full-page screenshot of the Garage RKJ car repair website',
