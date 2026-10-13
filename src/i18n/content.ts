@@ -116,11 +116,11 @@ const frProjects: Overlay<base.Project> = [
   },
   {
     imageAlt: 'Capture pleine page du site Normes HACCP pour les professionnels de la restauration',
-    category: 'Sécurité alimentaire // Plateforme WordPress',
-    title: 'Normes HACCP — Plateforme pour la restauration',
+    category: 'Sécurité alimentaire // Application web SaaS',
+    title: 'Normes HACCP — Application web de traçabilité alimentaire',
     description:
-      'Aide les restaurants, boulangeries et boucheries à gérer leur conformité HACCP. J’ai construit le site, mis en place le SEO et la structure du contenu, et automatisé une partie du workflow.',
-    tags: ['WordPress', 'SEO', 'Automatisation', 'Systèmes métier'],
+      'Application web qui aide restaurants, boulangeries et boucheries à digitaliser leurs procédures d’hygiène et leurs contrôles sanitaires : traçabilité des produits, gestion des lots et des dates de péremption, suivi des températures, plans de nettoyage, tableaux de bord et alertes. Développée avec l’assistance de Claude Code.',
+    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'API REST'],
   },
   {
     imageAlt: 'Capture pleine page du site AGRI 4.0, entreprise de technologies agricoles intelligentes',

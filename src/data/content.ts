@@ -199,11 +199,11 @@ export const featuredProjects: Project[] = [
     image: '/images/projects/normes-haccp.webp',
     imageAlt: 'Full-page screenshot of the Normes HACCP website for food-service businesses',
     accent: 'sky',
-    category: 'Food Safety // WordPress Platform',
-    title: 'Normes HACCP — Platform for Food-Service Businesses',
+    category: 'Food Safety // SaaS Web App',
+    title: 'Normes HACCP — Food Traceability Web App',
     description:
-      'Helps restaurants, bakeries, and butcher shops handle HACCP compliance. I built the site, set up the SEO and content structure, and automated parts of the workflow.',
-    tags: ['WordPress', 'SEO', 'Automation', 'Business Systems'],
+      'Web app that helps restaurants, bakeries, and butcher shops digitise hygiene procedures and food safety checks: product traceability, batch and expiry-date tracking, temperature logs, cleaning plans, dashboards, and alerts. Built with Claude Code as development assistant.',
+    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'REST API'],
     siteIcon: 'shield',
   },
 ];
