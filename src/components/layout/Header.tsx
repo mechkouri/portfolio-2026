@@ -72,11 +72,11 @@ export function Header() {
             <span className="font-display text-xs leading-tight font-bold tracking-wide text-slate-900 transition-colors group-hover:text-indigo-600 sm:text-sm">
               {site.name}
             </span>
-            <span className="font-mono text-[10px] tracking-widest whitespace-nowrap text-slate-500 uppercase max-[400px]:hidden">{site.tagline}</span>
+            <span className="font-mono text-[10px] tracking-widest whitespace-nowrap text-slate-500 uppercase max-[400px]:hidden lg:max-[1439px]:hidden">{site.tagline}</span>
           </span>
         </a>
 
-        <nav aria-label={t.header.primary} className="hidden items-center gap-6 text-xs tracking-wide lg:flex">
+        <nav aria-label={t.header.primary} className="hidden items-center gap-4 text-xs tracking-wide whitespace-nowrap xl:gap-6 lg:flex">
           {navLinks
             .filter((link) => link.id !== 'contact')
             .map((link) => (
@@ -85,7 +85,7 @@ export function Header() {
               href={`#${link.id}`}
               aria-current={active === link.id ? 'location' : undefined}
               className={cn(
-                'relative py-1 font-medium transition-colors hover:text-slate-950',
+                'relative py-1 font-medium whitespace-nowrap transition-colors hover:text-slate-950',
                 active === link.id ? 'text-slate-950' : 'text-slate-600',
               )}
             >
@@ -104,9 +104,9 @@ export function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <LangSwitcher className="max-[479px]:hidden" />
           <ThemeToggle className="max-[479px]:hidden" />
-          <div className="hidden items-center gap-2 rounded-pill border border-emerald-200 bg-emerald-50 px-3 py-1 xl:flex">
+          <div className="hidden items-center gap-2 rounded-pill border border-emerald-200 bg-emerald-50 px-3 py-1 min-[1440px]:flex">
             <PulseDot className="bg-emerald-600" />
-            <span className="font-mono text-[10px] font-semibold tracking-wider text-emerald-700 uppercase">{t.header.available}</span>
+            <span className="font-mono text-[10px] font-semibold tracking-wider whitespace-nowrap text-emerald-700 uppercase">{t.header.available}</span>
           </div>
           <a
             href="#contact"
