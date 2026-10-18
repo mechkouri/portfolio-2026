@@ -40,9 +40,9 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
 
 // Translucent on purpose: the fixed flow backdrop shows through every section.
 const TONES = {
-  page: 'rgba(255, 255, 255, 0)',
-  white: 'rgba(255, 255, 255, 0.4)',
-  muted: 'rgba(241, 245, 249, 0.34)',
+  page: 'var(--tone-page)',
+  white: 'var(--tone-white)',
+  muted: 'var(--tone-muted)',
 } as const;
 
 /**
@@ -70,7 +70,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn('relative isolate w-full px-4 sm:px-8 lg:px-16', spacious ? 'py-24' : 'py-20', className)}
+      className={cn('relative isolate w-full overflow-x-clip px-4 sm:px-8 lg:px-16', spacious ? 'py-24' : 'py-20', className)}
       style={{ backgroundImage: `linear-gradient(to bottom, ${prev}, ${self} 7rem)`, backgroundColor: self }}
     >
       {children}

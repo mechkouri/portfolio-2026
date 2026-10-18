@@ -102,7 +102,7 @@ export function Contact() {
               {site.email && (
                 <a
                   href={`mailto:${site.email}`}
-                  className="group flex w-fit items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
+                  className="group flex w-fit items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
                 >
                   <Mail aria-hidden="true" size={16} />
                   <span>{site.email}</span>

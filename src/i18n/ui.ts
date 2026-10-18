@@ -25,6 +25,8 @@ const en = {
     available: 'Available for projects',
     contact: 'Contact',
     language: 'Language',
+    themeToDark: 'Switch to dark mode',
+    themeToLight: 'Switch to light mode',
   },
   footer: {
     tagline: (place: string) => `Websites, web apps, and automations, built in ${place}.`,
@@ -183,6 +185,8 @@ const fr: Dict = {
     available: 'Disponible pour des projets',
     contact: 'Contact',
     language: 'Langue',
+    themeToDark: 'Passer en mode sombre',
+    themeToLight: 'Passer en mode clair',
   },
   footer: {
     tagline: (place: string) => `Sites web, applications web et automatisations, conçus à ${place}.`,

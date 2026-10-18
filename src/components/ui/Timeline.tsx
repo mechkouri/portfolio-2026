@@ -50,7 +50,7 @@ function Milestone({ entry, index }: { entry: TimelineEntry; index: number }) {
           className={cn(
             'flex items-center justify-center overflow-hidden rounded-pill border-2 font-mono text-xs font-bold shadow-md',
             entry.logo ? 'h-10 w-14 p-1 transition-transform duration-300 hover:scale-110 md:h-14 md:w-20 md:p-1.5 lg:h-16 lg:w-28 lg:p-2' : 'h-10 w-10',
-            entry.logoDark ? 'bg-black' : 'bg-white',
+            entry.logoDark ? 'bg-black' : 'bg-[#fff]',
             a.nodeRing,
           )}
         >

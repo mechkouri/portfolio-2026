@@ -28,6 +28,11 @@ const STEP = 10; // vertical sampling step in px: small enough that the curve ne
 // One colour family, so the strands read as fibre rather than as a rainbow.
 const BASE = [99, 102, 241]; // indigo-500
 const ALT = [56, 160, 248]; // sky-ish blue, only a hint
+// On the dark theme the same strands read brighter: indigo-400 shading toward cyan, a little stronger.
+const BASE_DARK = [129, 140, 248];
+const ALT_DARK = [34, 211, 238];
+const DARK_BOOST = 1.35;
+const isDark = () => document.documentElement.classList.contains('dark');
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -184,10 +189,14 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
     /** Brightness that depends only on where we are along the page: emerging at the start, gone at the end. */
     const lifetime = (y: number) => smoothstep(startY, startY + 180, y) * (1 - smoothstep(disperseY + (endY - disperseY) * 0.25, endY, y));
 
+    let dark = isDark();
     const colour = (f: Fiber, y: number) => {
       const t = 0.12 + 0.3 * (0.5 + 0.5 * Math.sin(y * 0.002 + f.tone * 6.28));
-      return [lerp(BASE[0], ALT[0], t), lerp(BASE[1], ALT[1], t), lerp(BASE[2], ALT[2], t)];
+      const from = dark ? BASE_DARK : BASE;
+      const to = dark ? ALT_DARK : ALT;
+      return [lerp(from[0], to[0], t), lerp(from[1], to[1], t), lerp(from[2], to[2], t)];
     };
+    const boost = () => (dark ? DARK_BOOST : 1);
 
     const glow = (x: number, y: number, radius: number, rgb: string, strength: number) => {
       const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
@@ -248,7 +257,7 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
             a = (0.2 + 0.22 * Math.exp(-behind / 1100) + 0.5 * comet) * reveal;
             ha = 0.2 * comet * reveal;
           }
-          const k = duck(xs[i]) * lifetime(y);
+          const k = Math.min(1, duck(xs[i]) * lifetime(y) * boost());
           line.addColorStop(t, `rgba(${rgb},${(a * k).toFixed(3)})`);
           halo.addColorStop(t, `rgba(${rgb},${(ha * k).toFixed(3)})`);
         }
@@ -285,7 +294,7 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
 
       // One soft, wide glow around the bundle's leading edge, so the lights read as one.
       if (animated && headCount) {
-        glow(headXSum / headCount, head - scrollY, lite ? 46 : 70, '99,102,241', 0.14 * lifetime(head));
+        glow(headXSum / headCount, head - scrollY, lite ? 46 : 70, dark ? '129,140,248' : '99,102,241', 0.14 * boost() * lifetime(head));
       }
     };
 
@@ -302,6 +311,13 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
       head += (window.scrollY + H * 0.55 - head) * (1 - Math.exp(-dt * 3.2));
       draw();
     };
+
+    // Redraw when the theme changes (the still version only draws on scroll).
+    const themeObserver = new MutationObserver(() => {
+      dark = isDark();
+      if (!animated) draw();
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     resize();
     measure();
@@ -327,6 +343,7 @@ export default function FlowFibers({ mode }: { mode: BackdropMode }) {
 
     return () => {
       cancelAnimationFrame(raf);
+      themeObserver.disconnect();
       ro.disconnect();
       window.removeEventListener('resize', onResize);
       window.removeEventListener('load', measure);

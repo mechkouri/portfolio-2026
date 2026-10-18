@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTheme } from '../../theme/ThemeProvider';
 
 /*
  * "Automation pipeline" scene: five wireframe nodes (Trigger → Process → AI →
@@ -11,6 +12,7 @@ import * as THREE from 'three';
  */
 
 const NODE_COLORS = ['#4f46e5', '#0284c7', '#d97706', '#059669', '#4f46e5'];
+const NODE_COLORS_DARK = ['#818cf8', '#38bdf8', '#fbbf24', '#34d399', '#818cf8'];
 const NODE_POINTS = [
   new THREE.Vector3(-1.4, -1.9, -1.4),
   new THREE.Vector3(0.5, 1.9, -0.4),
@@ -21,7 +23,8 @@ const NODE_POINTS = [
 const PACKETS = 7;
 const PARTICLES = 260;
 
-function Pipeline() {
+function Pipeline({ dark }: { dark: boolean }) {
+  const nodeColors = dark ? NODE_COLORS_DARK : NODE_COLORS;
   const group = useRef<THREE.Group>(null);
   const nodes = useRef<(THREE.Group | null)[]>([]);
   const packets = useRef<THREE.InstancedMesh>(null);
@@ -89,7 +92,7 @@ function Pipeline() {
   return (
     <group ref={group}>
       <mesh geometry={tube}>
-        <meshBasicMaterial color="#6366f1" transparent opacity={0.45} />
+        <meshBasicMaterial color={dark ? '#8b95ff' : '#6366f1'} transparent opacity={dark ? 0.6 : 0.45} />
       </mesh>
 
       {NODE_POINTS.map((p, i) => (
@@ -109,22 +112,22 @@ function Pipeline() {
         >
           <mesh>
             <icosahedronGeometry args={[0.46, 1]} />
-            <meshBasicMaterial color={NODE_COLORS[i]} wireframe transparent opacity={0.55} />
+            <meshBasicMaterial color={nodeColors[i]} wireframe transparent opacity={dark ? 0.75 : 0.55} />
           </mesh>
           <mesh>
             <icosahedronGeometry args={[0.14, 2]} />
-            <meshBasicMaterial color={NODE_COLORS[i]} />
+            <meshBasicMaterial color={nodeColors[i]} />
           </mesh>
         </group>
       ))}
 
       <instancedMesh ref={packets} args={[undefined, undefined, PACKETS]}>
         <sphereGeometry args={[0.05, 12, 12]} />
-        <meshBasicMaterial color="#06b6d4" />
+        <meshBasicMaterial color={dark ? '#67e8f9' : '#06b6d4'} />
       </instancedMesh>
 
       <points geometry={particles}>
-        <pointsMaterial color="#64748b" size={0.025} sizeAttenuation transparent opacity={0.45} depthWrite={false} />
+        <pointsMaterial color={dark ? '#94a3b8' : '#64748b'} size={0.025} sizeAttenuation transparent opacity={0.45} depthWrite={false} />
       </points>
     </group>
   );
@@ -137,6 +140,8 @@ interface HeroSceneProps {
 }
 
 export default function HeroScene({ eventSource, onUnsupported }: HeroSceneProps) {
+  // The 3D tree is a separate React root, so the theme is read here and handed down as a prop.
+  const dark = useTheme().theme === 'dark';
   const wrapper = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   const [dpr, setDpr] = useState(1.5);
@@ -177,7 +182,7 @@ export default function HeroScene({ eventSource, onUnsupported }: HeroSceneProps
           flipflops={3}
           onFallback={onUnsupported}
         >
-          <Pipeline />
+          <Pipeline dark={dark} />
         </PerformanceMonitor>
       </Canvas>
     </div>

@@ -62,6 +62,13 @@ functions in `netlify/functions`).
 - **Manual deploy (no Git):** `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
   Netlify Drop does not deploy functions, so the form then uses the Netlify Forms fallback.
 
+## Light / dark theme
+
+Light is the default; the Sun/Moon button in the header (inside the menu on small phones) switches theme and the choice
+is remembered. Components use the normal Tailwind colour classes: the `.dark` class on `<html>` (set by
+`src/theme/ThemeProvider.tsx`, applied before first paint by a small script in `index.html`) swaps the colour scales in
+`src/index.css`. Change the dark palette there. Canvas / 3D colours follow the theme (`FlowFibers.tsx`, `HeroScene.tsx`).
+
 ## Keeping it fresh
 
 - **Project screenshots:** add the live site to `scripts/capture-urls.json` (the key must match the file name in

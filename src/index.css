@@ -86,6 +86,119 @@
   background: #4f46e5;
 }
 
+/* ------------------------------------------------------------------------------------------------
+   Dark theme. Components use the normal Tailwind colour classes; turning on the `dark` class on <html>
+   (see theme/ThemeProvider) swaps the colour scales below, so nothing has to be styled twice.
+   Palette: near-black navy page, slightly lighter cards, cool blue/cyan/indigo accents (Stitch dark reference).
+   ------------------------------------------------------------------------------------------------ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --tone-page: rgba(255, 255, 255, 0);
+  --tone-white: rgba(255, 255, 255, 0.4);
+  --tone-muted: rgba(241, 245, 249, 0.34);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Section tints over the page background (primitives.tsx). */
+  --tone-page: rgba(7, 11, 20, 0);
+  --tone-white: rgba(12, 18, 34, 0.5);
+  --tone-muted: rgba(17, 26, 48, 0.42);
+
+  /* "white" is the card / panel surface. Text that must stay white is re-pinned below. */
+  --color-white: #0d1426;
+
+  --color-slate-50: #070b14;
+  --color-slate-100: #121b32;
+  --color-slate-200: #1d2844;
+  --color-slate-300: #2b3858;
+  --color-slate-400: #6b7a95;
+  --color-slate-500: #8996ad;
+  --color-slate-600: #a9b5c9;
+  --color-slate-700: #c8d1e0;
+  --color-slate-800: #dde4ef;
+  --color-slate-900: #f1f5f9;
+  --color-slate-950: #ffffff;
+
+  --color-indigo-50: #141a42;
+  --color-indigo-100: #1c2458;
+  --color-indigo-200: #2c3883;
+  --color-indigo-300: #4d5bc9;
+  --color-indigo-400: #8b95ff;
+  --color-indigo-500: #7b84fb;
+  --color-indigo-600: #6b73f0;
+  --color-indigo-700: #aab1ff;
+  --color-indigo-800: #c7cbff;
+  --color-indigo-900: #e0e3ff;
+
+  --color-sky-50: #0c2437;
+  --color-sky-100: #11314c;
+  --color-sky-200: #1c4c70;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #38b3f3;
+  --color-sky-600: #4db8f5;
+  --color-sky-700: #8fd3fa;
+  --color-sky-800: #bfe6fd;
+
+  --color-emerald-50: #0a2b22;
+  --color-emerald-100: #0f3b2f;
+  --color-emerald-200: #18563f;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #2fcf94;
+  --color-emerald-600: #3fd6a0;
+  --color-emerald-700: #7fe5bd;
+  --color-emerald-800: #b5f1d8;
+
+  --color-amber-50: #2e2208;
+  --color-amber-100: #3e2c0a;
+  --color-amber-200: #5b4010;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f5b021;
+  --color-amber-600: #f6b43a;
+  --color-amber-700: #fcd57a;
+  --color-amber-800: #fde5a8;
+
+  --color-blue-600: #4d8dff;
+  --color-cyan-500: #22d3ee;
+  --color-rose-400: #fb7185;
+  --color-rose-700: #fda4af;
+}
+
+/* Things the colour swap above cannot express on its own. */
+.dark .text-white,
+.dark .hover\:text-white:hover {
+  color: #ffffff;
+}
+/* Solid "dark" buttons become light buttons with dark text. */
+.dark .bg-slate-900.text-white {
+  color: #0a0f1d;
+}
+/* The logo is black artwork turned white with a filter; on the light button it stays black. */
+.dark img.invert {
+  filter: brightness(0);
+}
+.dark .hover\:bg-indigo-700:hover {
+  background-color: #5a62dc;
+}
+.dark body {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+}
+.dark ::-webkit-scrollbar-track {
+  background: #070b14;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #2b3858;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b73f0;
+}
+.dark ::selection {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
 @utility text-gradient {
   @apply bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent;
 }

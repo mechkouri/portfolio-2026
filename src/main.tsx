@@ -6,11 +6,14 @@ import '@fontsource-variable/jetbrains-mono';
 import './index.css';
 import App from './App';
 import { LangProvider } from './i18n/LangProvider';
+import { ThemeProvider } from './theme/ThemeProvider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <LangProvider>
-      <App />
-    </LangProvider>
+    <ThemeProvider>
+      <LangProvider>
+        <App />
+      </LangProvider>
+    </ThemeProvider>
   </StrictMode>,
 );

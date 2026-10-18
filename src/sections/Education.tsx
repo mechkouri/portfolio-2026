@@ -16,7 +16,7 @@ export function Education() {
           {education.map((entry, i) => (
             <StaggerItem as="li" key={i}>
               <article className="group flex h-full items-center gap-4 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-400 hover:shadow-lg hover:shadow-indigo-500/10">
-                <span className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-2">
+                <span className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-[#fff] p-2">
                   {entry.logo ? (
                     // The school name is in the text beside it, so the logo is decorative.
                     <img src={entry.logo} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain" />

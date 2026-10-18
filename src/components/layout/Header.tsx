@@ -6,6 +6,7 @@ import { useLang } from '../../i18n/LangProvider';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { cn, PulseDot } from '../ui/primitives';
 import { LangSwitcher } from './LangSwitcher';
+import { ThemeToggle } from './ThemeToggle';
 
 // Observe every section so the nav clears its highlight in sections that have no link.
 const observedIds = ['top', ...sections.map((s) => s.id)];
@@ -102,6 +103,7 @@ export function Header() {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <LangSwitcher className="max-[479px]:hidden" />
+          <ThemeToggle className="max-[479px]:hidden" />
           <div className="hidden items-center gap-2 rounded-pill border border-emerald-200 bg-emerald-50 px-3 py-1 xl:flex">
             <PulseDot className="bg-emerald-600" />
             <span className="font-mono text-[10px] font-semibold tracking-wider text-emerald-700 uppercase">{t.header.available}</span>
@@ -136,7 +138,7 @@ export function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 -z-10 bg-slate-900/10 backdrop-blur-[2px] lg:hidden"
+              className="fixed inset-0 -z-10 bg-black/10 backdrop-blur-[2px] lg:hidden dark:bg-black/50"
               onClick={() => setOpen(false)}
             />
             <motion.nav
@@ -174,7 +176,10 @@ export function Header() {
                 <PulseDot className="bg-emerald-600" />
                 {t.header.available}
               </p>
-              <LangSwitcher className="mx-4 mt-2 mb-2 min-[480px]:hidden" />
+              <div className="mx-4 mt-2 mb-2 flex items-center gap-2 min-[480px]:hidden">
+                <LangSwitcher />
+                <ThemeToggle />
+              </div>
             </motion.nav>
           </>
         )}

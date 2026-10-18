@@ -113,7 +113,7 @@ export function PortraitCard() {
             style={{ x: imgX, y: imgY, translateZ: 20 }}
             className="h-full w-full object-cover object-center contrast-105 transition-[scale] duration-500 ease-out group-hover:scale-105"
           />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-80" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
           <motion.figcaption
             style={{ x: infoX, y: infoY, translateZ: 30 }}
             className="absolute right-4 bottom-4 left-4 rounded-2xl border border-slate-200/90 bg-white/90 p-3.5 shadow-lg backdrop-blur-md"
