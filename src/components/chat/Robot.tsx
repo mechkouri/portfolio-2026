@@ -31,12 +31,11 @@ export function Robot({ className }: { className?: string }) {
       <path d="M15 22 12.5 8M49 22 51.5 8" stroke="#9aa8bd" strokeWidth="2" strokeLinecap="round" />
       <circle cx="12.3" cy="7" r="2.8" fill={`url(#${shell})`} />
       <circle cx="51.7" cy="7" r="2.8" fill={`url(#${shell})`} />
-      <circle cx="32" cy="11" r="3.4" fill="#ef4444" />
+      <circle className="robot-light" cx="32" cy="11" r="3.4" fill="#ef4444" />
 
       {/* Body and hands */}
       <path d="M22 48h20c0 8-4 13-10 13s-10-5-10-13Z" fill={`url(#${shell})`} />
       <circle cx="17" cy="52" r="3.6" fill={`url(#${shell})`} />
-      <circle cx="47" cy="52" r="3.6" fill={`url(#${shell})`} />
       <circle cx="32" cy="54" r="2" fill="#ef4444" />
 
       {/* Head, headphones and face screen */}
@@ -56,6 +55,12 @@ export function Robot({ className }: { className?: string }) {
         <rect x="24" y="29.2" width="2" height="3.4" rx="1" fill="#99f0e0" />
         <rect x="37" y="29.2" width="2" height="3.4" rx="1" fill="#99f0e0" />
       </motion.g>
+
+      {/* Waving arm: drawn last so it passes in front of the head */}
+      <g className="robot-wave">
+        <path d="M43 51 54 54" stroke="#c3cddb" strokeWidth="3.4" strokeLinecap="round" />
+        <circle cx="55" cy="54" r="4.2" fill={`url(#${shell})`} stroke="#8e9bb0" strokeWidth="0.8" />
+      </g>
     </motion.svg>
   );
 }

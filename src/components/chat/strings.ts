@@ -12,6 +12,8 @@ export type ErrorKind = 'rate' | 'unavailable' | 'offline' | 'generic';
 const en = {
   open: 'Chat with Said’s AI assistant',
   close: 'Close chat',
+  greeting: 'Hey! 👋 Ask me about Said.',
+  dismiss: 'Hide greeting',
   title: 'Said’s AI assistant',
   subtitle: 'Answers from his portfolio and CV',
   language: 'Chat language',
@@ -50,6 +52,8 @@ export type ChatStrings = typeof en;
 const fr: ChatStrings = {
   open: 'Discuter avec l’assistant IA de Said',
   close: 'Fermer la discussion',
+  greeting: 'Salut ! 👋 Une question sur Said ?',
+  dismiss: 'Masquer le message',
   title: 'Assistant IA de Said',
   subtitle: 'Réponses tirées de son portfolio et de son CV',
   language: 'Langue de la discussion',
@@ -86,6 +90,8 @@ const fr: ChatStrings = {
 const ar: ChatStrings = {
   open: 'تحدّث مع المساعد الذكي لسعيد',
   close: 'إغلاق المحادثة',
+  greeting: 'مرحبًا! 👋 اسألني عن سعيد.',
+  dismiss: 'إخفاء الرسالة',
   title: 'المساعد الذكي لسعيد',
   subtitle: 'إجابات من معرض أعماله وسيرته الذاتية',
   language: 'لغة المحادثة',

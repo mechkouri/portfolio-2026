@@ -199,6 +199,38 @@
   color: #ffffff;
 }
 
+/* Chat mascot: waves hello every few seconds (components/chat/Robot.tsx). */
+@keyframes robot-wave {
+  0%,
+  45%,
+  100% {
+    transform: rotate(0deg);
+  }
+  55%,
+  75% {
+    transform: rotate(-62deg);
+  }
+  65%,
+  85% {
+    transform: rotate(-30deg);
+  }
+}
+@keyframes robot-light {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .robot-wave {
+    transform-box: view-box;
+    transform-origin: 43px 51px;
+    animation: robot-wave 3.6s ease-in-out infinite;
+  }
+  .robot-light {
+    animation: robot-light 1.8s ease-in-out infinite;
+  }
+}
+
 @utility text-gradient {
   @apply bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent;
 }

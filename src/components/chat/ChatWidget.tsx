@@ -2,6 +2,7 @@ import { Component, Suspense, lazy, useRef, useState, type ReactNode } from 'rea
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useLang } from '../../i18n/LangProvider';
+import { Greeting } from './Greeting';
 import { Robot } from './Robot';
 import { chatStrings, type ChatLang } from './strings';
 
@@ -66,6 +67,14 @@ export function ChatWidget() {
           <AnimatePresence>{open && <ChatPanel lang={lang} onLangChange={changeLang} onClose={close} />}</AnimatePresence>
         </Suspense>
       </ChatBoundary>
+
+      <Greeting
+        text={s.greeting}
+        dismissLabel={s.dismiss}
+        rtl={lang === 'ar'}
+        chatOpen={open}
+        onOpen={() => setOpen(true)}
+      />
 
       <motion.button
         ref={launcher}
