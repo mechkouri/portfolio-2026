@@ -6,6 +6,9 @@ import { RichText } from './richText';
 import { Robot } from './Robot';
 import { CHAT_LANGS, chatStrings, type ChatLang } from './strings';
 import { MAX_INPUT, useChat } from './useChat';
+import { VOICE_LOCALES } from './voice/strings';
+import { useSpeechRecognition } from './voice/useSpeechRecognition';
+import { VoiceControls, VoiceStatusLine } from './voice/VoiceControls';
 
 const CV_URL = '/cv/Said-Mechkouri-CV.pdf';
 const PHONE_QUERY = '(max-width: 639px)';
@@ -76,6 +79,35 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
   const closeButton = useRef<HTMLButtonElement>(null);
   const stick = useRef(true);
 
+  // Dictation: what is heard is added after whatever was already typed, and can be edited before sending.
+  const typed = useRef('');
+  const voice = useSpeechRecognition((heard) => setDraft((typed.current ? `${typed.current} ${heard}` : heard).slice(0, MAX_INPUT)));
+  const [voiceLang, setVoiceLang] = useState<ChatLang>(lang);
+  const recording = voice.status !== 'idle';
+
+  // Switching the chat language also switches the voice language.
+  const { cancel: cancelVoice, dismissError } = voice;
+  useEffect(() => {
+    cancelVoice();
+    dismissError();
+    setVoiceLang(lang);
+  }, [lang, cancelVoice, dismissError]);
+
+  const startVoice = (language: ChatLang) => {
+    typed.current = draft.trim();
+    voice.start(VOICE_LOCALES[language].code);
+  };
+
+  const changeVoiceLang = (next: ChatLang) => {
+    setVoiceLang(next);
+    voice.dismissError();
+    // Mid-sentence switch: listen again in the new language.
+    if (recording) {
+      voice.cancel();
+      voice.start(VOICE_LOCALES[next].code);
+    }
+  };
+
   const last = messages.at(-1);
   const waiting = pending && last?.role === 'user';
 
@@ -100,6 +132,8 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
 
   const submit = (text: string) => {
     if (pending || !text.trim()) return;
+    voice.cancel(); // sending while still listening sends what is on screen
+    voice.dismissError();
     stick.current = true;
     send(text);
     setDraft('');
@@ -128,7 +162,12 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 340, damping: 30 }}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      onKeyDown={(e) => {
+        if (e.key !== 'Escape') return;
+        // The first Escape only stops the microphone.
+        if (recording) voice.cancel();
+        else onClose();
+      }}
       style={box ? { top: box.top, height: box.height } : undefined}
       // "dark" re-points the site's colour tokens for this subtree, whatever the page theme is.
       className="dark fixed inset-x-0 top-0 z-[60] flex h-dvh origin-bottom-right flex-col overflow-hidden bg-slate-50 text-slate-800 sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-24 sm:h-[min(640px,calc(100dvh-8rem))] sm:w-[400px] sm:[@media(max-height:560px)]:bottom-3 sm:[@media(max-height:560px)]:h-[calc(100dvh-1.5rem)] sm:rounded-[1.25rem] sm:border sm:border-slate-200 sm:shadow-2xl sm:shadow-black/40"
@@ -144,7 +183,14 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
           <h2 className="truncate font-display text-sm font-bold text-slate-900">{s.title}</h2>
           <p className="truncate text-[11px] text-slate-500">{s.subtitle}</p>
         </div>
-        <button type="button" onClick={clear} disabled={!messages.length} aria-label={s.clear} title={s.clear} className={iconButton}>
+        <button
+          type="button"
+          onClick={() => {
+            voice.cancel();
+            voice.dismissError();
+            clear();
+          }}
+          disabled={!messages.length} aria-label={s.clear} title={s.clear} className={iconButton}>
           <Trash2 aria-hidden="true" size={16} />
         </button>
         <button ref={closeButton} type="button" onClick={onClose} aria-label={s.close} title={s.close} className={iconButton}>
@@ -258,11 +304,18 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
       </div>
 
       <form onSubmit={onSubmit} className="shrink-0 border-t border-slate-200 bg-white px-3 pt-2.5 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-end gap-2 rounded-2xl border border-slate-300 bg-slate-50 p-1.5 transition-colors focus-within:border-red-500/60">
+        <VoiceStatusLine lang={lang} status={voice.status} error={voice.error} onDismiss={voice.dismissError} />
+        <div
+          className={`flex items-end gap-1.5 rounded-2xl border bg-slate-50 p-1.5 transition-colors focus-within:border-red-500/60 ${recording ? 'border-red-500/70' : 'border-slate-300'}`}
+        >
           <textarea
             ref={input}
             value={draft}
-            onChange={(e) => setDraft(e.target.value)}
+            onChange={(e) => {
+              if (recording) voice.cancel(); // the visitor took over: don't overwrite their edit
+              if (voice.error) voice.dismissError();
+              setDraft(e.target.value);
+            }}
             onKeyDown={onKeyDown}
             rows={1}
             maxLength={MAX_INPUT}
@@ -273,6 +326,17 @@ export default function ChatPanel({ lang, onLangChange, onClose }: Props) {
             // 16px on phones stops iOS from zooming into the field.
             className="max-h-28 min-w-0 flex-1 resize-none bg-transparent px-2 py-1.5 text-base text-slate-900 outline-none placeholder:text-slate-400 sm:text-sm"
           />
+          {voice.supported && (
+            <VoiceControls
+              lang={lang}
+              voiceLang={voiceLang}
+              status={voice.status}
+              disabled={pending}
+              onLanguage={changeVoiceLang}
+              onStart={() => startVoice(voiceLang)}
+              onStop={voice.stop}
+            />
+          )}
           {pending ? (
             <button type="button" onClick={stop} aria-label={s.stop} title={s.stop} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-slate-200 text-slate-900">
               <Square aria-hidden="true" size={12} fill="currentColor" />

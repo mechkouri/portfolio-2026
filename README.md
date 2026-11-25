@@ -77,6 +77,11 @@ A floating chat (`src/components/chat/`) that answers in English, French or Arab
 - **CV:** the site serves `public/cv/Said-Mechkouri-CV.pdf`. To update it, replace that file and edit `CV_FACTS` in
   `netlify/lib/knowledge.mts`. (`npm run cv` builds the older `cv/` version and does not touch it.)
 
+- **Voice input:** (`src/components/chat/voice/`) uses the browser's Web Speech API in en-US, fr-FR or ar-MA: free,
+  no key. The microphone is requested only on click, and the text can be edited before sending. Browsers without the
+  API (e.g. Firefox) just don't show the button. Some browsers send the audio to their vendor's speech service.
+  `npm run test:voice` (with the dev server running) tests it with a simulated engine.
+
 ## Light / dark theme
 
 Light is the default; the Sun/Moon button in the header (inside the menu on small phones) switches theme and the choice

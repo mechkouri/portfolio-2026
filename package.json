@@ -5,6 +5,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test": "node --test tests/chat.test.mjs",
+    "test:voice": "node tests/voice.e2e.mjs",
     "preview": "vite preview",
     "images": "node scripts/optimize-images.mjs",
     "capture": "node scripts/capture-screenshots.mjs",
