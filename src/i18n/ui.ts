@@ -78,7 +78,7 @@ const en = {
   },
   experience: {
     heading: 'Work experience.',
-    intro: 'Internships, agencies, and now a full-stack role at Infinit Deals.',
+    intro: 'Internships, agencies, and a full-stack role at Infinit Deals.',
   },
   ai: {
     heading: ['Anyone can prompt an AI.', 'Few can tell if the result is right.'],
@@ -238,7 +238,7 @@ const fr: Dict = {
   },
   experience: {
     heading: 'Expérience professionnelle.',
-    intro: 'Des stages, des agences, et aujourd’hui un poste full-stack chez Infinit Deals.',
+    intro: 'Des stages, des agences, et un poste full-stack chez Infinit Deals.',
   },
   ai: {
     heading: ['N’importe qui peut écrire un prompt.', 'Peu savent dire si le résultat est bon.'],

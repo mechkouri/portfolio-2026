@@ -32,7 +32,7 @@ export function BackToTop() {
           whileHover={{ y: -3 }}
           whileTap={{ scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 380, damping: 26 }}
-          className="group fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex h-11 w-11 items-center justify-center rounded-pill border border-white/15 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition-[background-color,box-shadow] duration-300 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/40 sm:right-6 sm:bottom-6 min-[1536px]:right-[30px]"
+          className="group fixed right-[1.375rem] bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-40 flex h-11 w-11 items-center justify-center rounded-pill border border-white/15 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition-[background-color,box-shadow] duration-300 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/40 sm:right-[30px] sm:bottom-[6.5rem]"
         >
           <ArrowUp
             aria-hidden="true"

@@ -62,6 +62,21 @@ functions in `netlify/functions`).
 - **Manual deploy (no Git):** `npm run deploy:zip`, then upload `deploy-dist.zip` on the project's Deploys page.
   Netlify Drop does not deploy functions, so the form then uses the Netlify Forms fallback.
 
+## AI assistant
+
+A floating chat (`src/components/chat/`) that answers in English, French or Arabic. It posts to `/api/chat`
+(`netlify/functions/chat.mts`), which calls [OpenRouter](https://openrouter.ai) and streams the reply.
+
+- **Set up:** in Netlify, add `OPENROUTER_API_KEY` (scope: Functions), then redeploy. In OpenRouter, give that key a
+  **credit limit**: it is the hard cap on spending. Optional: `OPENROUTER_MODEL`, `OPENROUTER_FALLBACK`.
+- **Local:** copy `.env.example` to `.env`, add a key, `npm run dev`. `npm test` runs the API tests (no key needed).
+- **Knowledge:** built from `src/data/content.ts` and `src/i18n/ui.ts` (`netlify/lib/knowledge.mts`), so portfolio
+  edits reach the assistant on the next deploy. CV-only facts are listed by hand in that file.
+- **Protection:** same-origin only, size and role validation, rate limits (`netlify/lib/guard.mts` and Netlify's
+  `rateLimit`), no-data-collection providers. The chat history stays in the visitor's browser.
+- **CV:** the site serves `public/cv/Said-Mechkouri-CV.pdf`. To update it, replace that file and edit `CV_FACTS` in
+  `netlify/lib/knowledge.mts`. (`npm run cv` builds the older `cv/` version and does not touch it.)
+
 ## Light / dark theme
 
 Light is the default; the Sun/Moon button in the header (inside the menu on small phones) switches theme and the choice

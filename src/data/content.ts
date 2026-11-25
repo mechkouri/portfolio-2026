@@ -183,14 +183,15 @@ export interface Project {
 export const featuredProjects: Project[] = [
   {
     label: 'SWSM 2026',
+    url: 'https://iwa-swsm2026.org',
     image: '/images/projects/swsm.webp',
     imageAlt: 'Full-page screenshot of the SWSM 2026 international conference website',
     accent: 'indigo',
     category: 'Event Website // Conference',
     title: 'IWA SWSM 2026 — International Conference Website',
     description:
-      'Official website for an international conference, built from scratch with WordPress and Elementor. WooCommerce with a payment gateway handles registration fees, and custom plugins manage participant registration and sync data with the conference mobile app through REST API endpoints.',
-    tags: ['WordPress', 'WooCommerce', 'Custom plugins', 'REST API', 'PHP'],
+      'Official website for an international conference, built from scratch with WordPress and Elementor. WooCommerce with a payment gateway handles registration fees, and custom plugins manage participant registration and sync data with the conference mobile app through REST API endpoints. The site is also connected to AI agents through an MCP server for content management.',
+    tags: ['WordPress', 'WooCommerce', 'Custom plugins', 'REST API', 'PHP', 'MCP'],
     siteIcon: 'globe',
   },
   {
@@ -219,8 +220,8 @@ export const moreProjects: Project[] = [
     category: 'Food Safety // SaaS Web App',
     title: 'Normes HACCP — Food Traceability Web App',
     description:
-      'Web app for restaurants, bakeries, and butcher shops to digitise hygiene procedures and food safety checks: product traceability, batch and expiry-date tracking, temperature monitoring, cleaning plans, dashboards, and alerts. Built with Claude Code as development assistant.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Claude Code'],
+      'Web app for restaurants, bakeries, and butcher shops to digitise hygiene procedures and food safety checks: product traceability, batch and expiry-date tracking, temperature monitoring, cleaning plans, dashboards, and alerts. I built the React front-end, with Claude Code as development assistant.',
+    tags: ['React', 'TypeScript', 'Claude Code'],
     siteIcon: 'code',
   },
   {
@@ -258,8 +259,8 @@ export const moreProjects: Project[] = [
     category: 'Restaurant // Asian food',
     title: 'Mochis Mochis — Website',
     description:
-      'Website for a sushi corner brand in France. Customised WordPress theme with Elementor and custom code, on-page SEO, a layout that adapts to desktop, tablet, and mobile, and Make.com automation for blog articles and LinkedIn posts.',
-    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+      'Website for a sushi corner brand in France. Customised WordPress theme with Elementor and custom code, on-page SEO, a layout that adapts to desktop, tablet, and mobile, and Make.com automation for blog articles and LinkedIn posts. I also built a stock management web app for the sushi stand, tracking products and stock in and out, with Next.js and React.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO', 'Next.js', 'React'],
     siteIcon: 'globe',
   },
   {
@@ -353,6 +354,58 @@ export const moreProjects: Project[] = [
     tags: [],
     siteIcon: 'globe',
   },
+  {
+    label: 'opensystemes.com',
+    url: 'https://opensystemes.com',
+    image: '/images/projects/opensystemes.webp',
+    imageAlt: 'Full-page screenshot of the Opensystemes ERP integration website',
+    accent: 'indigo',
+    category: 'Business Website // ERP integrator',
+    title: 'Opensystemes — ERP Integrator Website',
+    description:
+      'Website for Opensystemes by Infinitdeals, an ERP integrator: custom ERP software, development on SAP, Sage and Odoo, solution integration, consulting, and web services.',
+    tags: ['WordPress', 'Elementor'],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'mediaelegant.com',
+    url: 'https://mediaelegant.com/fr',
+    image: '/images/projects/mediaelegant.webp',
+    imageAlt: 'Full-page screenshot of the MediaElegant digital agency website',
+    accent: 'amber',
+    category: 'Business Website // Digital agency',
+    title: 'MediaElegant — Digital Agency Website',
+    description:
+      'Website for a digital agency in Marrakech offering web creation, AI assistants, automation, SEO, digital marketing, and UI/UX design, with a site assistant, portfolio, and blog in French, English, and Arabic.',
+    tags: ['Next.js'],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'wellnessfuturesadvisory.com',
+    url: 'https://wellnessfuturesadvisory.com',
+    image: '/images/projects/wellness-futures.webp',
+    imageAlt: 'Full-page screenshot of the Wellness Futures Advisory website',
+    accent: 'emerald',
+    category: 'Business Website // Wellness consulting',
+    title: 'Wellness Futures Advisory',
+    description:
+      'Website for a wellness hospitality consulting firm working from Morocco and Switzerland, with its services, expertise, training programmes, and insights, in English and French.',
+    tags: ['WordPress', 'Elementor'],
+    siteIcon: 'globe',
+  },
+  {
+    label: 'sophieagullana.com',
+    url: 'https://sophieagullana.com',
+    image: '/images/projects/sophie-agullana.webp',
+    imageAlt: 'Full-page screenshot of the Sophie Agullana personal website',
+    accent: 'sky',
+    category: 'Personal Website // Wellness strategist',
+    title: 'Sophie Agullana — Wellness & Hospitality Strategist',
+    description:
+      'Personal website for a wellness and hospitality strategist, presenting her experience, services, process, partners, and journal, in English and French.',
+    tags: ['WordPress', 'Elementor'],
+    siteIcon: 'globe',
+  },
 ];
 
 /** Everything in the Selected Work slider, in slide order. */
@@ -420,10 +473,9 @@ export const experience: TimelineEntry[] = [
     org: 'Infinit Deals',
     badge: 'ID',
     logo: '/images/logos/opensystemes.webp',
-    period: 'June 2024 — Present',
+    period: 'June 2024 — Nov 2026',
     place: 'Morocco · Remote',
     accent: 'indigo',
-    current: true,
     points: [
       'Build WordPress websites from professional themes or from scratch with Elementor, adding custom code where a theme falls short.',
       'Develop WordPress plugins and custom features, and build and maintain web applications.',

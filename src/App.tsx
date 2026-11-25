@@ -6,6 +6,7 @@ import { Footer } from './components/layout/Footer';
 import { Telemetry } from './components/layout/Telemetry';
 import { SiteBackdrop } from './components/three/SiteBackdrop';
 import { BackToTop } from './components/layout/BackToTop';
+import { ChatWidget } from './components/chat/ChatWidget';
 import { Hero } from './components/hero/Hero';
 import { Experience } from './sections/Experience';
 import { Work } from './sections/Work';
@@ -46,6 +47,7 @@ export default function App() {
         })}
       </main>
       <Footer />
+      <ChatWidget />
     </MotionConfig>
   );
 }

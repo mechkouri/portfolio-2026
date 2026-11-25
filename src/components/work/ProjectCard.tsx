@@ -10,7 +10,7 @@ import { cn, Tag } from '../ui/primitives';
 const siteIcons = { globe: Globe, shield: ShieldCheck, code: Code, cart: ShoppingCart };
 const TILT = 5;
 // Bump when the screenshots in public/images/projects change: they are cached for a week, so the URL must change too.
-const IMAGE_VERSION = 2;
+const IMAGE_VERSION = 3;
 
 /** Browser-framed project card: tilts toward the cursor, with a spotlight and a page preview that scrolls on hover. */
 export const ProjectCard = memo(function ProjectCard({ project }: { project: Project }) {

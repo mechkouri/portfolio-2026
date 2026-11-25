@@ -5,3 +5,7 @@ dist
 .claude
 assets-src/screenshots/*.png
 deploy-dist.zip
+.env
+.env.*
+!.env.example
+.netlify

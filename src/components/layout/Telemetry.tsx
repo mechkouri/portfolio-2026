@@ -92,7 +92,7 @@ export function Telemetry() {
   return (
     <nav
       aria-label={t.telemetry.aria}
-      className="fixed top-1/2 right-2 z-40 hidden h-[min(76vh,560px)] w-9 -translate-y-1/2 flex-col rounded-[22px] border border-slate-200/80 bg-white/70 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl min-[1400px]:flex min-[1536px]:right-4 min-[1536px]:w-[72px] min-[1536px]:rounded-[28px]"
+      className="fixed top-1/2 right-2 z-40 hidden h-[min(calc(100vh-20rem),560px)] w-9 -translate-y-1/2 flex-col rounded-[22px] border border-slate-200/80 bg-white/70 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl min-[1400px]:flex min-[1536px]:right-4 min-[1536px]:w-[72px] min-[1536px]:rounded-[28px]"
     >
       <div className="hidden shrink-0 flex-col items-center gap-1 px-2 pt-5 pb-3 min-[1536px]:flex" aria-hidden="true">
         <span className="font-mono text-[9px] tracking-[0.22em] text-slate-500">{t.telemetry.label}</span>

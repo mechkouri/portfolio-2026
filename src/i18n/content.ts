@@ -111,8 +111,8 @@ const frProjects: Overlay<base.Project> = [
     category: 'Site d’événement // Conférence',
     title: 'IWA SWSM 2026 — Site d’une conférence internationale',
     description:
-      'Site officiel d’une conférence internationale, développé de A à Z avec WordPress et Elementor. WooCommerce et une passerelle de paiement gèrent les frais d’inscription, et des plugins sur mesure gèrent l’inscription des participants et synchronisent les données avec l’application mobile de la conférence via des endpoints REST.',
-    tags: ['WordPress', 'WooCommerce', 'Plugins sur mesure', 'API REST', 'PHP'],
+      'Site officiel d’une conférence internationale, développé de A à Z avec WordPress et Elementor. WooCommerce et une passerelle de paiement gèrent les frais d’inscription, et des plugins sur mesure gèrent l’inscription des participants et synchronisent les données avec l’application mobile de la conférence via des endpoints REST. Le site est aussi connecté à des agents IA via un serveur MCP pour la gestion du contenu.',
+    tags: ['WordPress', 'WooCommerce', 'Plugins sur mesure', 'API REST', 'PHP', 'MCP'],
   },
   {
     imageAlt: 'Capture pleine page du site Normes HACCP pour les professionnels de la restauration',
@@ -127,8 +127,8 @@ const frProjects: Overlay<base.Project> = [
     category: 'Sécurité alimentaire // Application web SaaS',
     title: 'Normes HACCP — Application web de traçabilité alimentaire',
     description:
-      'Application web pour restaurants, boulangeries et boucheries, qui digitalise les procédures d’hygiène et les contrôles sanitaires : traçabilité des produits, gestion des lots et des dates de péremption, suivi des températures, plans de nettoyage, tableaux de bord et alertes. Développée avec l’assistance de Claude Code.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Claude Code'],
+      'Application web pour restaurants, boulangeries et boucheries, qui digitalise les procédures d’hygiène et les contrôles sanitaires : traçabilité des produits, gestion des lots et des dates de péremption, suivi des températures, plans de nettoyage, tableaux de bord et alertes. J’ai développé le front-end React, avec l’assistance de Claude Code.',
+    tags: ['React', 'TypeScript', 'Claude Code'],
   },
   {
     imageAlt: 'Capture pleine page du site AGRI 4.0, entreprise de technologies agricoles intelligentes',
@@ -151,8 +151,8 @@ const frProjects: Overlay<base.Project> = [
     category: 'Restauration // Cuisine asiatique',
     title: 'Mochis Mochis — Site Web',
     description:
-      'Site d’une marque de sushi corners en France. Thème WordPress personnalisé avec Elementor et code sur mesure, SEO on-page, affichage adapté aux ordinateurs, tablettes et mobiles, et automatisation Make.com des articles de blog et des posts LinkedIn.',
-    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO'],
+      'Site d’une marque de sushi corners en France. Thème WordPress personnalisé avec Elementor et code sur mesure, SEO on-page, affichage adapté aux ordinateurs, tablettes et mobiles, et automatisation Make.com des articles de blog et des posts LinkedIn. J’ai aussi développé, avec Next.js et React, une application web de gestion de stock pour le stand de sushis : suivi des produits, des entrées et des sorties.',
+    tags: ['WordPress', 'Elementor', 'Make.com', 'SEO', 'Next.js', 'React'],
   },
   {
     imageAlt: 'Capture pleine page du site du garage automobile Garage RKJ',
@@ -197,6 +197,38 @@ const frProjects: Overlay<base.Project> = [
     category: 'Site vitrine // Salon de beauté',
     description: 'Site d’un salon de beauté à Montpellier, avec prestations, réservation en ligne, offre spéciale et blog.',
   },
+  {
+    imageAlt: 'Capture pleine page du site de l’intégrateur ERP Opensystemes',
+    category: 'Site vitrine // Intégrateur ERP',
+    title: 'Opensystemes — Site d’un intégrateur ERP',
+    description:
+      'Site d’Opensystemes by Infinitdeals, intégrateur ERP : logiciel ERP sur mesure, développement sur SAP, Sage et Odoo, intégration de solutions, conseil et services web.',
+    tags: ['WordPress', 'Elementor'],
+  },
+  {
+    imageAlt: 'Capture pleine page du site de l’agence digitale MediaElegant',
+    category: 'Site vitrine // Agence digitale',
+    title: 'MediaElegant — Site d’une agence digitale',
+    description:
+      'Site d’une agence digitale à Marrakech : création de sites, assistants IA, automatisation, SEO, marketing digital et design UI/UX, avec un assistant en ligne, des réalisations et un blog en français, anglais et arabe.',
+    tags: ['Next.js'],
+  },
+  {
+    imageAlt: 'Capture pleine page du site Wellness Futures Advisory',
+    category: 'Site vitrine // Conseil bien-être',
+    title: 'Wellness Futures Advisory',
+    description:
+      'Site d’un cabinet de conseil en bien-être hôtelier, actif au Maroc et en Suisse, avec ses services, son expertise, ses formations et ses articles, en anglais et en français.',
+    tags: ['WordPress', 'Elementor'],
+  },
+  {
+    imageAlt: 'Capture pleine page du site personnel de Sophie Agullana',
+    category: 'Site personnel // Stratégie bien-être',
+    title: 'Sophie Agullana — Stratège bien-être et hôtellerie',
+    description:
+      'Site personnel d’une stratège en bien-être et hôtellerie : parcours, services, méthode, partenaires et journal, en anglais et en français.',
+    tags: ['WordPress', 'Elementor'],
+  },
 ];
 
 const frTech: Overlay<(typeof base.techCategories)[number]> = [
@@ -220,7 +252,7 @@ const frTech: Overlay<(typeof base.techCategories)[number]> = [
 const frExperience: Overlay<base.TimelineEntry> = [
   {
     role: 'Développeur Full-Stack · WordPress · SEO · Automatisation',
-    period: 'Juin 2024 — Aujourd’hui',
+    period: 'Juin 2024 — Nov. 2026',
     place: 'Maroc · À distance',
     points: [
       'Je crée des sites WordPress à partir de thèmes professionnels ou de zéro avec Elementor, en ajoutant du code sur mesure quand un thème ne suffit pas.',
